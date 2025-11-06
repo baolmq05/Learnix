@@ -13,6 +13,7 @@ include("./Views/Admin/Layout/footer.php");
 
 // require "Views/Client/Layout/header.php";
 
+
 // switch ($page) {
 //     case "dashboard":
 //         break;
