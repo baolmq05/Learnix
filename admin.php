@@ -70,6 +70,23 @@ switch ($page) {
         break;
 
     case "order":
+        require 'Controllers/Admin/OrderController.php';
+        $order = new OrderController;
+        switch ($action) {
+            case "":
+                $order->index();
+                break;
+            case "view":
+                $order->view();
+                break;
+            case "delete":
+                $order->delete();
+                break;
+
+            default:
+                $order->index();
+                break;
+        }
         break;
 
     default:

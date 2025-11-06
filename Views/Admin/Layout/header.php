@@ -8,6 +8,7 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Library -->
     <link rel="stylesheet" href="./Assets/Admin/css/bootstrap.css">
 
     <link rel="stylesheet" href="./Assets/Admin/vendors/iconly/bold.css">
@@ -17,6 +18,8 @@
     <link rel="stylesheet" href="./Assets/Admin/vendors/simple-datatables/style.css">
     <link rel="stylesheet" href="./Assets/Admin/css/app.css">
     <link rel="shortcut icon" href="./Assets/Admin/images/favicon.svg" type="image/x-icon">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="./Assets/Admin/css/custom/order.css">
 </head>
 
 <body>
@@ -115,16 +118,7 @@
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="form-editor-quill.html">Quill</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-editor-ckeditor.html">CKEditor</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-editor-summernote.html">Summernote</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-editor-tinymce.html">TinyMCE</a>
+                                    <a href="admin.php?page=order">Danh sách</a>
                                 </li>
                             </ul>
                         </li>
