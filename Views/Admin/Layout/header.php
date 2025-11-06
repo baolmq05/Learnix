@@ -14,6 +14,7 @@
 
     <link rel="stylesheet" href="./Assets/Admin/vendors/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="./Assets/Admin/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="./Assets/Admin/vendors/simple-datatables/style.css">
     <link rel="stylesheet" href="./Assets/Admin/css/app.css">
     <link rel="shortcut icon" href="./Assets/Admin/images/favicon.svg" type="image/x-icon">
 </head>
@@ -37,7 +38,7 @@
                         <li class="sidebar-item active ">
                             <a href="index.html" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
-                                <span>Thống kế</span>
+                                <span>Thống kê</span>
                             </a>
                         </li>
 
@@ -48,46 +49,10 @@
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="component-alert.html">Alert</a>
+                                    <a href="?page=category">Quản lý chủ đề</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="component-badge.html">Badge</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-breadcrumb.html">Breadcrumb</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-button.html">Button</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-card.html">Card</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-carousel.html">Carousel</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-dropdown.html">Dropdown</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-list-group.html">List Group</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-modal.html">Modal</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-navs.html">Navs</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-pagination.html">Pagination</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-progress.html">Progress</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-spinner.html">Spinner</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-tooltip.html">Tooltip</a>
+                                    <a href="?page=category&action=create">Thêm chủ đề</a>
                                 </li>
                             </ul>
                         </li>
@@ -368,3 +333,4 @@
                 <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
             </div>
         </div>
+ <div id="main">

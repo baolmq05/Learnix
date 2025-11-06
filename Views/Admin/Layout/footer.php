@@ -1,11 +1,17 @@
 </div>
-    <script src="./Assets/Admin/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="./Assets/Admin/js/bootstrap.bundle.min.js"></script>
+</div>
+<script src="./Assets/Admin/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="./Assets/Admin/js/bootstrap.bundle.min.js"></script>
 
-    <script src="./Assets/Admin/vendors/apexcharts/apexcharts.js"></script>
-    <script src="./Assets/Admin/js/pages/dashboard.js"></script>
-
-    <script src="./Assets/Admin/js/main.js"></script>
+<script src="./Assets/Admin/vendors/apexcharts/apexcharts.js"></script>
+<script src="./Assets/Admin/js/pages/dashboard.js"></script>
+<script src="./Assets/Admin/vendors/simple-datatables/simple-datatables.js"></script>
+<script>
+    // Simple Datatable
+    let table1 = document.querySelector('#table1');
+    let dataTable = new simpleDatatables.DataTable(table1);
+</script>
+<script src="./Assets/Admin/js/main.js"></script>
 </body>
 
 </html>
