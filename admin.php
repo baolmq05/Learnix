@@ -42,6 +42,28 @@ switch ($page) {
         break;
 
     case "user":
+        require "./Controllers/Admin/UserController.php";
+        $user = new UserController();
+        switch ($action) {
+            case "":
+                $user->viewIndex();
+                break;
+
+            case "create":
+                $user->viewCreate();
+                break;
+
+            case "edit":
+                $user->viewEdit();
+                break;
+
+            case "delete":
+                break;
+
+            default:
+                $user->viewIndex();
+                break;
+        }
         break;
 
     case "comment":
@@ -54,4 +76,4 @@ switch ($page) {
         break;
 }
 
-require "Views/Admin/Layout/footer.php";
+include "Views/Admin/Layout/footer.php";

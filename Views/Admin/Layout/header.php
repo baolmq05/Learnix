@@ -136,16 +136,10 @@
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="form-editor-quill.html">Quill</a>
+                                    <a href="admin.php?page=user">Quản lý người dùng</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="form-editor-ckeditor.html">CKEditor</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-editor-summernote.html">Summernote</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-editor-tinymce.html">TinyMCE</a>
+                                    <a href="admin.php?page=user&action=create">Thêm người dùng</a>
                                 </li>
                             </ul>
                         </li>
@@ -333,4 +327,4 @@
                 <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
             </div>
         </div>
- <div id="main">
+        <div id="main">
