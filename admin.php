@@ -30,10 +30,10 @@ switch ($page) {
                 $category->create();
                 break;
             case "edit":
+                $category->edit();
                 break;
             case "delete":
                 break;
-
             default:
                 $category->index();
                 break;

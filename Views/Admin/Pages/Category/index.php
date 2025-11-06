@@ -35,15 +35,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr>                   
                                         <td>1</td>
                                         <td>Graiden</td>
                                         <td>
                                             <span class="badge bg-success">Hoạt động</span>
                                         </td>
                                         <td>
-                                            <button class="btn btn-warning"><i class="bi bi-pencil"></i></button>
-                                            <button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                                            <a href="?page=category&action=edit&id=1" class="btn btn-outline-warning d-inline-flex align-items-center p-2"><i class="bi bi-pencil"></i></a>
+                                            <button class="btn btn-outline-danger d-inline-flex align-items-center p-2"><i class="bi bi-trash"></i></button>
                                         </td>
                                     </tr>
                                     

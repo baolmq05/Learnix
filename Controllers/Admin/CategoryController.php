@@ -16,6 +16,10 @@ class CategoryController
     {
        include "Views/Admin/Pages/Category/create.php";
     }
+    public function edit()
+    {
+       include "Views/Admin/Pages/Category/edit.php";
+    }
 }
 
 ?>
