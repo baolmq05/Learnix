@@ -12,6 +12,8 @@ $action = isset($_GET["action"]) ? $_GET["action"] : "";
 require "Views/Client/Layout/header.php";
 
 switch ($page) {
+    case '':
+        break;
     case "dashboard":
         break;
 

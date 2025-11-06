@@ -20,11 +20,7 @@
     :class="{'dark bg-gray-900': darkMode === true}"
   >
     <!-- ===== Preloader Start ===== -->
-    <include src="./partials/preloader.html"></include>
     <!-- ===== Preloader End ===== -->
-
-  <h1 class="bg-red-500">Hello World</h1>
-
     <!-- ===== Page Wrapper Start ===== -->
     <div class="flex h-screen overflow-hidden">
       <!-- ===== Sidebar Start ===== -->
@@ -90,4 +86,5 @@
     </div>
     <!-- ===== Page Wrapper End ===== -->
   </body>
+  <script src="../../../Template Admin/src/partials/index.js"></script>
 </html>
