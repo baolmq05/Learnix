@@ -61,25 +61,16 @@
                         </li>
 
                         <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
+                            <a href="?page=course" class='sidebar-link'>
                                 <i class="bi bi-collection-fill"></i>
                                 <span>Khóa học</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="extra-component-avatar.html">Avatar</a>
+                                    <a href="?page=course">Quản lý khóa học</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="extra-component-sweetalert.html">Sweet Alert</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="extra-component-toastify.html">Toastify</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="extra-component-rating.html">Rating</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="extra-component-divider.html">Divider</a>
+                                    <a href="?page=course&action=accept">Duyệt khóa học</a>
                                 </li>
                             </ul>
                         </li>
