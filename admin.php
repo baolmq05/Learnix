@@ -38,10 +38,12 @@ switch ($page) {
                 $category->index();
                 break;
         }
+        break;
+
     case "course":
         require 'Controllers/Admin/CourseController.php';
         $course = new CourseController();
-        switch($action) {
+        switch ($action) {
             case '':
                 $course->viewIndex();
                 break;
@@ -81,7 +83,7 @@ switch ($page) {
 
     case "comment":
         require 'Controllers/Admin/CommentController.php';
-         $comment = new CommentController;
+        $comment = new CommentController;
         switch ($action) {
             case 'index':
                 $comment->index();
@@ -92,7 +94,9 @@ switch ($page) {
             case 'edit':
                 $comment->edit();
                 break;
-            }
+        }
+        break;
+
     case "order":
         require 'Controllers/Admin/OrderController.php';
         $order = new OrderController;
