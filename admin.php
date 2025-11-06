@@ -67,8 +67,19 @@ switch ($page) {
         break;
 
     case "comment":
-        break;
-
+        require 'Controllers/Admin/CommentController.php';
+         $comment = new CommentController;
+        switch ($action) {
+            case 'index':
+                $comment->index();
+                break;
+            case 'detail':
+                $comment->detail();
+                break;
+            case 'edit':
+                $comment->edit();
+                break;
+            }
     case "order":
         require 'Controllers/Admin/OrderController.php';
         $order = new OrderController;
