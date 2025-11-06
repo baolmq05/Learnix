@@ -10,6 +10,17 @@
     // Simple Datatable
     let table1 = document.querySelector('#table1');
     let dataTable = new simpleDatatables.DataTable(table1);
+
+    let teacherTable = document.querySelector('#teacher_table');
+    let adminTable = document.querySelector('#admin_table');
+
+    if (teacherTable) {
+        let dataTeacherTable = new simpleDatatables.DataTable(teacherTable);
+    }
+
+    if (adminTable) {
+        let dataAdminTable = new simpleDatatables.DataTable(adminTable);
+    }
 </script>
 <script src="./Assets/Admin/js/main.js"></script>
 </body>
