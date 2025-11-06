@@ -39,6 +39,19 @@ switch ($page) {
                 break;
         }
     case "course":
+        require 'Controllers/Admin/CourseController.php';
+        $course = new CourseController();
+        switch($action) {
+            case '':
+                $course->viewIndex();
+                break;
+            case 'view':
+                $course->viewCourse();
+                break;
+            case 'accept':
+                $course->accept();
+                break;
+        }
         break;
 
     case "user":
