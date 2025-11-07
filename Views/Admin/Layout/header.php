@@ -92,6 +92,18 @@
 
                             <li class="sidebar-item  has-sub">
                                 <a href="#" class='sidebar-link'>
+                                    <i class="bi bi-hexagon-fill"></i>
+                                    <span>Rút tiền</span>
+                                </a>
+                                <ul class="submenu ">
+                                    <li class="submenu-item ">
+                                        <a href="?page=withdraw">Quản lí rút tiền</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="sidebar-item  has-sub">
+                                <a href="#" class='sidebar-link'>
                                     <i class="bi bi-file-earmark-medical-fill"></i>
                                     <span>Đơn hàng</span>
                                 </a>
