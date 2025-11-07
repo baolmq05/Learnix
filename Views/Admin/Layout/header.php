@@ -299,7 +299,7 @@
             </div>
         </div>
         <div id="main">
-            <div class="row">
+            <div class="row mb-4">
                 <div class="col-lg-12">
                     <div class="card mb-0">
                         <div class="card-body d-flex justify-content-between">
