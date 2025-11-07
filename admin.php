@@ -103,7 +103,7 @@ switch ($page) {
         $order = new OrderController;
         switch ($action) {
             case "":
-                $order->index();
+                $order->viewIndex();
                 break;
             case "view":
                 $order->view();
@@ -113,10 +113,24 @@ switch ($page) {
                 break;
 
             default:
-                $order->index();
+                $order->viewIndex();
                 break;
         }
         break;
+    
+    case "profile":
+        require 'Controllers/Admin/ProfileController.php';
+        $profile = new ProfileController;
+        switch ($action) {
+            case "":
+                $profile->viewProfile();
+                break;
+            default:
+                $profile->viewProfile();
+                break;
+        }
+        break;
+    
     case "login":
         require 'Controllers/Admin/LoginController.php';
         $login = new LoginController();
@@ -125,6 +139,7 @@ switch ($page) {
                 $login->viewLogin();
         }
         break;
+
     default:
         break;
 }

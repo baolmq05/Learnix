@@ -298,3 +298,27 @@
             </div>
         </div>
         <div id="main">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card mb-0">
+                        <div class="card-body d-flex justify-content-between">
+                            <header class="mb-3">
+                                <a href="#" class="burger-btn d-block d-xl-none d-flex align-items-start m-0 p-0">
+                                    <i class="bi bi-justify fs-3"></i>
+                                </a>
+                            </header>
+                            <a href="?page=profile">
+                                <div class="d-flex justify-content-end align-items-center">
+                                    <div class="name">
+                                        <h5 class="font-bold fs-5 m-0 mx-3">John Duck</h5>
+                                        <span class="text-muted fs-6 m-0 mx-3">Quản trị viên</span>
+                                    </div>
+                                    <div class="avatar avatar-xs">
+                                        <img src="Assets/Admin/images/faces/1.jpg" alt="Face 1">
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
