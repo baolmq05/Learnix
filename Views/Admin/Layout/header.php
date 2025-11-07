@@ -83,7 +83,19 @@
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="?page=comment&action=index">Danh sách</a>
+                                    <a href="?page=comment&action=index">Quản lí bình luận</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-hexagon-fill"></i>
+                                <span>Rút tiền</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="?page=withdraw">Quản lí rút tiền</a>
                                 </li>
                             </ul>
                         </li>
@@ -95,7 +107,7 @@
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="admin.php?page=order">Danh sách</a>
+                                    <a href="admin.php?page=order">Quản lí đơn hàng</a>
                                 </li>
                             </ul>
                         </li>
