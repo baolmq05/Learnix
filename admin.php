@@ -18,6 +18,7 @@ switch ($page) {
     case "":
         require 'Controllers/Admin/DashboardController.php';
         $dashboard = new DashboardController;
+        $dashboard->index();
         break;
 
     case "category":

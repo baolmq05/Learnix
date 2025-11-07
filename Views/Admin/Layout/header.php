@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="./Assets/Admin/css/bootstrap.css">
 
     <link rel="stylesheet" href="./Assets/Admin/vendors/iconly/bold.css">
+    <link rel="stylesheet" href="./Assets/Admin/vendors/apexcharts/apexcharts.css">
 
     <link rel="stylesheet" href="./Assets/Admin/vendors/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="./Assets/Admin/vendors/bootstrap-icons/bootstrap-icons.css">
@@ -29,7 +30,7 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="index.html"><img src="./Assets/Admin/images/logo/logo.png" alt="Logo" srcset=""></a>
+                            <a href="admin.php"><img src="./Assets/Admin/images/logo/logo.png" alt="Logo" srcset=""></a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -39,7 +40,7 @@
                 <div class="sidebar-menu">
                     <ul class="menu">
                         <li class="sidebar-item active ">
-                            <a href="index.html" class='sidebar-link'>
+                            <a href="admin.php" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Thống kê</span>
                             </a>
