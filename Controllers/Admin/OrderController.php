@@ -7,7 +7,7 @@ class OrderController
     {
         $this->_order = new Order();
     }
-    public function index()
+    public function viewIndex()
     {
         include "Views/Admin/Pages/Order/index.php";
     }
