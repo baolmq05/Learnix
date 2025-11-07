@@ -1,14 +1,15 @@
 <?php
+$page = isset($_GET["page"]) ? $_GET["page"] : "";
+$action = isset($_GET["action"]) ? $_GET["action"] : "";
+if($page != 'login'){
 include("./Views/Admin/Layout/header.php");
+}
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
 // session_start();
 // ob_start();
-
-$page = isset($_GET["page"]) ? $_GET["page"] : "";
-$action = isset($_GET["action"]) ? $_GET["action"] : "";
 
 // require "Views/Client/Layout/header.php";
 
@@ -116,6 +117,7 @@ switch ($page) {
                 break;
         }
         break;
+    
     case "profile":
         require 'Controllers/Admin/ProfileController.php';
         $profile = new ProfileController;
@@ -128,6 +130,16 @@ switch ($page) {
                 break;
         }
         break;
+    
+    case "login":
+        require 'Controllers/Admin/LoginController.php';
+        $login = new LoginController();
+        switch($action) {
+            case '':
+                $login->viewLogin();
+        }
+        break;
+
     default:
         break;
 }
