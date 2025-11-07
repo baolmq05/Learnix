@@ -3,6 +3,9 @@
 <script src="./Assets/Admin/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 <script src="./Assets/Admin/js/bootstrap.bundle.min.js"></script>
 
+<script src="./Assets/Admin/vendors/dayjs/dayjs.min.js"></script>
+<script src="./Assets/Admin/js/pages/ui-apexchart.js"></script>
+
 <script src="./Assets/Admin/vendors/apexcharts/apexcharts.js"></script>
 <script src="./Assets/Admin/js/pages/dashboard.js"></script>
 <script src="./Assets/Admin/vendors/simple-datatables/simple-datatables.js"></script>
