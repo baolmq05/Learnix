@@ -147,4 +147,6 @@
       </div>
     </footer>
   </body>
+      <script src="/Assets/client/header.js"></script>
+
 </html>
