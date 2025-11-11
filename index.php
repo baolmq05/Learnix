@@ -13,6 +13,9 @@ require "Views/Client/Layout/header.php";
 
 switch ($page) {
     case "home":
+        require_once "./Controllers/Client/HomeController.php";
+        $homeControl = new HomeController();
+        $homeControl->viewIndex();
         break;
 
     case "product":
@@ -23,12 +26,17 @@ switch ($page) {
         $cartController = new CartController();
         $cartController->viewCart();
         break;
-       case "notification":
+
+    case "notification":
         require_once './Controllers/Client/NotificationControllers.php';
         $notificationControl = new Notification;
         $notificationControl->viewNotification();
         break;
+
     default:
+        require_once "./Controllers/Client/HomeController.php";
+        $homeControl = new HomeController();
+        $homeControl->viewIndex();
         break;
 }
 
