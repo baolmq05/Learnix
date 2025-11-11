@@ -96,10 +96,10 @@
             ?>
                 <div class="relative item rounded-sm hover:scale-[1.05] transition-all overflow-hidden">
                     <div class="absolute bg-red-400 font-bold text-white top-0 left-0 p-2 border-l-0 rounded-l-none px-4">25%</div>
-                    <div class="image-box h-[300px] lg:[200px]">
+                    <div class="image-box h-[300px] lg:h-[200px]">
                         <img class="h-full w-full object-cover" src="./image/Slider1.png" alt="">
                     </div>
-                    <div class="p-2 flex justify-start flex-col border border-[#ccc]">
+                    <div class="p-2 flex border border-[#ccc] justify-start flex-col">
                         <p class="font-bold mb-2">Tên khóa học...</p>
                         <p class="opacity-[0.8] text-xs mb-2">Tên giảng viên</p>
                         <p class="mb-2">Đánh giá: (4.6)<i class="ml-1 text-yellow-400 bi bi-star-fill"></i></p>
