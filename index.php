@@ -23,7 +23,11 @@ switch ($page) {
         $cartController = new CartController();
         $cartController->viewCart();
         break;
-
+       case "notification":
+        require_once './Controllers/Client/NotificationControllers.php';
+        $notificationControl = new Notification;
+        $notificationControl->viewNotification();
+        break;
     default:
         break;
 }
