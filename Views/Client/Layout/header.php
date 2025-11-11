@@ -93,10 +93,12 @@
             class="dropdown-menu absolute w-56 bg-white rounded border-t border-gray-200 shadow-sm opacity-0 invisible translate-y-0 transition-all duration-200 pointer-events-none z-50">
             <ul>
                 <li>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Tất cả khóa học</a>
+                    <a href="?page=categoryProduct" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Tất
+                        cả khóa học</a>
                 </li>
                 <li>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Lập trình</a>
+                    <a href="?page=categoryProduct" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Lập
+                        trình</a>
                 </li>
             </ul>
         </div>
@@ -154,10 +156,14 @@
     <div class="bg-white shadow hidden md:block">
         <div class="max-w-screen-xl mx-auto px-4">
             <nav class="flex items-center overflow-x-auto space-x-6 py-3 text-sm md:justify-center">
-                <a href="#" class="text-gray-600 hover:text-blue-600 whitespace-nowrap">Lập trình web</a>
-                <a href="#" class="text-gray-600 hover:text-blue-600 whitespace-nowrap">Lập trình phần mềm</a>
-                <a href="#" class="text-gray-600 hover:text-blue-600 whitespace-nowrap">Lập trình game</a>
-                <a href="#" class="text-gray-600 hover:text-blue-600 whitespace-nowrap">Khoa học máy tính</a>
+                <a href="?page=categoryProduct" class="text-gray-600 hover:text-blue-600 whitespace-nowrap">Lập trình
+                    web</a>
+                <a href="?page=categoryProduct" class="text-gray-600 hover:text-blue-600 whitespace-nowrap">Lập trình
+                    phần mềm</a>
+                <a href="?page=categoryProduct" class="text-gray-600 hover:text-blue-600 whitespace-nowrap">Lập trình
+                    game</a>
+                <a href="?page=categoryProduct" class="text-gray-600 hover:text-blue-600 whitespace-nowrap">Khoa học máy
+                    tính</a>
             </nav>
         </div>
     </div>

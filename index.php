@@ -18,6 +18,11 @@ switch ($page) {
         $homeControl->viewIndex();
         break;
 
+    case "categoryProduct":
+        require 'Controllers/Client/CategoryProductController.php';
+        $categoryProduct = new CategoryProductController();
+        $categoryProduct->index();
+    break;
     case "product":
         break;
 
