@@ -37,7 +37,12 @@ switch ($page) {
         $notificationControl = new Notification;
         $notificationControl->viewNotification();
         break;
-
+    
+    case "course_detail":
+        require_once "Controllers/Client/CourseDetailController.php";
+        $courseController = new CourseDetailController();
+        $courseController->viewCourseDetail();
+        break;
     default:
         require_once "./Controllers/Client/HomeController.php";
         $homeControl = new HomeController();
