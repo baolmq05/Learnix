@@ -19,6 +19,9 @@ switch ($page) {
         break;
 
     case "cart":
+        require "Controllers/Client/CartController.php";
+        $cartController = new CartController();
+        $cartController->viewCart();
         break;
 
     default:
