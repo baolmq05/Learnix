@@ -148,5 +148,5 @@
     </footer>
   </body>
       <script src="/Assets/client/header.js"></script>
-
+      <script src="/Assets/client/cart.js"></script>
 </html>
