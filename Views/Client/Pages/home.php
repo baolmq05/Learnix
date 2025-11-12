@@ -1,5 +1,5 @@
-<main class="mx-auto w-[95%] md:w-[80%] lg:w-[80%]">
-    <section class="flex gap-5 my-4 items-center">
+<main class="px-5">
+    <section class="flex gap-5 my-10 items-center">
         <div class=" bg-black text-white px-5 box-border font-bold text-2xl py-5 rounded-[50%]">LB</div>
         <div class="p-3 background-">
             <h3 class="text-xl font-bold">Chào mừng bạn trở lại Tên Học Viên !</h3>
@@ -9,13 +9,13 @@
         </div>
     </section>
 
-    <section class="mb-4">
+    <section class="mb-10">
         <div class="lg:h-[500px] h-[450px] sm:h-[400px] basis-5xl">
             <img id="slider" class="h-full w-full object-cover rounded-md" src="./image/Slider1.png" alt="">
         </div>
     </section>
 
-    <section class="mb-4">
+    <section class="mb-10">
         <div class="flex justify-between">
             <h2 class="text-2xl font-bold">Hãy bắt đầu học nào</h2>
             <a class="py-1 px-2 border text-purple-600 font-bold rounded-sm" href="">Học tập</a>
@@ -40,12 +40,12 @@
         </div>
     </section>
 
-    <section class="mb-4 bg-black rounded-md p-3 flex items-center justify-between">
+    <section class="mb-10 bg-black rounded-md p-3 flex items-center justify-between">
         <p class="text-white">Bạn muốn đăng bán khóa học?</p>
         <button class="bg-white p-2 rounded-md">Làm giảng viên</button>
     </section>
 
-    <section class="mb-4">
+    <section class="mb-10">
         <h2 class="text-2xl font-bold">Khóa học nổi bật</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5 mt-3">
             <?php
@@ -68,7 +68,7 @@
         </div>
     </section>
 
-    <section class="mb-4">
+    <section class="mb-10">
         <h2 class="text-2xl font-bold">Khóa học bán chạy nhất</h2>
         <div class="rounded-md mx-auto container border-[#ccc] grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 mt-4 border py-5 px-8 gap-6">
             <div class="image-box h-[400px] hover:opacity-[0.8]">
@@ -88,7 +88,7 @@
         </div>
     </section>
 
-    <section class="mb-4">
+    <section class="mb-10">
         <h2 class="text-2xl font-bold">Khóa học giảm giá</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5 mt-3">
             <?php
@@ -112,7 +112,7 @@
         </div>
     </section>
 
-    <section class="rounded-md p-2 mb-4 bg-gray-100">
+    <section class="rounded-md p-2 mb-10 bg-gray-100">
         <h3 class="text-center text-xl">Được hơn 17.000 công ty và hàng triệu học viên trên khắp thế giới tin dùng</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-5 mt-3 p-3">
             <div class="image-box h-[50px]">
@@ -139,7 +139,7 @@
         </div>
     </section>
 
-    <section class="flex justify-center mb-4">
+    <section class="flex justify-center mb-10">
         <div class="flex justify-between lg:flex-row flex-col-reverse items-center">
             <div class="mb-5">
                 <h3 class="text-3xl font-bold mb-5">
