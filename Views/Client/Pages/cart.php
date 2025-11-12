@@ -16,9 +16,9 @@
                                 <p class="text-gray-700 text-sm">Nguyễn Hoàng Bảo</p>
                                 <div class="lg:flex align-center">
                                     <p class="bg-green-500 rounded text-white w-30 px-2 my-1">Bán chạy nhất</p>
-                                    <div class="flex">
+                                    <div class="flex items-center">
                                         <p class="ms-3">4.0</p>
-                                        <div class="flex items-center">
+                                        <div class="flex">
                                             <svg class="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true"
                                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                                 viewBox="0 0 22 20">
@@ -28,7 +28,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <ul class="grid sm:grid-cols-3 gap-2 text-sm text-gray-600 list-disc sm:py-5">
+                                <ul class="grid sm:grid-cols-3 gap-5 text-sm text-gray-600 list-disc sm:py-5">
                                     <li>Tổng số 25 giờ</li>
                                     <li>200 bài giảng</li>
                                     <li>Sơ cấp</li>
@@ -59,7 +59,6 @@
                                             Bạn có chắc muốn xóa <b>Khóa học PHP cơ bản</b> khỏi giỏ hàng không?
                                         </p>
                                     </div>
-
                                     <div class="p-3 mt-2 text-center space-x-4 md:block">
                                         <button id="cancelBtn"
                                             class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
