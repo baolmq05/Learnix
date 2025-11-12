@@ -1,6 +1,6 @@
 <?php  ?>
 
-<section class="mx-auto w-[95%] md:w-[80%] lg:w-[80%] py-8">
+<section class="max-w-screen-xl mx-auto px-5 py-8">
     <div>
         <h1 class="text-2xl md:text-3xl font-semibold text-gray-900">Tất cả khóa học với Category</h1>
         <p class="mt-2 text-sm text-gray-600">1 chút description để người dùng hiểu</p>
