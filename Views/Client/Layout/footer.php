@@ -101,8 +101,8 @@
   </div>
 </footer>
 </body>
-<script src="/Assets/client/header.js"></script>
-<script src="/Assets/client/cart.js"></script>
+<script src="/Assets/Client/header.js"></script>
+<script src="/Assets/Client/cart.js"></script>
 <script src="https://kit.fontawesome.com/645e77e620.js" crossorigin="anonymous"></script>
 
 </html>
