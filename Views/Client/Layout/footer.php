@@ -105,4 +105,8 @@
 <script src="/Assets/Client/cart.js"></script>
 <script src="https://kit.fontawesome.com/645e77e620.js" crossorigin="anonymous"></script>
 
+
+
+<script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+
 </html>
