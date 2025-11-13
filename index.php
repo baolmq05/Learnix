@@ -9,7 +9,9 @@ ob_start();
 $page = isset($_GET["page"]) ? $_GET["page"] : "";
 $action = isset($_GET["action"]) ? $_GET["action"] : "";
 
-require "Views/Client/Layout/header.php";
+if ($page != "login" && $page != "register") {
+    require "Views/Client/Layout/header.php";
+}
 
 switch ($page) {
     case "home":
@@ -22,7 +24,7 @@ switch ($page) {
         require 'Controllers/Client/CategoryProductController.php';
         $categoryProduct = new CategoryProductController();
         $categoryProduct->index();
-    break;
+        break;
     case "product":
         break;
 
@@ -34,10 +36,22 @@ switch ($page) {
 
     case "notification":
         require_once './Controllers/Client/NotificationControllers.php';
-        $notificationControl = new Notification;
+        $notificationControl = new NotificationControllers();
         $notificationControl->viewNotification();
         break;
-    
+
+    case "login":
+        require_once "./Controllers/Client/LoginController.php";
+        $auth = new LoginController();
+        $auth->viewLogin();
+        break;
+
+    case "register":
+        require_once "./Controllers/Client/RegisterController.php";
+        $auth = new RegisterController();
+        $auth->viewRegister();
+        break;
+
     case "course_detail":
         require_once "Controllers/Client/CourseDetailController.php";
         $courseController = new CourseDetailController();
@@ -50,4 +64,6 @@ switch ($page) {
         break;
 }
 
-require "Views/Client/Layout/footer.php";
+if ($page != "login" && $page != "register") {
+    require "Views/Client/Layout/footer.php";
+}
