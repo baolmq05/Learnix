@@ -51,6 +51,17 @@ switch ($page) {
         $auth = new RegisterController();
         $auth->viewRegister();
         break;
+    case "profile":
+        require_once "./Controllers/Client/ProfileController.php";
+        $auth = new ProfileController();
+        $auth->viewProfile();
+        break;
+
+    case "profile_edit":
+        require_once "./Controllers/Client/ProfileEditController.php";
+        $auth = new ProfileEditController();
+        $auth->viewProfileEdit();
+        break;
 
     case "course_detail":
         require_once "Controllers/Client/CourseDetailController.php";
