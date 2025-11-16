@@ -20,7 +20,7 @@ switch ($page) {
         $homeControl->viewIndex();
         break;
 
-    case "categoryProduct":
+    case "category_product":
         require 'Controllers/Client/CategoryProductController.php';
         $categoryProduct = new CategoryProductController();
         $categoryProduct->index();
@@ -57,6 +57,13 @@ switch ($page) {
         $courseController = new CourseDetailController();
         $courseController->viewCourseDetail();
         break;
+
+    case "about_teacher":
+        require_once "Controllers/Client/AboutTeacherController.php";
+        $aboutTeacherControl = new AboutTeacherController();
+        $aboutTeacherControl->viewAboutTeacher();
+        break;
+
     default:
         require_once "./Controllers/Client/HomeController.php";
         $homeControl = new HomeController();
