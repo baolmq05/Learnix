@@ -75,6 +75,11 @@ switch ($page) {
         $aboutTeacherControl->viewAboutTeacher();
         break;
 
+    case "lesson_player":
+        require_once "Controllers/Client/LessonPlayerController.php";
+        $lessonController = new LessonPlayerController();
+        $lessonController->viewLesson();
+        break;
     default:
         require_once "./Controllers/Client/HomeController.php";
         $homeControl = new HomeController();
