@@ -80,6 +80,13 @@ switch ($page) {
         $lessonController = new LessonPlayerController();
         $lessonController->viewLesson();
         break;
+    
+    case "course_learning":
+        require_once "Controllers/Client/CourseLearningController.php";
+        $courseLearningController = new CourseLearningController();
+        $courseLearningController->viewCourseLearning();
+        break;
+        
     default:
         require_once "./Controllers/Client/HomeController.php";
         $homeControl = new HomeController();
