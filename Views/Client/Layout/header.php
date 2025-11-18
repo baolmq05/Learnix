@@ -164,13 +164,13 @@
     <div class="bg-white shadow hidden md:block">
         <div class="max-w-screen-xl mx-auto px-4">
             <nav class="flex items-center overflow-x-auto space-x-6 py-3 text-sm md:justify-center">
-                <a href="?page=categoryProduct" class="text-gray-600 hover:text-blue-600 whitespace-nowrap">Lập trình
+                <a href="?page=category_product" class="text-gray-600 hover:text-blue-600 whitespace-nowrap">Lập trình
                     web</a>
-                <a href="?page=categoryProduct" class="text-gray-600 hover:text-blue-600 whitespace-nowrap">Lập trình
+                <a href="?page=category_product" class="text-gray-600 hover:text-blue-600 whitespace-nowrap">Lập trình
                     phần mềm</a>
-                <a href="?page=categoryProduct" class="text-gray-600 hover:text-blue-600 whitespace-nowrap">Lập trình
+                <a href="?page=category_product" class="text-gray-600 hover:text-blue-600 whitespace-nowrap">Lập trình
                     game</a>
-                <a href="?page=categoryProduct" class="text-gray-600 hover:text-blue-600 whitespace-nowrap">Khoa học máy
+                <a href="?page=category_product" class="text-gray-600 hover:text-blue-600 whitespace-nowrap">Khoa học máy
                     tính</a>
             </nav>
         </div>

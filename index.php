@@ -9,6 +9,43 @@ ob_start();
 $page = isset($_GET["page"]) ? $_GET["page"] : "";
 $action = isset($_GET["action"]) ? $_GET["action"] : "";
 
+if ($page == "teacher") {
+    require 'Views/Client/Layout/headerTeacher.php';
+    require_once 'Controllers/Client/TeacherController.php';
+    $teacherController = new TeacherController();
+    switch ($action) {
+        case "index":
+            $teacherController->index();
+            break;
+        case "viewDetail":
+            $teacherController->viewDetail();
+            break;
+        case 'statistic':
+            $teacherController->statistic();
+            break;
+        // case "createCourse":
+        //     $teacherController->createCourse();
+        //     break;
+        // case "editCourse":
+        //     $teacherController->editCourse();
+        //     break;
+        case 'profile':
+            $teacherController->profile();
+            break;
+        case 'editProfile':
+            $teacherController->editProfile();
+            break;
+            case 'viewStudents':
+                $teacherController->viewStudents();
+                break;
+        default:
+            $teacherController->index();
+            break;
+    }
+    require_once 'Views/Client/Layout/footer.php';
+    exit;
+}
+
 if ($page != "login" && $page != "register") {
     require "Views/Client/Layout/header.php";
 }

@@ -1,4 +1,3 @@
-
 <div class="page-heading">
     <div class="page-title">
         <div class="row">
@@ -30,6 +29,14 @@
                                     </div>
                                 </div>
                                 <div class="col-12">
+                                    <div class="card">
+                                        <div class="form-group">
+
+                                            <textarea id="editor" name="content" placeholder="Mô tả..."></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
                                     <fieldset class="form-group">
                                         <label for="status">Trạng thái</label>
                                         <select class="form-select" id="basicSelect">
@@ -51,3 +58,8 @@
         </div>
     </div>
 </div>
+
+<script src="https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js"></script>
+<script>
+    ClassicEditor.create(document.querySelector('#editor'));
+</script>
