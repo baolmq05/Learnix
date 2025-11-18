@@ -25,8 +25,6 @@ switch ($page) {
         $categoryProduct = new CategoryProductController();
         $categoryProduct->index();
         break;
-    case "product":
-        break;
 
     case "cart":
         require "Controllers/Client/CartController.php";

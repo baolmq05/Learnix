@@ -26,10 +26,14 @@
             ?>
                 <div class="item flex border border-[#ccc] rounded-sm hover:shadow-2xl">
                     <div class="image-box h-[120px]">
-                        <img class="h-full w-full object-cover" src="./image/Slider1.png" alt="">
+                        <a href="?page=course_detail">
+                            <img class="h-full w-full object-cover" src="./image/Slider1.png" alt="">
+                        </a>
                     </div>
                     <div class="p-2 flex justify-start flex-col">
-                        <p>Tên khóa học 1....</p>
+                        <a href="?page=course_detail">
+                            <p>Tên khóa học 1....</p>
+                        </a>
                         <p class="font-bold">47. Bài học 1...</p>
                         <p class="justify-self-end mt-auto">Bài giảng: Số phút</p>
                     </div>
@@ -53,10 +57,14 @@
             ?>
                 <div class="item rounded-sm hover:scale-[1.05] transition-all overflow-hidden">
                     <div class="image-box h-[300px] lg:h-[200px]">
-                        <img class="h-full w-full object-cover" src="./image/Slider1.png" alt="">
+                        <a href="?page=course_detail">
+                            <img class="h-full w-full object-cover" src="./image/Slider1.png" alt="">
+                        </a>
                     </div>
                     <div class="p-2 flex border border-[#ccc] justify-start flex-col">
-                        <p class="font-bold mb-2">Tên khóa học...</p>
+                        <a href="?page=course_detail">
+                            <p class="font-bold mb-2">Tên khóa học...</p>
+                        </a>
                         <p class="opacity-[0.8] text-xs mb-2">Tên giảng viên</p>
                         <p class="mb-2">Đánh giá: (4.6)<i class="ml-1 text-yellow-400 bi bi-star-fill"></i></p>
                         <p class="justify-self-end mt-auto font-bold mb-2">279.000 đ <span class="ml-1 font-medium line-through opacity-[0.7]">279.000 đ</span></p>
@@ -72,12 +80,17 @@
         <h2 class="text-2xl font-bold">Khóa học bán chạy nhất</h2>
         <div class="rounded-md mx-auto container border-[#ccc] grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 mt-4 border py-5 px-8 gap-6">
             <div class="image-box h-[400px] hover:opacity-[0.8]">
-                <img class="w-full h-full" src="./image/Slider1.png" alt="">
+                <a href="?page=course_detail">
+
+                    <img class="w-full h-full" src="./image/Slider1.png" alt="">
+                </a>
             </div>
 
             <div class="flex flex-col justify-between">
                 <div>
-                    <h3 class="font-bold text-2xl mb-3">Tên khóa học</h3>
+                    <a href="?page=course_detail">
+                        <h3 class="font-bold text-2xl mb-3">Tên khóa học</h3>
+                    </a>
                     <p class="mb-3">Mô tả: Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quasi nemo quidem ducimus ipsam laborum quo distinctio, illum officiis beatae debitis?</p>
                     <p class="text-sm mb-3">Tên giảng viên</p>
                     <p class="mb-2">Đánh giá: (4.6)<i class="ml-1 text-yellow-400 bi bi-star-fill"></i></p>
@@ -97,10 +110,14 @@
                 <div class="relative item rounded-sm hover:scale-[1.05] transition-all overflow-hidden">
                     <div class="absolute bg-red-400 font-bold text-white top-0 left-0 p-2 border-l-0 rounded-l-none px-4">25%</div>
                     <div class="image-box h-[300px] lg:h-[200px]">
-                        <img class="h-full w-full object-cover" src="./image/Slider1.png" alt="">
+                        <a href="?page=course_detail">
+                            <img class="h-full w-full object-cover" src="./image/Slider1.png" alt="">
+                        </a>
                     </div>
                     <div class="p-2 flex border border-[#ccc] justify-start flex-col">
-                        <p class="font-bold mb-2">Tên khóa học...</p>
+                        <a href="?page=course_detail">
+                            <p class="font-bold mb-2">Tên khóa học...</p>
+                        </a>
                         <p class="opacity-[0.8] text-xs mb-2">Tên giảng viên</p>
                         <p class="mb-2">Đánh giá: (4.6)<i class="ml-1 text-yellow-400 bi bi-star-fill"></i></p>
                         <p class="justify-self-end mt-auto font-bold mb-2">279.000 đ <span class="ml-1 font-medium line-through opacity-[0.7]">279.000 đ</span></p>
@@ -148,7 +165,7 @@
                 <p class="mb-5">
                     Xây dựng thói quen AI cho bạn và đội nhóm của bạn để có được các kỹ năng thực hành giúp bạn lãnh đạo hiệu quả.
                 </p>
-                <a class="py-3 px-4 mb-4 border text-purple-600 font-bold rounded-sm" href="">Học tập</a>
+                <a class="py-3 px-4 mb-4 border text-purple-600 font-bold rounded-sm" href="?page=category_product">Học tập</a>
             </div>
             <div class="overflow-hidden h-[400px] lg:h-[600px]">
                 <img class="w-full h-full object-contain lg:object-cover" src="https://cms-images.udemycdn.com/96883mtakkm8/32egVZ5YRgjxrz5mr45EwO/2328193d64d64dd0ab01b6019791da22/ai_for_business_leaders_photo__1_.png" alt="">

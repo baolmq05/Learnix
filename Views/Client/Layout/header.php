@@ -19,7 +19,7 @@
                 <button id="mobile-menu-btn" class="text-2xl text-gray-700 md:hidden" aria-label="Open menu">
                     <i class="bi bi-list"></i>
                 </button>
-                <a href="#" class="flex items-center space-x-2">
+                <a href="index.php?page=home" class="flex items-center space-x-2">
                     <span class="text-2xl font-bold text-stone-900">Learnix</span>
                 </a>
             </div>
@@ -57,14 +57,14 @@
             <div class="relative inline-block hidden md:block">
                 <ul class="flex items-center space-x-6">
                     <li class="relative hidden md:inline-block" data-dropdown-target="teach-dropdown">
-                        <a href="#"
+                        <a href="?page=about_teacher"
                             class="inline-flex items-center space-x-2 text-gray-700 hover:text-blue-600 transition-colors duration-200"
                             aria-haspopup="true" aria-expanded="false">
                             <span class="dropdown-trigger">Giảng dạy với Learnix</span>
                         </a>
                     </li>
                     <li class="relative hidden md:inline-block" data-dropdown-target="learning-dropdown">
-                        <a href="#"
+                        <a href="?page=course_learning"
                             class="inline-flex items-center space-x-2 text-gray-700 hover:text-blue-600 transition-colors duration-200"
                             aria-haspopup="true" aria-expanded="false">
                             <span class="dropdown-trigger">Khóa học của tôi</span>
@@ -79,13 +79,19 @@
                         <i class="bi bi-heart text-2xl text-gray-700 hover:text-blue-600 cursor-pointer"></i>
                     </li>
                     <li class="md:block" data-dropdown-target="cart-dropdown">
-                        <i class="bi bi-cart3 text-2xl text-gray-700 hover:text-blue-600 cursor-pointer"></i>
+                        <a href="?page=cart">
+                            <i class="bi bi-cart3 text-2xl text-gray-700 hover:text-blue-600 cursor-pointer"></i>
+                        </a>
                     </li>
                     <li class="hidden md:block" data-dropdown-target="notification-dropdown">
-                        <i class="bi bi-bell text-2xl text-gray-700 hover:text-blue-600 cursor-pointer"></i>
+                        <a href="?page=notification">
+                            <i class="bi bi-bell text-2xl text-gray-700 hover:text-blue-600 cursor-pointer"></i>
+                        </a>
                     </li>
                     <li class="hidden md:block" data-dropdown-target="profile-dropdown">
-                        <i class="bi bi-person-circle text-2xl text-gray-700 hover:text-blue-600 cursor-pointer"></i>
+                        <a href="?page=profile">
+                            <i class="bi bi-person-circle text-2xl text-gray-700 hover:text-blue-600 cursor-pointer"></i>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -95,11 +101,11 @@
             class="dropdown-menu absolute w-56 bg-white rounded border-t border-gray-200 shadow-sm opacity-0 invisible translate-y-0 transition-all duration-200 pointer-events-none z-50">
             <ul>
                 <li>
-                    <a href="?page=categoryProduct" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Tất
+                    <a href="?page=category_product" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Tất
                         cả khóa học</a>
                 </li>
                 <li>
-                    <a href="?page=categoryProduct" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Lập
+                    <a href="?page=category_product" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Lập
                         trình</a>
                 </li>
             </ul>
@@ -117,7 +123,7 @@
                 <p class="font-medium mb-2">Giỏ hàng</p>
                 <div class="text-gray-500">Chưa có sản phẩm trong giỏ hàng.</div>
                 <div class="mt-3 text-right">
-                    <a href="#" class="inline-block px-3 py-1 bg-blue-600 text-white rounded text-sm">Xem giỏ
+                    <a href="?page=cart" class="inline-block px-3 py-1 bg-blue-600 text-white rounded text-sm">Xem giỏ
                         hàng</a>
                 </div>
             </div>
@@ -191,13 +197,13 @@
                 </form>
             </div>
             <div class="mt-8 clear-right">
-                <a href="#" class="block py-2 text-lg font-medium text-gray-700 hover:text-blue-600">Khám phá</a>
-                <a href="#" class="block py-2 text-lg text-gray-700 hover:text-blue-600">Giảng dạy với Learnix</a>
-                <a href="#" class="block py-2 text-lg text-gray-700 hover:text-blue-600">Khóa học của tôi</a>
+                <a href="?page=category_product" class="block py-2 text-lg font-medium text-gray-700 hover:text-blue-600">Khám phá</a>
+                <a href="?page=about_teacher" class="block py-2 text-lg text-gray-700 hover:text-blue-600">Giảng dạy với Learnix</a>
+                <a href="?page=course_learning" class="block py-2 text-lg text-gray-700 hover:text-blue-600">Khóa học của tôi</a>
                 <a href="#" class="block py-2 text-lg text-gray-700 hover:text-blue-600">Danh sách yêu thích</a>
-                <a href="#" class="block py-2 text-lg text-gray-700 hover:text-blue-600">Thông báo</a>
+                <a href="?page=notification" class="block py-2 text-lg text-gray-700 hover:text-blue-600">Thông báo</a>
                 <hr class="my-3 border-gray-200">
-                <a href="#" class="block py-2 text-base text-gray-700 hover:bg-gray-100 px-4">Thông tin cá nhân</a>
+                <a href="?page=profile" class="block py-2 text-base text-gray-700 hover:bg-gray-100 px-4">Thông tin cá nhân</a>
                 <a href="#" class="block py-2 text-base text-gray-700 hover:bg-gray-100 px-4">Lịch sử thanh toán</a>
                 <a href="/logout" class="block py-2 text-base text-red-600 hover:bg-gray-100 px-4">Đăng xuất</a>
             </div>

@@ -22,7 +22,7 @@
             <div class="relative overflow-visible">
                 <label for="sort" class="sr-only">Sắp xếp theo</label>
                 <select id="sort" name="sort"
-                    class="block w-full md:w-48 px-4 py-2 text-sm border rounded text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 z-50"
+                    class="block w-full md:w-53 px-4 py-2 text-sm border rounded text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 z-50"
                     aria-label="Sort courses">
                     <option value="highest">Đánh giá từ cao đến thấp</option>
                     <option value="newest">Mới nhất</option>
