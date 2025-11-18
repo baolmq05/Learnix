@@ -9,6 +9,29 @@ ob_start();
 $page = isset($_GET["page"]) ? $_GET["page"] : "";
 $action = isset($_GET["action"]) ? $_GET["action"] : "";
 
+if ($page == "step") {
+    require_once "./Controllers/Client/RegisterTeacherController.php";
+    $registerTeacherControl = new RegisterTeacherController();
+    switch ($action) {
+        case "step1":
+            $registerTeacherControl->viewStepRegister(1);
+            break;
+
+        case "step2":
+            $registerTeacherControl->viewStepRegister(2);
+            break;
+
+        case "step3":
+            $registerTeacherControl->viewStepRegister(3);
+            break;
+
+        default:
+            header("location: index.php");
+            break;
+    }
+    return;
+}
+
 if ($page == "teacher") {
     require 'Views/Client/Layout/headerTeacher.php';
     require_once 'Controllers/Client/TeacherController.php';
@@ -35,9 +58,9 @@ if ($page == "teacher") {
         case 'editProfile':
             $teacherController->editProfile();
             break;
-            case 'viewStudents':
-                $teacherController->viewStudents();
-                break;
+        case 'viewStudents':
+            $teacherController->viewStudents();
+            break;
         default:
             $teacherController->index();
             break;
@@ -115,13 +138,13 @@ switch ($page) {
         $lessonController = new LessonPlayerController();
         $lessonController->viewLesson();
         break;
-    
+
     case "course_learning":
         require_once "Controllers/Client/CourseLearningController.php";
         $courseLearningController = new CourseLearningController();
         $courseLearningController->viewCourseLearning();
         break;
-        
+
     default:
         require_once "./Controllers/Client/HomeController.php";
         $homeControl = new HomeController();

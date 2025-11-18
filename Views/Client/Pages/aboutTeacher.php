@@ -10,7 +10,7 @@
                 <p class="mb-3">Trở thành giảng viên và thay đổi cuộc sống của mọi người, bao gồm cả cuộc sống của
                     chính bạn
                 </p>
-                <a href=""
+                <a href="?page=step&action=step1"
                     class="block hover:opacity-[0.8] py-2 px-4 bg-purple-500 w-full text-white rounded-sm">Bắt
                     đầu</a>
             </div>
@@ -296,7 +296,7 @@
                 nhất
                 thế
                 giới.</p>
-            <a href=""
+            <a href="?page=step&action=step1"
                 class="inline-block hover:opacity-[0.8] py-2 px-4 bg-purple-500 text-white rounded-sm cursor-pointer">Bắt
                 đầu</a>
         </div>
