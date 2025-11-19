@@ -1,12 +1,13 @@
 <?php
-include("../Config/Global.php");
+include("./Config/Global.php");
 
 class Database
 {
-    private $_severname = SERVERNAME_DB; //127.0.0.1
+    private $_severname = SERVERNAME_DB; //Tên HOST
     private $_username = USERNAME_DB; //Tên cơ sở dữ liệu
     private $_password = PASSWORD_DB; //Mật khẩu
     private $_dbname = DB_NAME; //Tên database
+    private $_port = '3306';
 
     private $_connect;
 
@@ -18,7 +19,7 @@ class Database
     public function connect()
     {
         try {
-            $this->_connect = new PDO("mysql:host=$this->_severname;dbname=$this->_dbname", $this->_username, $this->_password);
+            $this->_connect = new PDO("mysql:host=$this->_severname;port=$this->_port;dbname=$this->_dbname", $this->_username, $this->_password);
             // set the PDO error mode to exception
             $this->_connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             echo "CONNECTED SUCCESSFULLY";
