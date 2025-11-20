@@ -150,7 +150,7 @@
         <div id="profile-dropdown"
             class="dropdown-menu absolute w-48 bg-white rounded border-t border-gray-200 shadow-sm opacity-0 invisible translate-y-0 transition-all duration-200 pointer-events-none z-50">
             <ul class="py-1 text-sm text-gray-700">
-                <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Thông tin cá nhân</a></li>
+                <li><a href="?page=profile" class="block px-4 py-2 hover:bg-gray-100">Thông tin cá nhân</a></li>
                 <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Khóa học của tôi</a></li>
                 <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Lịch sử thanh toán</a></li>
                 <li>

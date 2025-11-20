@@ -145,6 +145,12 @@ switch ($page) {
         $courseLearningController->viewCourseLearning();
         break;
 
+        case "recharge":
+        require_once "Controllers/Client/RechargeController.php";
+        $rechargeController = new RechargeController();
+        $rechargeController->viewRecharge();
+        break;
+
     default:
         require_once "./Controllers/Client/HomeController.php";
         $homeControl = new HomeController();

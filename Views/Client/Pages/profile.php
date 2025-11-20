@@ -113,7 +113,7 @@
           </a>
           <a
             href="#"
-            class="flex-1 items-center justify-center gap-2 px-4 py-3 
+            class="flex-1 items-center justify-center text-nowrap gap-2 px-4 py-3 
          bg-red-600 text-white font-semibold rounded-xl 
          hover:bg-red-700 transition shadow-md">
             Lịch sử giao dịch
