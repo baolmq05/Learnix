@@ -21,6 +21,7 @@
     <link rel="shortcut icon" href="./Assets/Admin/images/favicon.svg" type="image/x-icon">
     <!-- Custom styles -->
     <link rel="stylesheet" href="./Assets/Admin/css/custom/order.css">
+    <link rel="stylesheet" href="./Assets/Admin/css/custom/alert.css">
 </head>
 
 <body>

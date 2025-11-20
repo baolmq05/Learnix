@@ -1,18 +1,17 @@
 <?php
-$page = isset($_GET["page"]) ? $_GET["page"] : "";
-$action = isset($_GET["action"]) ? $_GET["action"] : "";
-if ($page != 'login') {
-    include("./Views/Admin/Layout/header.php");
-}
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
-// session_start();
-// ob_start();
+session_start();
+ob_start();
 
-// require "Views/Client/Layout/header.php";
+$page = isset($_GET["page"]) ? $_GET["page"] : "";
+$action = isset($_GET["action"]) ? $_GET["action"] : "";
 
+if ($page != 'login') {
+    include("./Views/Admin/Layout/header.php");
+}
 
 switch ($page) {
     case "":
@@ -23,21 +22,28 @@ switch ($page) {
 
     case "category":
         require 'Controllers/Admin/CategoryController.php';
-        $category = new CategoryController;
+        $category = new CategoryController();
         switch ($action) {
             case "":
-                $category->index();
+                $category->viewIndex();
                 break;
             case "create":
                 $category->create();
                 break;
+            case "viewCreate":
+                $category->viewCreate();
+                break;
             case "edit":
-                $category->edit();
+                $category->viewEdit();
+                break;
+            case "update":
+                $category->update();
                 break;
             case "delete":
+                $category->delete();
                 break;
             default:
-                $category->index();
+                $category->viewIndex();
                 break;
         }
         break;

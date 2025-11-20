@@ -22,7 +22,7 @@ class Database
             $this->_connect = new PDO("mysql:host=$this->_severname;port=$this->_port;dbname=$this->_dbname", $this->_username, $this->_password);
             // set the PDO error mode to exception
             $this->_connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            echo "CONNECTED SUCCESSFULLY";
+            // echo "CONNECTED SUCCESSFULLY";
             // set the resulting array to associative
         } catch (PDOException $e) {
             echo "Connection failed: " . $e->getMessage();
