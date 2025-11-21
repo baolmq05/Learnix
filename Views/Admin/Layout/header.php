@@ -106,7 +106,7 @@
                             <li class="sidebar-item  has-sub">
                                 <a href="#" class='sidebar-link'>
                                     <i class="bi bi-file-earmark-medical-fill"></i>
-                                    <span>Đơn hàng</span>
+                                    <span>Đơn hàng khóa học</span>
                                 </a>
                                 <ul class="submenu ">
                                     <li class="submenu-item ">
