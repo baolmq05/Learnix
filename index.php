@@ -40,27 +40,47 @@ if ($page == "teacher") {
         case "index":
             $teacherController->index();
             break;
+
         case "viewDetail":
             $teacherController->viewDetail();
             break;
+
         case 'statistic':
             $teacherController->statistic();
             break;
+
         // case "createCourse":
         //     $teacherController->createCourse();
         //     break;
+
         // case "editCourse":
         //     $teacherController->editCourse();
         //     break;
+
         case 'profile':
             $teacherController->profile();
             break;
+
         case 'editProfile':
             $teacherController->editProfile();
             break;
+
         case 'viewStudents':
             $teacherController->viewStudents();
             break;
+
+        case 'createCourse':
+            require_once 'Controllers/Client/CreateCourseController.php';
+            $createCourseController = new CreateCourseController();
+            $createCourseController->createCourse();
+            break;
+
+        case 'editCourse':
+            require_once 'Controllers/Client/EditCourseController.php';
+            $editCourseController = new EditCourseController();
+            $editCourseController->editCourse();
+            break;
+            
         default:
             $teacherController->index();
             break;
