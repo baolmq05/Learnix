@@ -24,7 +24,9 @@ if ($page == "step") {
         case "step3":
             $registerTeacherControl->viewStepRegister(3);
             break;
-
+        case "handleTeacherRegister":
+            $registerTeacherControl->handleTeacherRegister();
+            break;
         default:
             header("location: index.php");
             break;
@@ -121,14 +123,34 @@ switch ($page) {
     case "login":
         require_once "./Controllers/Client/LoginController.php";
         $auth = new LoginController();
-        $auth->viewLogin();
+        switch ($action) {
+            case '':
+                $auth->viewLogin();
+                break;
+            case 'handleLogin':
+                $auth->handleLogin();
+                break;
+        }
+        break;
+    case "logout":
+        require_once "./Controllers/Client/LogOutController.php";
+        $logoutControl = new LogOutController();
+        $logoutControl->handleLogOut();
         break;
 
     case "register":
         require_once "./Controllers/Client/RegisterController.php";
         $auth = new RegisterController();
-        $auth->viewRegister();
+        switch ($action) {
+            case '':
+                $auth->viewRegister();
+                break;
+            case 'handleRegister':
+                $auth->handleRegister();
+                break;
+        }
         break;
+        
     case "profile":
         require_once "./Controllers/Client/ProfileController.php";
         $auth = new ProfileController();

@@ -156,9 +156,18 @@ switch ($page) {
         require 'Controllers/Admin/LoginController.php';
         $login = new LoginController();
         switch ($action) {
-            case '':
-                $login->viewLogin();
+            case 'handleLogin':
+                $login->handleLoginAdmin();
+                break;
+            default:
+                $login->viewLoginAdmin();
+                break;
         }
+        break;
+    case "logout":
+        require_once "./Controllers/Admin/LogOutController.php";
+        $logoutControl = new LogOutController();
+        $logoutControl->handleLogOutAdmin();
         break;
 
     default:

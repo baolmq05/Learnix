@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- Thông báo session đăng nhập -->
 
 <head>
     <meta charset="UTF-8" />
@@ -23,26 +24,34 @@
                 <span class="font-light text-gray-400 mb-3 block text-center">
                     Chào mừng bạn! Vui lòng nhập thông tin chi tiết!
                 </span>
-                <div class="py-2">
-                    <label class="mb-2 text-md block">Tên</label>
-                    <input type="text"
-                        class="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
-                        name="name" id="name" />
-                </div>
-                <div class="py-2">
-                    <label class="mb-2 text-md block">Email</label>
-                    <input type="text"
-                        class="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
-                        name="email" id="email" />
-                </div>
-                <div class="py-2">
-                    <label class="mb-2 text-md block">Mật khẩu</label>
-                    <input type="password" name="pass" id="pass"
-                        class="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500" />
-                </div>
-                <button class="w-full bg-black text-white p-2 rounded-lg my-6 hover:opacity-[0.8] hover:text-white">
-                    Đăng ký
-                </button>
+                <form action="?page=register&action=handleRegister" name="register" method="POST">
+                    <div class="py-2 mb-2">
+                        <label class="mb-2 text-md block">Tên</label>
+                        <input type="text"
+                            class="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
+                            name="name" id="name"
+                            value="<?php echo htmlspecialchars($_SESSION['old']['name'] ?? '', ENT_QUOTES); ?>" />
+                                
+                    </div>
+                    <div class="py-2 mb-2 relative">
+                        <label class="mb-2 text-md block">Email</label>
+                        <input type="text"
+                            class="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
+                            name="email" id="email"
+                            value="<?php echo htmlspecialchars($_SESSION['old']['email'] ?? '', ENT_QUOTES); ?>" />
+                            <small class="text-red-600 absolute left-0 -bottom-5 text-sm"><?php echo $_SESSION['error']['email'] ?? ''; ?></small>
+                        </div>
+                    <div class="py-2 mb-2 relative">
+                        <label class="mb-2 text-md block">Mật khẩu</label>
+                        <input type="password" name="password" id="password"
+                            class="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500" />
+                            <small class="text-red-600 absolute left-0 -bottom-5 text-sm"><?php echo $_SESSION['error']['password'] ?? ''; ?></small>
+                    </div>
+                    <button type="submit"
+                        class="w-full bg-black text-white p-2 rounded-lg my-6 hover:opacity-[0.8] hover:text-white">
+                        Đăng ký
+                    </button>
+                </form>
                 <div class="text-center text-gray-400">
                     Bạn đã có tài khoản?
                     <a href="/index.php?page=login"><span class="font-bold text-black">Vui lòng đăng nhập</span></a>
@@ -64,3 +73,7 @@
 </body>
 
 </html>
+<?php
+unset($_SESSION['error']);
+unset($_SESSION['old']);
+?>

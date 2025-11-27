@@ -1,3 +1,11 @@
+<?php
+
+if (!isset($_SESSION['admin'])) {
+    header('Location: admin.php?page=login');
+    exit;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,7 +40,8 @@
                     <div class="sidebar-header">
                         <div class="d-flex justify-content-between">
                             <div class="logo">
-                                <a href="admin.php"><img src="./Assets/Admin/images/logo/logo.png" alt="Logo" srcset=""></a>
+                                <a href="admin.php"><img src="./Assets/Admin/images/logo/logo.png" alt="Logo"
+                                        srcset=""></a>
                             </div>
                             <div class="toggler">
                                 <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -134,8 +143,10 @@
 
                     </div>
                 </div>
-                <div class="d-grid gap-2 mb-2">
-                    <button class="btn btn-outline-danger mx-3">Đăng xuất</button>
+                <div >
+                    <form class="d-grid gap-2 mb-2" action="?page=logout" method="post">
+                        <button type="submit" class="btn btn-outline-danger mx-3">Đăng xuất</button>
+                    </form>
                 </div>
                 <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
             </div>
@@ -153,11 +164,13 @@
                             <a href="?page=profile">
                                 <div class="d-flex justify-content-end align-items-center">
                                     <div class="name">
-                                        <h5 class="font-bold fs-5 m-0 mx-3">John Duck</h5>
+                                        <h5 class="font-bold fs-5 m-0 mx-3">
+                                            <?= htmlspecialchars($_SESSION['admin']['name'] ?? 'Administrator') ?></h5>
                                         <span class="text-muted fs-6 m-0 mx-3">Quản trị viên</span>
                                     </div>
                                     <div class="avatar avatar-xs">
-                                        <img src="Assets/Admin/images/faces/1.jpg" alt="Face 1">
+                                        <img src="Uploads/Avatar/<?= htmlspecialchars($_SESSION['admin']['avatar'] ?? 'default.jpg') ?>"
+                                            alt="Face 1">
                                     </div>
                                 </div>
                             </a>

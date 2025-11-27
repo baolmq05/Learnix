@@ -76,35 +76,37 @@
                 </h2>
 
                 <form class="space-y-4" id="experience-form">
-                    <label class="experience-option flex items-center p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition duration-200">
+                    <label
+                        class="experience-option flex items-center p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition duration-200">
                         <input type="radio" class="form-radio h-5 w-5 text-purple-600" name="01">
                         <span class="ml-3 text-lg text-gray-800">Không phải lúc này</span>
                     </label>
 
-                    <label class="experience-option flex items-center p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition duration-200">
+                    <label
+                        class="experience-option flex items-center p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition duration-200">
                         <input type="radio" class="form-radio h-5 w-5 text-purple-600" name="01">
                         <span class="ml-3 text-lg text-gray-800">Tôi có lượng người theo dõi nhỏ</span>
                     </label>
 
-                    <label class="experience-option flex items-center p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition duration-200">
+                    <label
+                        class="experience-option flex items-center p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition duration-200">
                         <input type="radio" class="form-radio h-5 w-5 text-purple-600" name="01">
                         <span class="ml-3 text-lg text-gray-800">Tôi có lượng người theo dõi đáng kể</span>
                     </label>
                 </form>
 
-                <div class="mt-8 flex justify-between">
+                <div class="mt-8 ">
+                    <form action="?page=step&action=handleTeacherRegister" method="post"  class="flex justify-between">
+                        <a href="?page=step&action=step2"
+                            class="w-full md:w-auto px-8 py-3 border-purple-700 border text-purple-800 font-bold rounded-lg hover:opacity-[0.8] transition duration-200">
+                            Trở lại
+                        </a>
+                        <button id="continue-btn" name="buttonRegister"
+                            class="disabled-link w-full md:w-auto px-8 py-3 bg-purple-700 text-white font-bold rounded-lg hover:bg-purple-800 transition duration-200">
+                            Tiếp tục
+                        </button>
+                    </form>
 
-                    <a href="?page=step&action=step2"
-                        class="w-full md:w-auto px-8 py-3 border-purple-700 border text-purple-800 font-bold rounded-lg hover:opacity-[0.8] transition duration-200">
-                        Trở lại
-                    </a>
-
-                    <!-- Nút Tiếp tục (dùng thẻ a) -->
-                    <a id="continue-btn"
-                        href="?page=create-course&action=finish"
-                        class="disabled-link w-full md:w-auto px-8 py-3 bg-purple-700 text-white font-bold rounded-lg hover:bg-purple-800 transition duration-200">
-                        Tiếp tục
-                    </a>
 
                 </div>
             </div>
@@ -112,15 +114,14 @@
 
         <div class="w-full md:w-1/2 bg-white flex justify-center items-center p-8 order-1 md:order-2">
             <img src="https://s.udemycdn.com/teaching/launch-your-course-2x-v3.jpg"
-                alt="Người đang làm việc trên máy tính"
-                class="max-w-full h-auto object-contain"
+                alt="Người đang làm việc trên máy tính" class="max-w-full h-auto object-contain"
                 style="max-height: 400px;">
         </div>
 
     </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const options = document.querySelectorAll('.experience-option');
             const continueBtn = document.getElementById('continue-btn');
 
@@ -128,7 +129,7 @@
             const defaultClasses = ['border-gray-300'];
 
             options.forEach(option => {
-                option.addEventListener('click', function() {
+                option.addEventListener('click', function () {
 
                     options.forEach(opt => {
                         opt.classList.remove(...selectedClasses);

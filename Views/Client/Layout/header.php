@@ -1,3 +1,13 @@
+<?php
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
+
+$isLoggedIn = false;
+if (!empty($_SESSION['client'])) {
+    $isLoggedIn = true;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -57,11 +67,15 @@
             <div class="relative inline-block hidden md:block">
                 <ul class="flex items-center space-x-6">
                     <li class="relative hidden md:inline-block" data-dropdown-target="teach-dropdown">
-                        <a href="?page=about_teacher"
+                        <a href="<?= (($_SESSION['client']['role'] ?? 0) == 2)
+                                        ? '?page=teacher'
+                                        : '?page=about_teacher' ?>"
                             class="inline-flex items-center space-x-2 text-gray-700 hover:text-blue-600 transition-colors duration-200"
                             aria-haspopup="true" aria-expanded="false">
                             <span class="dropdown-trigger">Giảng dạy với Learnix</span>
                         </a>
+
+
                     </li>
                     <li class="relative hidden md:inline-block" data-dropdown-target="learning-dropdown">
                         <a href="?page=course_learning"
@@ -89,8 +103,9 @@
                         </a>
                     </li>
                     <li class="hidden md:block" data-dropdown-target="profile-dropdown">
-                        <a href="?page=profile">
-                            <i class="bi bi-person-circle text-2xl text-gray-700 hover:text-blue-600 cursor-pointer"></i>
+                        <a href="<?= $isLoggedIn ? '?page=profile' : '?page=login' ?>">
+                            <i
+                                class="bi bi-person-circle text-2xl text-gray-700 hover:text-blue-600 cursor-pointer"></i>
                         </a>
                     </li>
                 </ul>
@@ -150,13 +165,18 @@
         <div id="profile-dropdown"
             class="dropdown-menu absolute w-48 bg-white rounded border-t border-gray-200 shadow-sm opacity-0 invisible translate-y-0 transition-all duration-200 pointer-events-none z-50">
             <ul class="py-1 text-sm text-gray-700">
-                <li><a href="?page=profile" class="block px-4 py-2 hover:bg-gray-100">Thông tin cá nhân</a></li>
-                <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Khóa học của tôi</a></li>
-                <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Lịch sử thanh toán</a></li>
-                <li>
-                    <hr class="my-1 border-gray-200">
-                </li>
-                <li><a href="/logout" class="block px-4 py-2 text-red-600 hover:bg-gray-100">Đăng xuất</a></li>
+                <?php if ($isLoggedIn): ?>
+                    <li><a href="?page=profile" class="block px-4 py-2 hover:bg-gray-100">Thông tin cá nhân</a></li>
+                    <li><a href="?page=my_courses" class="block px-4 py-2 hover:bg-gray-100">Khóa học của tôi</a></li>
+                    <li><a href="?page=payments" class="block px-4 py-2 hover:bg-gray-100">Lịch sử thanh toán</a></li>
+                    <li>
+                        <hr class="my-1 border-gray-200">
+                    </li>
+                    <li><a href="?page=logout" class="block px-4 py-2 text-red-600 hover:bg-gray-100">Đăng xuất</a></li>
+                <?php else: ?>
+                    <li><a href="?page=login" class="block px-4 py-2 hover:bg-gray-100">Đăng nhập</a></li>
+                    <li><a href="?page=register" class="block px-4 py-2 hover:bg-gray-100">Đăng ký</a></li>
+                <?php endif; ?>
             </ul>
         </div>
 
@@ -170,7 +190,8 @@
                     phần mềm</a>
                 <a href="?page=category_product" class="text-gray-600 hover:text-blue-600 whitespace-nowrap">Lập trình
                     game</a>
-                <a href="?page=category_product" class="text-gray-600 hover:text-blue-600 whitespace-nowrap">Khoa học máy
+                <a href="?page=category_product" class="text-gray-600 hover:text-blue-600 whitespace-nowrap">Khoa học
+                    máy
                     tính</a>
             </nav>
         </div>
@@ -197,15 +218,25 @@
                 </form>
             </div>
             <div class="mt-8 clear-right">
-                <a href="?page=category_product" class="block py-2 text-lg font-medium text-gray-700 hover:text-blue-600">Khám phá</a>
-                <a href="?page=about_teacher" class="block py-2 text-lg text-gray-700 hover:text-blue-600">Giảng dạy với Learnix</a>
-                <a href="?page=course_learning" class="block py-2 text-lg text-gray-700 hover:text-blue-600">Khóa học của tôi</a>
+                <a href="?page=category_product"
+                    class="block py-2 text-lg font-medium text-gray-700 hover:text-blue-600">Khám phá</a>
+                <a href="?page=about_teacher" class="block py-2 text-lg text-gray-700 hover:text-blue-600">Giảng dạy với
+                    Learnix</a>
+                <a href="?page=course_learning" class="block py-2 text-lg text-gray-700 hover:text-blue-600">Khóa học
+                    của tôi</a>
                 <a href="#" class="block py-2 text-lg text-gray-700 hover:text-blue-600">Danh sách yêu thích</a>
                 <a href="?page=notification" class="block py-2 text-lg text-gray-700 hover:text-blue-600">Thông báo</a>
                 <hr class="my-3 border-gray-200">
-                <a href="?page=profile" class="block py-2 text-base text-gray-700 hover:bg-gray-100 px-4">Thông tin cá nhân</a>
-                <a href="#" class="block py-2 text-base text-gray-700 hover:bg-gray-100 px-4">Lịch sử thanh toán</a>
-                <a href="/logout" class="block py-2 text-base text-red-600 hover:bg-gray-100 px-4">Đăng xuất</a>
+                <?php if ($isLoggedIn): ?>
+                    <a href="?page=profile" class="block py-2 text-base text-gray-700 hover:bg-gray-100 px-4">Thông tin cá
+                        nhân</a>
+                    <a href="?page=payments" class="block py-2 text-base text-gray-700 hover:bg-gray-100 px-4">Lịch sử thanh
+                        toán</a>
+                    <a href="?page=logout" class="block py-2 text-base text-red-600 hover:bg-gray-100 px-4">Đăng xuất</a>
+                <?php else: ?>
+                    <a href="?page=login" class="block py-2 text-base text-gray-700 hover:bg-gray-100 px-4">Đăng nhập</a>
+                    <a href="?page=register" class="block py-2 text-base text-gray-700 hover:bg-gray-100 px-4">Đăng ký</a>
+                <?php endif; ?>
             </div>
         </div>
     </div>
