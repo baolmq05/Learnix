@@ -9,6 +9,7 @@
 <script src="./Assets/Admin/vendors/apexcharts/apexcharts.js"></script>
 <script src="./Assets/Admin/js/pages/dashboard.js"></script>
 <script src="./Assets/Admin/vendors/simple-datatables/simple-datatables.js"></script>
+<script src="./Assets/Admin/js/extensions/alert.js"></script>
 <script>
     // Simple Datatable
     let table1 = document.querySelector('#table1');

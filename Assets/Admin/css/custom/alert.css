@@ -1,14 +1,17 @@
     #alert_danger,
     #alert_success {
         opacity: 0;
-        align-items: center;
         min-width: 250px;
-        max-width: 350px;
+        position: fixed;
+        top: 140px;
+        right: 30px;
+        max-width: 450px;
         padding: 10px 15px;
         border-radius: 5px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         transition: opacity 0.5s ease-out;
         animation: alert_in_flow 0.5s ease-in-out forwards;
+        z-index: 20;
     }
 
     @keyframes alert_in_flow {

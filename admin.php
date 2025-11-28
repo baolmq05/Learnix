@@ -76,10 +76,18 @@ switch ($page) {
                 $user->viewCreate();
                 break;
 
-            case "edit":
-                $user->viewEdit();
+            case "store":
+                $user->store();
                 break;
 
+            case "edit":
+                $user->viewDetail();
+                break;
+
+                case "update":
+                $user->update();
+                break;
+                
             case "delete":
                 break;
 

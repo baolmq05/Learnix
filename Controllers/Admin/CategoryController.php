@@ -62,7 +62,7 @@ class CategoryController
         $result = $this->_categoryModel->createCate($name, $description, $status);
         if ($result) {
             unset($_SESSION['old'], $_SESSION['error']);
-            $_SESSION['success'] = 'Thêm chủ đề thành công';
+            $_SESSION['category_success'] = 'Thêm chủ đề thành công';
             header("location: ?page=category&action=index");
             exit();
         }

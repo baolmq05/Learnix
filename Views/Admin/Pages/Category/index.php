@@ -1,21 +1,18 @@
 <?php
-$success = $_SESSION['success'] ?? null;
-unset($_SESSION['success']);
+$success = $_SESSION['category_success'] ?? null;
+unset($_SESSION['category_success']);
 ?>
 
 <div class="page-heading">
     <div class="page-title">
         <div class="row">
-            <div class="col-12 d-flex justify-content-end mb-3">
-                <?php if (!empty($success)): ?>
-                    <div id="alert_success" class="alert alert-success d-flex align-items-center" role="alert"
-                        style="width: fit-content; max-width: 350px; display: flex !important;">
-                        <div>
-                            <?= $success ?>
-                        </div>
+            <?php if (!empty($success)): ?>
+                <div id="alert_success" class="alert alert-success d-flex align-items-center" role="alert">
+                    <div>
+                        <?= $success ?>
                     </div>
-                <?php endif; ?>
-            </div>
+                </div>
+            <?php endif; ?>
             <div class="col-12 col-md-6 order-md-1 order-last">
                 <h3>Quản lý chủ đề</h3>
             </div>
@@ -103,25 +100,5 @@ unset($_SESSION['success']);
         const id = button.getAttribute('data-id');
         const form = document.getElementById('deleteForm');
         form.action = `?page=category&action=delete&id=${id}`;
-    });
-</script>
-
-<script>
-    window.addEventListener('DOMContentLoaded', () => {
-        const alertSuccess = document.getElementById('alert_success');
-
-        if (alertSuccess) {
-            alertSuccess.addEventListener('animationend', function () {
-                this.style.opacity = '1';
-                this.style.animation = 'none';
-            }, { once: true });
-
-            setTimeout(() => {
-                alertSuccess.style.opacity = '0';
-                setTimeout(() => {
-                    alertSuccess.style.display = 'none';
-                }, 500);
-            }, 3000);
-        }
     });
 </script>
