@@ -40,7 +40,7 @@
 
                     <!-- Avatar trái -->
                     <div class="col-md-4 d-flex flex-column align-items-center mb-4">
-                        <img src="../../../../Uploads/<?= htmlspecialchars($user['avatar'] ?? 'default-avatar.png') ?>"
+                        <img src="../../../../Uploads/Avatar/<?= htmlspecialchars($user['avatar'] ?? 'default.webp') ?>"
                             class="rounded-circle shadow-sm mb-3"
                             style="width: 150px; height: 150px; object-fit: cover;" alt="Avatar" />
                         <p class="fw-bold text-center fs-5">
