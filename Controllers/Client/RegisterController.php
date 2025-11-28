@@ -42,7 +42,8 @@ class RegisterController
         }
         $userId = $registerModel->createUser($name, $email, $password);
         if ($userId) {
-            header('Location: ?page=login&register=success');
+            $_SESSION['register_success'] = 'Đăng ký thành công! Vui lòng đăng nhập.';
+            header('Location: ?page=login');
             exit;
         } else {
             $_SESSION['error']['general'] = 'Đăng ký thất bại, vui lòng thử lại!';

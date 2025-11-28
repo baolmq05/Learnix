@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-$showRegisterSuccess = isset($_GET['register']) && $_GET['register'] === 'success';
+$success = $_SESSION['register_success'] ?? '';
+$loginError = $_SESSION['error']['loginError'] ?? '';
+$msgError = $_SESSION['error']['message'] ?? '';
+unset($_SESSION['register_success']);
+unset($_SESSION['error']['loginError']);
+unset($_SESSION['error']['message']);
+
 ?>
 
 <head>
@@ -10,15 +16,28 @@ $showRegisterSuccess = isset($_GET['register']) && $_GET['register'] === 'succes
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-    <title>Document</title>
+    <link rel="stylesheet" href="./Assets/Client/css/Alert.css" />
+    <title>Login</title>
 </head>
 
 <body>
-    <div id="alert_success" role="alert" style="display:none;"
-        class="fixed top-6 right-6 z-50 flex items-center gap-3 bg-emerald-50 border border-emerald-200 text-emerald-800 px-4 py-3 rounded-lg shadow-lg opacity-0 pointer-events-none transform transition-all duration-300 translate-x-full">
-        <i class="bi bi-check-circle-fill"></i>
-        <div class="text-sm font-medium">Đăng ký thành công</div>
-    </div>
+    <?php if (!empty($success)): ?>
+        <div id="alert_success" class="flex items-center w-full p-4 mb-4 text-green-800 bg-green-100 rounded-lg"
+            role="alert">
+            <div>
+                <?= $success ?>
+            </div>
+        </div>
+    <?php endif ?>
+    <?php if (!empty($loginError)): ?>
+        <div id="alert_success" class="flex items-center w-full p-4 mb-4 text-red-800 bg-red-100 rounded-lg" role="alert">
+            <div>
+                <?= $loginError ?>
+            </div>
+        </div>
+
+    <?php endif ?>
+
 
     <div class="flex items-center justify-center min-h-screen bg-gray-100">
         <div class="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
@@ -32,6 +51,9 @@ $showRegisterSuccess = isset($_GET['register']) && $_GET['register'] === 'succes
                 <span class="font-light text-gray-400 mb-4">
                     Chào mừng bạn trở lại! Vui lòng nhập thông tin chi tiết!
                 </span>
+                <div class="w-full text-red-800 text-sm min-h-[20px]">
+                    <?= $msgError ?? '' ?>
+                </div>
                 <form action="?page=login&action=handleLogin" name="login" method="POST">
                     <div class="py-4">
                         <span class="mb-2 text-md">Email</span>
@@ -76,33 +98,25 @@ $showRegisterSuccess = isset($_GET['register']) && $_GET['register'] === 'succes
         </div>
     </div>
     <script>
-        (function () {
-            const key = "register_success";
-            if (!sessionStorage) return;
-            const showFromQuery = <?php echo $showRegisterSuccess ? 'true' : 'false'; ?>;
-            if (sessionStorage.getItem(key) || showFromQuery) {
-                const el = document.getElementById('alert_success');
-                if (!el) return;
-                el.style.display = 'flex';
-                requestAnimationFrame(() => {
-                    el.classList.remove('opacity-0', 'pointer-events-none', 'translate-x-full');
-                    el.classList.add('opacity-100', 'translate-x-0');
+        window.addEventListener('DOMContentLoaded', () => {
+            const alertSuccess = document.getElementById('alert_success');
+
+            if (alertSuccess) {
+                alertSuccess.addEventListener('animationend', function () {
+                    this.style.opacity = '1';
+                    this.style.animation = 'none';
+                }, {
+                    once: true
                 });
 
                 setTimeout(() => {
-                    el.classList.remove('opacity-100', 'translate-x-0');
-                    el.classList.add('opacity-0', 'translate-x-full');
+                    alertSuccess.style.opacity = '0';
                     setTimeout(() => {
-                        el.style.display = 'none';
-                        sessionStorage.removeItem(key);
-                        if (showFromQuery && window.history && window.history.replaceState) {
-                            const cleanUrl = window.location.pathname;
-                            window.history.replaceState({}, document.title, cleanUrl);
-                        }
-                    }, 300);
-                }, 4000);
+                        alertSuccess.style.display = 'none';
+                    }, 500);
+                }, 3000);
             }
-        })();
+        });
     </script>
 </body>
 

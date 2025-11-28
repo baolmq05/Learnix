@@ -36,6 +36,7 @@ class LoginController
             header('Location: admin.php?page=login');
             exit;
         }
+        $_SESSION['login_success'] = 'Đăng nhập thành công!';
         header('Location: admin.php');
         exit;
     }

@@ -1,11 +1,23 @@
 <?php
-$showLoginSuccess = isset($_GET['login']) && $_GET['login'] === 'success';
+$success = $_SESSION['login_success'] ?? '';
+$logOutSuccess = $_SESSION['logout_success'] ?? '';
+unset($_SESSION['login_success']);
+unset($_SESSION['logout_success']);
 ?>
-<div id="alert_login_success" role="alert" style="display:none;"
-    class="fixed top-6 right-6 z-50 flex items-center gap-3 bg-emerald-50 border border-emerald-200 text-emerald-800 px-4 py-3 rounded-lg shadow-lg opacity-0 pointer-events-none transform transition-all duration-300 translate-x-full">
-    <i class="bi bi-check-circle-fill"></i>
-    <div class="text-sm font-medium">Đăng nhập thành công</div>
-</div>
+    <?php if (!empty($success)): ?>
+    <div id="alert_success" class="flex items-center w-full p-4 mb-4 text-green-800 bg-green-100 rounded-lg" role="alert">
+        <div>
+            <?= $success ?>
+        </div>
+    </div>
+    <?php endif ?>
+    <?php if (!empty($logOutSuccess)): ?>
+    <div id="alert_success" class="flex items-center w-full p-4 mb-4 text-red-800 bg-red-100 rounded-lg" role="alert">
+        <div>
+            <?= $logOutSuccess ?>
+        </div>
+    </div>
+    <?php endif ?>
 <main class="px-5">
 
     <?php if ($_SESSION['client'] ?? false): ?>
@@ -203,33 +215,5 @@ $showLoginSuccess = isset($_GET['login']) && $_GET['login'] === 'success';
         </div>
     </section>
     </section>
-    <script>
-        (function () {
-            const key = 'login_success';
-            if (!sessionStorage) return;
-            const showFromQuery = <?php echo $showLoginSuccess ? 'true' : 'false'; ?>;
-            if (sessionStorage.getItem(key) || showFromQuery) {
-                const el = document.getElementById('alert_login_success');
-                if (!el) return;
-                el.style.display = 'flex';
-                requestAnimationFrame(() => {
-                    el.classList.remove('opacity-0', 'pointer-events-none', 'translate-x-full');
-                    el.classList.add('opacity-100', 'translate-x-0');
-                });
 
-                setTimeout(() => {
-                    el.classList.remove('opacity-100', 'translate-x-0');
-                    el.classList.add('opacity-0', 'translate-x-full');
-                    setTimeout(() => {
-                        el.style.display = 'none';
-                        sessionStorage.removeItem(key);
-                        if (showFromQuery && window.history && window.history.replaceState) {
-                            const cleanUrl = window.location.pathname;
-                            window.history.replaceState({}, document.title, cleanUrl);
-                        }
-                    }, 300);
-                }, 4000);
-            }
-        })();
-    </script>
 </main>

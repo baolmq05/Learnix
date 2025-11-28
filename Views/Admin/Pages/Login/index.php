@@ -1,3 +1,7 @@
+<?php
+$logout = $_SESSION['logout_success'] ?? null;
+unset($_SESSION['logout_success']);
+?>
 <!doctype html>
 <html lang="en">
 
@@ -20,9 +24,18 @@
     <link rel="stylesheet" href="./Assets/Admin/vendors/simple-datatables/style.css">
     <link rel="stylesheet" href="./Assets/Admin/css/app.css">
     <link rel="shortcut icon" href="./Assets/Admin/images/favicon.svg" type="image/x-icon">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="./Assets/Admin/css/custom/alert.css">
 </head>
 
 <body>
+    <?php if (!empty($logout)): ?>
+        <div id="alert_success" class="alert alert-danger d-flex align-items-center" role="alert">
+            <div>
+                <?= $logout ?>
+            </div>
+        </div>
+    <?php endif; ?>
     <main>
         <div class="container">
             <div class="row align-items-center">
@@ -98,6 +111,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>
+    <script src="./Assets/Admin/js/custom/alert.js"></script>
 </body>
 
 </html>

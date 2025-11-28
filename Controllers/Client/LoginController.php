@@ -31,18 +31,26 @@ class LoginController
         $user = $userModel->checkLogin($email, $password);
 
         if ($user === 'locked') {
-            $_SESSION['error']['message'] = 'Tài khoản đã bị khóa!';
+            $_SESSION['loginError'] = 'Tài khoản đã bị khóa!';
             header('Location: ?page=login');
             exit;
         } elseif ($user === false) {
+            $_SESSION['error']['loginError'] = 'Đăng nhập thất bại!';
             $_SESSION['error']['message'] = 'Email hoặc mật khẩu không đúng!';
             header('Location: ?page=login');
             exit;
         } else {
             $_SESSION['client'] = $user;
             if (isset($user['role']) && $user['role'] === 2) {
-                header('Location: index.php?page=teacher&action=index&login=success');
+                if (!isset($_SESSION['client']['information']) || !isset($_SESSION['client']['bank_name']) || !isset($_SESSION['client']['bank_number'])) {
+                    $_SESSION['login_success'] ='Đăng nhập thành công' ;
+                    header('Location: index.php?page=teacher&action=editProfile');
+                    exit;
+                }
+                $_SESSION['login_success'] ='Đăng nhập thành công' ;
+                header('Location: index.php?page=teacher&action=index');
             } else {
+                $_SESSION['login_success'] ='Đăng nhập thành công' ;
                 header('Location: index.php?login=success');
             }
             exit;

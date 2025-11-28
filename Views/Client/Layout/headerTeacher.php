@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="./Assets/Client/css/style.css">
-
+    <link rel="stylesheet" href="./Assets/Client/css/Alert.css">
 </head>
 
 <header class="bg-white border-b border-gray-200 relative shadow-sm z-10">
@@ -56,8 +56,10 @@
                         class="absolute hidden top-full mt-0 right-0 w-56 rounded-md shadow bg-white border border-gray-200 z-50"
                         style="top:calc(100% - 1px);">
                         <div class="py-1">
-                            <a href="index.php?page=teacher&action=profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Thông tin cá nhân</a>
-                            <a href="index.php?page=logout" class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50">Đăng xuất</a>
+                            <a href="index.php?page=teacher&action=profile"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Thông tin cá nhân</a>
+                            <a href="index.php?page=logout"
+                                class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50">Đăng xuất</a>
                         </div>
                     </div>
                 </div>
@@ -73,7 +75,8 @@
                 <a href="index.php?page=statistics"
                     class="px-3 py-2 rounded text-sm font-medium text-gray-700 hover:text-blue-600">Thống kê</a>
                 <a href="index.php?page=profile"
-                    class="px-3 py-2 rounded text-sm font-medium text-gray-700 hover:text-blue-600">Thông tin cá nhân</a>
+                    class="px-3 py-2 rounded text-sm font-medium text-gray-700 hover:text-blue-600">Thông tin cá
+                    nhân</a>
             </div>
         </div>
     </div>

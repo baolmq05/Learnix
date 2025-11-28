@@ -19,6 +19,7 @@ if (!empty($_SESSION['client'])) {
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="./Assets/Client/css/header.css">
     <link rel="stylesheet" href="./Assets/Client/css/style.css">
+    <link rel="stylesheet" href="./Assets/Client/css/Alert.css" />
 
 </head>
 
@@ -68,14 +69,30 @@ if (!empty($_SESSION['client'])) {
             <div class="relative inline-block hidden md:block">
                 <ul class="flex items-center space-x-6">
                     <li class="relative hidden md:inline-block" data-dropdown-target="teach-dropdown">
-                        <a href="<?= (($_SESSION['client']['role'] ?? 0) == 2)
-                                        ? '?page=teacher'
-                                        : '?page=about_teacher' ?>"
-                            class="inline-flex items-center space-x-2 text-gray-700 hover:text-blue-600 transition-colors duration-200"
+                        <a href="<?= (
+                            !$isLoggedIn 
+                            ? '?page=login'
+                            : (
+                                (($_SESSION['client']['role'] ?? 0) == 1) 
+                                ? '?page=about_teacher' 
+                                : (
+                                    (
+                                        ($_SESSION['client']['information'] ?? null) === null ||
+                                        ($_SESSION['client']['bank_name'] ?? null) === null ||
+                                        ($_SESSION['client']['bank_number'] ?? null) === null
+                                    )
+                                    ? '?page=teacher&action=editProfile' 
+                                    : (
+                                        (($_SESSION['client']['role'] ?? 0) == 2)
+                                        ? '?page=teacher' 
+                                        : '?page=about_teacher' 
+                                    )
+                                )
+                            )
+                        ) ?>" class="inline-flex items-center space-x-2 text-gray-700 hover:text-blue-600 transition-colors duration-200"
                             aria-haspopup="true" aria-expanded="false">
                             <span class="dropdown-trigger">Giảng dạy với Learnix</span>
                         </a>
-
 
                     </li>
                     <li class="relative hidden md:inline-block" data-dropdown-target="learning-dropdown">

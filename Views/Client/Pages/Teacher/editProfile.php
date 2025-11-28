@@ -1,4 +1,14 @@
-<?php ?>
+<?php
+$success = $_SESSION['login_success'] ?? '';
+unset($_SESSION['login_success']);
+?>
+<?php if (!empty($success)): ?>
+    <div id="alert_success" class="flex items-center w-full p-4 mb-4 text-green-800 bg-green-100 rounded-lg" role="alert">
+        <div>
+            <?= $success ?>
+        </div>
+    </div>
+<?php endif ?>
 <div class="max-w-3xl mx-auto px-4 py-8">
   <?php
     $teacher = [
