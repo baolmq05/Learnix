@@ -188,7 +188,7 @@ if (!empty($_SESSION['client'])) {
 <div class="relative w-full">
     <!-- Nút trái -->
     <button id="btnLeft"
-        class="absolute left-[-40px] top-1/2 -translate-y-1/2 bg-white shadow p-2 rounded-full z-10">
+        class="absolute lg:left-[-40px] px-3 left-0 top-1/2 -translate-y-1/2 bg-white border border-gray-300 shadow p-2 rounded-full z-10">
         <i class="bi bi-chevron-left"></i>
     </button>
 
@@ -205,7 +205,7 @@ if (!empty($_SESSION['client'])) {
 
     <!-- Nút phải -->
     <button id="btnRight"
-        class="absolute right-[-40px] top-1/2 -translate-y-1/2 bg-white shadow p-2 rounded-full z-10">
+        class="absolute lg:right-[-40px] px-3 right-0 top-1/2 -translate-y-1/2 bg-white shadow border border-gray-300 p-2 rounded-full z-10">
         <i class="bi bi-chevron-right"></i>
     </button>
 </div>
