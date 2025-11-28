@@ -22,7 +22,9 @@ class Category
         return $result;
     }
 
-    public function getAllByStatus(){
+    public function getAllByStatus()
+    {
+        // Thiếu try catch
         $sql = "SELECT * FROM $this->_table WHERE status = 1";
         $stmt = $this->_connect->prepare($sql);
         $stmt->execute();
@@ -60,12 +62,17 @@ class Category
 
     public function getOne($id)
     {
-        $sql = "SELECT * FROM $this->_table WHERE id = :id";
-        $stmt = $this->_connect->prepare($sql);
-        $stmt -> bindParam(':id', $id, PDO::PARAM_INT);
-        $stmt->execute();
-        $result = $stmt->fetch();
-        return $result;
+        try {
+            $sql = "SELECT * FROM $this->_table WHERE id = :id";
+            $stmt = $this->_connect->prepare($sql);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result;
+        } catch (PDOException $e) {
+            $log_mess = '[' . date('Y-m-d H:i:s') . ']' . $e->getMessage() . PHP_EOL;
+            error_log($log_mess, 3, "./Logs/Category.log");
+        }
     }
 
     public function updateCate(int $id, array $data)
@@ -100,5 +107,4 @@ class Category
             error_log($log_mess,3,"./Logs/Category.log");
         }
     }
-
 }
