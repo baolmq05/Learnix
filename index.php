@@ -92,7 +92,9 @@ if ($page == "teacher") {
 }
 
 if ($page != "login" && $page != "register") {
-    require "Views/Client/Layout/header.php";
+    require "./Controllers/Client/CategoryNavigationController.php";
+    $categoryNavigationController = new CategoryNavigationController();
+    
 }
 
 switch ($page) {
@@ -103,9 +105,9 @@ switch ($page) {
         break;
 
     case "category_product":
-        require 'Controllers/Client/CategoryProductController.php';
-        $categoryProduct = new CategoryProductController();
-        $categoryProduct->index();
+        require 'Controllers/Client/CourseController.php';
+        $courseController = new CourseController();
+        $courseController->index();
         break;
 
     case "cart":

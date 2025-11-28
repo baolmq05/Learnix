@@ -17,6 +17,7 @@ if (!empty($_SESSION['client'])) {
     <title>Learnix</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="./Assets/Client/css/header.css">
     <link rel="stylesheet" href="./Assets/Client/css/style.css">
 
 </head>
@@ -113,16 +114,17 @@ if (!empty($_SESSION['client'])) {
         </div>
 
         <div id="explore-dropdown"
-            class="dropdown-menu absolute w-56 bg-white rounded border-t border-gray-200 shadow-sm opacity-0 invisible translate-y-0 transition-all duration-200 pointer-events-none z-50">
-            <ul>
+            class="dropdown-menu absolute w-56 bg-white rounded border-t border-gray-200 shadow-sm opacity-0 invisible translate-y-0 transition-all duration-200 pointer-events-none z-55">
+            <ul class="max-h-100 overflow-y-auto">
                 <li>
                     <a href="?page=category_product" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Tất
                         cả khóa học</a>
                 </li>
+                <?php foreach ($categories as $cat): ?>
                 <li>
-                    <a href="?page=category_product" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Lập
-                        trình</a>
+                    <a href="?page=category_product&category_id=<?= $cat['id'] ?>" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><?= $cat['name'] ?></a>
                 </li>
+                <?php endforeach; ?>
             </ul>
         </div>
         <div id="wishlist-dropdown"
@@ -183,17 +185,31 @@ if (!empty($_SESSION['client'])) {
     </nav>
     <div class="bg-white shadow hidden md:block">
         <div class="max-w-screen-xl mx-auto px-4">
-            <nav class="flex items-center overflow-x-auto space-x-6 py-3 text-sm md:justify-center">
-                <a href="?page=category_product" class="text-gray-600 hover:text-blue-600 whitespace-nowrap">Lập trình
-                    web</a>
-                <a href="?page=category_product" class="text-gray-600 hover:text-blue-600 whitespace-nowrap">Lập trình
-                    phần mềm</a>
-                <a href="?page=category_product" class="text-gray-600 hover:text-blue-600 whitespace-nowrap">Lập trình
-                    game</a>
-                <a href="?page=category_product" class="text-gray-600 hover:text-blue-600 whitespace-nowrap">Khoa học
-                    máy
-                    tính</a>
-            </nav>
+<div class="relative w-full">
+    <!-- Nút trái -->
+    <button id="btnLeft"
+        class="absolute left-[-40px] top-1/2 -translate-y-1/2 bg-white shadow p-2 rounded-full z-10">
+        <i class="bi bi-chevron-left"></i>
+    </button>
+
+    <!-- Thanh category cuộn ngang -->
+    <nav id="catSlider"
+        class="flex items-center overflow-x-auto space-x-6 py-3 text-sm scroll-smooth no-scrollbar">
+        <?php foreach ($categories as $cat) : ?>
+            <a href="?page=category_product&category_id=<?= $cat['id'] ?>"
+               class="text-gray-600 hover:text-blue-600 whitespace-nowrap px-2">
+               <?= $cat['name'] ?>
+            </a>
+        <?php endforeach; ?>
+    </nav>
+
+    <!-- Nút phải -->
+    <button id="btnRight"
+        class="absolute right-[-40px] top-1/2 -translate-y-1/2 bg-white shadow p-2 rounded-full z-10">
+        <i class="bi bi-chevron-right"></i>
+    </button>
+</div>
+
         </div>
     </div>
 

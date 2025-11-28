@@ -22,6 +22,14 @@ class Category
         return $result;
     }
 
+    public function getAllByStatus(){
+        $sql = "SELECT * FROM $this->_table WHERE status = 1";
+        $stmt = $this->_connect->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
     public function getByName($name)
     {
         $sql = "SELECT * FROM $this->_table WHERE name = :name";

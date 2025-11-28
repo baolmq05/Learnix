@@ -111,4 +111,14 @@
 		mobileMenuOverlay.addEventListener('click', closeMobileMenu);
 	}
 })();
+    const slider = document.getElementById("catSlider");
+    const btnLeft = document.getElementById("btnLeft");
+    const btnRight = document.getElementById("btnRight");
 
+    btnLeft.addEventListener("click", () => {
+        slider.scrollBy({ left: -200, behavior: "smooth" });
+    });
+
+    btnRight.addEventListener("click", () => {
+        slider.scrollBy({ left: 200, behavior: "smooth" });
+    });

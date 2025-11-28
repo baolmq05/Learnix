@@ -1,5 +1,5 @@
 <?php
-include("./Config/Global.php");
+require_once(__DIR__ . "/../Config/Global.php");
 
 class Database
 {
