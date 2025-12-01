@@ -7,7 +7,6 @@ $msgError = $_SESSION['error']['message'] ?? '';
 unset($_SESSION['register_success']);
 unset($_SESSION['error']['loginError']);
 unset($_SESSION['error']['message']);
-
 ?>
 
 <head>
@@ -74,11 +73,11 @@ unset($_SESSION['error']['message']);
                         Đăng nhập
                     </button>
                 </form>
-                <button
-                    class="w-full border border-gray-300 text-md p-2 rounded-lg mb-6 hover:bg-black hover:text-white">
+                <a href="<?= $googleURL ?>"
+                    class="text-center w-full border border-gray-300 text-md p-2 rounded-lg mb-6 hover:bg-black hover:text-white">
                     <img src="./Assets/Client/Images/google.svg" alt="img" class="w-6 h-6 inline mr-2" />
                     Đăng nhập với google
-                </button>
+                </a>
                 <div class="text-center text-gray-400">
                     Bạn chưa có tài khoản?
                     <a href="/index.php?page=register" class="font-bold text-black">Vui lòng đăng ký</a>
@@ -102,7 +101,7 @@ unset($_SESSION['error']['message']);
             const alertSuccess = document.getElementById('alert_success');
 
             if (alertSuccess) {
-                alertSuccess.addEventListener('animationend', function () {
+                alertSuccess.addEventListener('animationend', function() {
                     this.style.opacity = '1';
                     this.style.animation = 'none';
                 }, {

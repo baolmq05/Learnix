@@ -82,7 +82,7 @@ if ($page == "teacher") {
             $editCourseController = new EditCourseController();
             $editCourseController->editCourse();
             break;
-            
+
         default:
             $teacherController->index();
             break;
@@ -132,8 +132,12 @@ switch ($page) {
             case 'handleLogin':
                 $auth->handleLogin();
                 break;
+            case 'googleLogin':
+                $auth->handleGoogleCallback();
+                break;
         }
         break;
+
     case "logout":
         require_once "./Controllers/Client/LogOutController.php";
         $logoutControl = new LogOutController();
@@ -152,7 +156,7 @@ switch ($page) {
                 break;
         }
         break;
-        
+
     case "profile":
         require_once "./Controllers/Client/ProfileController.php";
         $auth = new ProfileController();
@@ -189,7 +193,7 @@ switch ($page) {
         $courseLearningController->viewCourseLearning();
         break;
 
-        case "recharge":
+    case "recharge":
         require_once "Controllers/Client/RechargeController.php";
         $rechargeController = new RechargeController();
         $rechargeController->viewRecharge();
