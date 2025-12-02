@@ -95,7 +95,7 @@
                         <label for="d2">1-3 Giờ</label>
                     </li>
                     <li class="flex items-center gap-2">
-                        <input id="d2" type="radio" name="duration" data-min="1" data-max="3" class="w-4 h-4" />
+                        <input id="d2" type="radio" name="duration" data-min="3" data-max="7" class="w-4 h-4" />
                         <label for="d2">3-7 Giờ</label>
                     </li>
                     <li class="flex items-center gap-2">
@@ -119,7 +119,7 @@
                 <?php
                 foreach ($courses as $course): ?>
                     <article class="flex items-center gap-4 border-b py-3 min-w-0">
-                        <a href="#" class="flex items-center gap-3 flex-1 group min-w-0">
+                        <a href="?page=course_detail&id=<?= $course['id'] ?>" class="flex items-center gap-3 flex-1 group min-w-0">
                             <div class="flex-shrink-0 w-20 h-14 md:w-56 md:h-32 bg-gray-100 overflow-hidden rounded-sm">
                                 <img src="<?= $course['image'] ?>" alt="<?= htmlspecialchars($course['image']) ?>"
                                     class="object-cover w-full h-full" />
@@ -138,7 +138,6 @@
                                     <?= $course['total_length'] ?? '0' ?> giờ</p>
                             </div>
                         </a>
-
                         <div class="w-24 flex-shrink-0 text-right">
                             <div class="text-sm md:text-lg font-semibold text-gray-900 truncate">
                                 <?= number_format($course['regular_price']) ?>₫</div>

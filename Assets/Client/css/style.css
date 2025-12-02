@@ -1,17 +1,19 @@
-
-    @media (max-width: 720px) {
-      html {
-        font-size: 12px;
-      }
-    }
-    @media (max-width: 540px) {
-      html {
-        font-size: 8px;
-      }
-    }
-    .two-line-ellipsis {
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-      overflow: hidden;
-    }
+@media (max-width: 720px) {
+  html {
+    font-size: 12px;
+  }
+}
+@media (max-width: 540px) {
+  html {
+    font-size: 8px;
+  }
+}
+.two-line-ellipsis {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+.two-line-ellipsis.expanded {
+  -webkit-line-clamp: unset; 
+}

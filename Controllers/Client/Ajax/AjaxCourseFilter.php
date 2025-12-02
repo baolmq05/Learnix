@@ -40,7 +40,7 @@ if ($sort == 'rating_asc') {
                 <div class="space-y-6">
                 <?php foreach($reset ? $courses : $filteredCourses as $course): ?>
                         <article class="flex items-center gap-4 border-b py-3 min-w-0">
-                            <a href="#" class="flex items-center gap-3 flex-1 group min-w-0">
+                            <a href="?page=course_detail&id=<?= $course['id'] ?>" class="flex items-center gap-3 flex-1 group min-w-0">
                                 <div class="flex-shrink-0 w-20 h-14 md:w-56 md:h-32 bg-gray-100 overflow-hidden rounded-sm">
                                     <img src="<?= $course['image'] ?>" alt="<?= htmlspecialchars($course['image']) ?>" class="object-cover w-full h-full" />
                                 </div>
