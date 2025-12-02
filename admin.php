@@ -154,6 +154,9 @@ switch ($page) {
             case "":
                 $profile->viewProfile();
                 break;
+            case "updateProfile":
+                $profile->updateProfile();
+                break;
             default:
                 $profile->viewProfile();
                 break;

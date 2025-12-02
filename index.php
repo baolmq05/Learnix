@@ -66,6 +66,10 @@ if ($page == "teacher") {
         case 'editProfile':
             $teacherController->editProfile();
             break;
+        
+        case 'updateProfile':
+            $teacherController->updateProfile();
+            break;
 
         case 'viewStudents':
             $teacherController->viewStudents();
@@ -166,7 +170,14 @@ switch ($page) {
     case "profile_edit":
         require_once "./Controllers/Client/ProfileEditController.php";
         $auth = new ProfileEditController();
-        $auth->viewProfileEdit();
+        switch ($action) {
+            case 'updateUserProfile':
+                $auth->updateUserProfile();
+                break;
+            default:
+                $auth->viewProfileEdit();
+                break;
+        }
         break;
 
     case "course_detail":

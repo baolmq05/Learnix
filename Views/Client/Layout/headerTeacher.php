@@ -40,7 +40,9 @@
 
             <div class="flex items-center gap-3">
 
-
+                <a href="index.php" class="hidden md:inline-flex items-center px-3 py-2 rounded text-sm font-medium text-gray-700 hover:text-blue-600">
+                    Trang chủ
+                </a>
 
                 <div>
                     <button id="teacher-profile-btn" aria-haspopup="true" aria-expanded="false"
@@ -70,6 +72,8 @@
     <div id="teacher-mobile-panel" class="hidden md:hidden">
         <div class="border-t bg-white">
             <div class="px-4 py-3 flex flex-col space-y-1">
+                <a href="index.php?page=home"
+                    class="px-3 py-2 rounded text-sm font-medium text-gray-700 hover:text-blue-600">Trang chủ</a>
                 <a href="index.php?page=myCourses"
                     class="px-3 py-2 rounded text-sm font-medium text-gray-700 hover:text-blue-600">Khóa học của tôi</a>
                 <a href="index.php?page=statistics"
