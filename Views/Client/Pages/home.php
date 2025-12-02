@@ -5,14 +5,14 @@ unset($_SESSION['login_success']);
 unset($_SESSION['logout_success']);
 ?>
 <?php if (!empty($success)): ?>
-    <div id="alert_success" class="flex items-center w-full p-4 mb-4 text-green-800 bg-green-100 rounded-lg" role="alert">
+    <div id="alert_success" class="flex items-center w-full p-4 mb-4 text-green-800 bg-green-100 rounded-lg z-11" role="alert">
         <div>
             <?= $success ?>
         </div>
     </div>
 <?php endif ?>
 <?php if (!empty($logOutSuccess)): ?>
-    <div id="alert_success" class="flex items-center w-full p-4 mb-4 text-red-800 bg-red-100 rounded-lg" role="alert">
+    <div id="alert_success" class="flex items-center w-full p-4 mb-4 text-red-800 bg-red-100 rounded-lg z-11" role="alert">
         <div>
             <?= $logOutSuccess ?>
         </div>

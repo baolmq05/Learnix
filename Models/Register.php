@@ -27,7 +27,6 @@ class Register
             error_log("Error in createTeacher: " . $e->getMessage());
             return false;
         }
-
     }
 
 
@@ -37,5 +36,11 @@ class Register
         $stmt->execute([':email' => $email]);
         return $stmt->rowCount() > 0;
     }
+
+    public function getUserByEmail($email)
+    {
+        $stmt = $this->_connection->prepare("SELECT * FROM users WHERE email = :email");
+        $stmt->execute([':email' => $email]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }
-?>

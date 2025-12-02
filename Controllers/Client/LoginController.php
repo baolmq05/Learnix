@@ -28,8 +28,9 @@ class LoginController
         }
 
         $code = $_GET['code'];
-        $config = require_once 'Config/config.php';
+        $config = require 'Config/config.php';
 
+        // Lấy access token
         $curl = curl_init("https://oauth2.googleapis.com/token");
         curl_setopt_array($curl, [
             CURLOPT_RETURNTRANSFER => true,
@@ -45,12 +46,6 @@ class LoginController
         ]);
 
         $tokenResponse = curl_exec($curl);
-
-        if ($tokenResponse === false) {
-            header('Location: index.php?page=login');
-            exit;
-        }
-
         $tokenData = json_decode($tokenResponse, true);
 
         if (!isset($tokenData['access_token'])) {
@@ -64,42 +59,51 @@ class LoginController
         curl_setopt_array($curl2, [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => ["Authorization: Bearer $accessToken"],
-            CURLOPT_SSL_VERIFYPEER => false // SSL test
+            CURLOPT_SSL_VERIFYPEER => false
         ]);
 
         $userInfoResponse = curl_exec($curl2);
+        $userInfo = json_decode($userInfoResponse, true);
 
-        if ($userInfoResponse === false) {
+        if (!$userInfo || !isset($userInfo['email'])) {
+            $_SESSION['loginError'] = 'Không thể lấy thông tin Google!';
             header('Location: index.php?page=login');
             exit;
         }
 
-        $userInfo = json_decode($userInfoResponse, true);
-        $userModel = new Login();
-        $user = $userModel->checkLogin($userInfo['email'], $userInfo['password']);
-        if ($user == 'locked') {
-            $_SESSION['error']['loginError'] = 'Tài khoản đã bị khóa!';
-            header('Location: ?page=login');
-            exit;
-        }
-        $_SESSION['client'] = $userInfo;
-        if ($userInfo) {
-            $registerModel = new Register();
-            $existingUser = $registerModel->isEmailExists($userInfo['email']);
-            if (!$existingUser) {
-                $registerModel->createUser($userInfo['name'], $userInfo['email'], $userInfo['password']);
-                $existingUser = $registerModel->isEmailExists($userInfo['email']);
+        $email = $userInfo['email'];
+        $name = $userInfo['name'];
+
+        $registerModel = new Register();
+
+        if ($registerModel->isEmailExists($email)) {
+
+            $existingUser = $registerModel->getUserByEmail($email);
+
+            if ($existingUser['status'] == 0) {
+                $_SESSION['error']['loginError'] = 'Tài khoản đã bị khóa!';
+                header('Location: index.php?page=login');
+                exit;
             }
-            $userInfo = $existingUser;
+
+            $_SESSION['client'] = $existingUser;
             $_SESSION['login_success'] = 'Đăng nhập thành công';
             header('Location: index.php?page=home');
             exit;
-        } else {
-            $_SESSION['loginError'] = 'Đăng nhập thất bại!';
-            header('Location: index.php?page=login');
-            exit;
         }
+
+        $randomPassword = rand(100000, 999999);
+        $registerModel->createUser($name, $email, $randomPassword);
+
+        $newUser = $registerModel->getUserByEmail($email);
+
+        $_SESSION['client'] = $newUser;
+
+        $_SESSION['login_success'] = 'Đăng nhập thành công';
+        header('Location: index.php?page=home');
+        exit;
     }
+
 
     public function handleLogin()
     {

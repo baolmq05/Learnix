@@ -41,6 +41,4 @@ class Login
 
         return false; // sai tài khoản hoặc mật khẩu
     }
-
 }
-?>
