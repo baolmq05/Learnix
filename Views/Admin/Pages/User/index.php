@@ -73,7 +73,7 @@ unset($_SESSION['student_success'], $_SESSION['teacher_success'], $_SESSION['adm
                                         <td><?= htmlspecialchars($student['name']) ?></td>
                                         <td><?= htmlspecialchars($student['email']) ?></td>
                                         <td>
-                                            <span class="badge <?= $student['status'] == '1' ? 'bg-success' : 'bg-danger'; ?>">
+                                            <span class="badge <?= $student['status'] == '1' ? 'bg-success' : 'bg-danger'; ?> d-inline-block text-center" style="width: 90px;">
                                                 <?= $student['status'] == '1' ? 'Hoạt động' : 'Đã khóa'; ?>
                                             </span>
                                             <div class="modal-warning me-1 mb-1 d-inline-block">
@@ -182,10 +182,10 @@ unset($_SESSION['student_success'], $_SESSION['teacher_success'], $_SESSION['adm
                                         <td><?= htmlspecialchars($teacher['email']) ?></td>
                                         <td><?= !empty($teacher['bank_name']) ? $teacher['bank_name'] : "Chưa cập nhật" ?></td>
                                         <td>
-                                            <span class="badge <?= $teacher['status'] == '1' ? 'bg-success' : 'bg-danger'; ?>">
+                                            <span class="badge <?= $teacher['status'] == '1' ? 'bg-success' : 'bg-danger'; ?> d-inline-block text-center" style="width: 90px;">
                                                 <?= $teacher['status'] == '1' ? 'Hoạt động' : 'Đã khóa'; ?>
                                             </span>
-                                            <div class="modal-warning me-1 mb-1 d-inline-block">
+                                            <div class=" modal-warning me-1 mb-1 d-inline-block">
                                                 <button type="button" class="btn btn-warning d-inline-flex align-items-center p-2"
                                                     data-bs-toggle="modal" data-bs-target="#warning-teacher-<?= $teacher['id'] ?>">
                                                     <i class="bi bi-pencil-square"></i>
@@ -255,52 +255,52 @@ unset($_SESSION['student_success'], $_SESSION['teacher_success'], $_SESSION['adm
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <a href="?page=user&action=edit&id=<?= $teacher['id'] ?>" class="btn btn-outline-info d-inline-flex align-items-center p-2"><i class="bi bi-eye"></i></a>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
                     </div>
-                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                        <table class="table table-hover" id="admin_table">
-                            <thead>
+                    </td>
+                    <td>
+                        <a href="?page=user&action=edit&id=<?= $teacher['id'] ?>" class="btn btn-outline-info d-inline-flex align-items-center p-2"><i class="bi bi-eye"></i></a>
+                    </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+                </table>
+                </div>
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                    <table class="table table-hover" id="admin_table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Tên quản trị viên</th>
+                                <th>Email</th>
+                                <th>Trạng thái</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $index = 1;
+                            foreach ($admins as $admin) : ?>
                                 <tr>
-                                    <th>#</th>
-                                    <th>Tên quản trị viên</th>
-                                    <th>Email</th>
-                                    <th>Trạng thái</th>
-                                    <th></th>
+                                    <td><?= $index++ ?></td>
+                                    <td><?= htmlspecialchars($admin['name']) ?></td>
+                                    <td><?= htmlspecialchars($admin['email']) ?></td>
+                                    <td>
+                                        <span class="badge <?= $admin['status'] == '1' ? 'bg-success' : 'bg-danger'; ?>">
+                                            <?= $admin['status'] == '1' ? 'Hoạt động' : 'Đã khóa'; ?>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a href="?page=user&action=edit&id=<?= $admin['id'] ?>" class="btn btn-outline-info d-inline-flex align-items-center p-2"><i class="bi bi-eye"></i></a>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $index = 1;
-                                foreach ($admins as $admin) : ?>
-                                    <tr>
-                                        <td><?= $index++ ?></td>
-                                        <td><?= htmlspecialchars($admin['name']) ?></td>
-                                        <td><?= htmlspecialchars($admin['email']) ?></td>
-                                        <td>
-                                            <span class="badge <?= $admin['status'] == '1' ? 'bg-success' : 'bg-danger'; ?>">
-                                                <?= $admin['status'] == '1' ? 'Hoạt động' : 'Đã khóa'; ?>
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <a href="?page=user&action=edit&id=<?= $admin['id'] ?>" class="btn btn-outline-info d-inline-flex align-items-center p-2"><i class="bi bi-eye"></i></a>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    </div>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-    </section>
+</div>
+</section>
 </div>
 
 <script>
@@ -317,7 +317,7 @@ unset($_SESSION['student_success'], $_SESSION['teacher_success'], $_SESSION['adm
         }
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('[data-bs-toggle="modal"]').forEach(button => {
             button.addEventListener('click', function() {
                 let modals = document.querySelectorAll('.modal.show');
@@ -330,15 +330,15 @@ unset($_SESSION['student_success'], $_SESSION['teacher_success'], $_SESSION['adm
             });
         });
 
-        <?php if (isset($_SESSION['open_modal'], $_SESSION['user_type'])): 
-            $userType = $_SESSION['user_type']; 
+        <?php if (isset($_SESSION['open_modal'], $_SESSION['user_type'])):
+            $userType = $_SESSION['user_type'];
             $modalId = "warning-" . $userType . "-" . $_SESSION['open_modal'];
-            
+
             $tabId = '';
             if ($userType === 'teacher') {
-                $tabId = 'profile-tab'; 
+                $tabId = 'profile-tab';
             } elseif ($userType === 'student') {
-                $tabId = 'home-tab'; 
+                $tabId = 'home-tab';
             }
         ?>
             let tabButton = document.getElementById("<?= $tabId ?>");

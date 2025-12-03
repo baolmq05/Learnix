@@ -66,7 +66,7 @@ if ($page == "teacher") {
         case 'editProfile':
             $teacherController->editProfile();
             break;
-        
+
         case 'updateProfile':
             $teacherController->updateProfile();
             break;
@@ -98,7 +98,6 @@ if ($page == "teacher") {
 if ($page != "login" && $page != "register") {
     require "./Controllers/Client/CategoryNavigationController.php";
     $categoryNavigationController = new CategoryNavigationController();
-    
 }
 
 switch ($page) {
@@ -208,6 +207,19 @@ switch ($page) {
         require_once "Controllers/Client/RechargeController.php";
         $rechargeController = new RechargeController();
         $rechargeController->viewRecharge();
+        break;
+
+    case "transaction":
+        require_once "Controllers/Client/TransactionController.php";
+        $transactionController = new TransactionController();
+        switch ($action) {
+            case "detail":
+                $transactionController->viewTransactionDetail();
+                break;
+            default:
+                $transactionController->viewTransaction();
+                break;
+        }
         break;
 
     default:
