@@ -105,10 +105,10 @@ switch ($page) {
                 $comment->index();
                 break;
             case 'detail':
-                $comment->detail();
+                $comment->detail($_GET['id'] ?? '');
                 break;
             case 'edit':
-                $comment->edit();
+                $comment->edit($_GET['id'] ?? '');
                 break;
         }
         break;
