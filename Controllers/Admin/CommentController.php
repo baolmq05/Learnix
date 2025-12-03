@@ -13,7 +13,7 @@ class CommentController
         $comments = $this->_comment->getAllComments();
         include "Views/Admin/Pages/Comment/index.php";
     }
-    public function detail($id)
+    public function viewDetail($id)
     {
         $id = $_GET['id'] ?? '';
         if ($id == '') {
@@ -23,7 +23,7 @@ class CommentController
         $comment = $this->_comment->getByIdComment($id);
         include "Views/Admin/Pages/Comment/detail.php";
     }
-    public function edit($id)
+    public function update($id)
     {
         $id = $_GET['id'] ?? '';
         if ($id == '') {

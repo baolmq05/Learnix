@@ -66,34 +66,45 @@ unset($_SESSION['comment_success']);
                                 </td>
                             </tr>
                             <!-- modal edit -->
+                            <!-- Modal Edit -->
                             <div class="modal fade" id="modalEdit<?= $comment['id'] ?>" tabindex="-1">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content shadow-lg border-0 rounded-4">
+
                                         <form action="?page=comment&action=edit&id=<?= $comment['id'] ?>" method="post">
                                             <input type="hidden" name="return" value="index">
-                                            <div class="modal-header bg-warning">
-                                                <h5 class="modal-title">Cập nhật trạng thái</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
+
+                                            <!-- Header -->
+                                            <div class="modal-header bg-warning text-white rounded-top-4">
+                                                <h5 class="modal-title fw-bold">Cập nhật trạng thái</h5>
+                                                <button type="button" class="btn-close btn-close-white"
+                                                    data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
-                                            <div class="modal-body">
-                                                <select name="status" id="status" class="form-control mb-3" required>
+
+                                            <!-- Body -->
+                                            <div class="modal-body px-4 py-4">
+                                                <label for="status" class="form-label fw-semibold mb-2">Chọn trạng
+                                                    thái</label>
+                                                <select name="status" id="status" class="form-select rounded-3" required>
                                                     <option value="1" <?= ($comment['status'] == 1) ? 'selected' : '' ?>>Hiển
-                                                        thị
-                                                    </option>
+                                                        thị</option>
                                                     <option value="0" <?= ($comment['status'] == 0) ? 'selected' : '' ?>>Ẩn
                                                     </option>
                                                 </select>
                                             </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Trở
-                                                    về</button>
-                                                <button type="submit" class="btn btn-primary">Sửa</button>
+
+                                            <!-- Footer -->
+                                            <div class="modal-footer border-0 px-4 pb-4">
+                                                <button type="button" class="btn btn-light border"
+                                                    data-bs-dismiss="modal">Trở về</button>
+                                                <button type="submit" class="btn btn-primary px-4 fw-semibold">Sửa</button>
                                             </div>
+
                                         </form>
                                     </div>
                                 </div>
                             </div>
+
                         <?php endforeach; ?>
                     </tbody>
                 </table>

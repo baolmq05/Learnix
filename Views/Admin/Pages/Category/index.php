@@ -74,25 +74,40 @@ unset($_SESSION['category_success']);
         </div>
     </section>
 </div>
+<!--modal delete -->
 <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="confirmDeleteLabel">Xác nhận xóa</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow-lg border-0 rounded-4">
+
+            <!-- Header -->
+            <div class="modal-header bg-danger rounded-top-4">
+                <h5 class="modal-title fw-bold text-white" id="confirmDeleteLabel">Xác nhận xóa</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Đóng"></button>
             </div>
-            <div class="modal-body">
-                Bạn có chắc chắn muốn xóa danh mục này không?
+
+            <!-- Body -->
+            <div class="modal-body text-center py-4">
+                <h5 class="fw-semibold mb-2">Bạn có chắc chắn muốn xóa danh mục này?</h5>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+
+            <!-- Footer -->
+            <div class="modal-footer border-0 px-4 pb-4">
+                <button type="button" class="btn btn-light border" data-bs-dismiss="modal">
+                    Trở về
+                </button>
+
                 <form id="deleteForm" method="post" style="display:inline;">
-                    <button type="submit" class="btn btn-danger">Xóa</button>
+                    <button type="submit" class="btn btn-primary px-4 fw-semibold">
+                        Xóa
+                    </button>
                 </form>
             </div>
+
         </div>
     </div>
 </div>
+
+
 <script>
     const deleteModal = document.getElementById('confirmDeleteModal');
     deleteModal.addEventListener('show.bs.modal', event => {

@@ -61,6 +61,9 @@ switch ($page) {
             case 'accept':
                 $course->accept();
                 break;
+            case 'update':
+                 $course->update();
+                break;
         }
         break;
 
@@ -105,10 +108,10 @@ switch ($page) {
                 $comment->index();
                 break;
             case 'detail':
-                $comment->detail($_GET['id'] ?? '');
+                $comment->viewDetail($_GET['id'] ?? '');
                 break;
             case 'edit':
-                $comment->edit($_GET['id'] ?? '');
+                $comment->update($_GET['id'] ?? '');
                 break;
         }
         break;

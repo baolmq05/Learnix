@@ -54,7 +54,8 @@ class Course
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
-        public function getOneCourse($courseId)
+
+    public function getOneCourse($courseId)
     {
         $sql = "SELECT 
     c.*,
@@ -87,12 +88,14 @@ class Course
     WHERE c.status = 1 AND c.id = :courseId
     GROUP BY c.id;";
         $stmt = $this->_connect->prepare($sql);
-        $stmt->bindParam(':courseId',$courseId);
+        $stmt->bindParam(':courseId', $courseId);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
-    public function getSectionByCourseId($courseId){
+
+    public function getSectionByCourseId($courseId)
+    {
         $sql = "SELECT *, COUNT(l.id) AS total_lesson, ROUND(SUM(TIME_TO_SEC(l.lesson_length)) / 3600,2) AS total_length FROM `sections` s LEFT JOIN lessons l ON s.id = l.section_id WHERE course_id = :courseId GROUP BY s.id";
         $stmt = $this->_connect->prepare($sql);
         $stmt->bindParam(':courseId', $courseId);
@@ -100,7 +103,9 @@ class Course
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
-    public function getAllLessonByCourseId($courseId){
+
+    public function getAllLessonByCourseId($courseId)
+    {
         $sql = "SELECT * FROM `lessons` l INNER JOIN sections s ON l.section_id = s.id WHERE s.course_id = :courseId";
         $stmt = $this->_connect->prepare($sql);
         $stmt->bindParam(':courseId', $courseId);
@@ -108,9 +113,10 @@ class Course
         $result = $stmt->fetchAll();
         return $result;
     }
+
     public function getRelatedCourses($categoryId, $excludeCourseId, $limit = 4)
     {
-                $sql = "SELECT 
+        $sql = "SELECT 
     c.*,
     u.name AS instructor,
     COALESCE(ROUND(AVG(r.rating), 1), 0) AS rating,
@@ -137,6 +143,7 @@ class Course
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+
     public function getCountCoursesByTeacher($teacherId)
     {
         $sql = "SELECT COUNT(*) AS course_count FROM $this->_table WHERE teacher_id = :teacher_id";
@@ -146,6 +153,7 @@ class Course
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
+
     public function getAvgRating($courseId)
     {
         $sql = "SELECT ROUND(AVG(rating), 1) AS avg_rating FROM reviews WHERE course_id = :course_id";
@@ -155,9 +163,10 @@ class Course
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['avg_rating'] ?? 0;
     }
-     public function getCoursesByTeacherId($teacherId, $excludeCourseId, $limit = 4)
+    
+    public function getCoursesByTeacherId($teacherId, $excludeCourseId, $limit = 4)
     {
-                $sql = "SELECT 
+        $sql = "SELECT 
     c.*,
     u.name AS instructor,
     COALESCE(ROUND(AVG(r.rating), 1), 0) AS rating,
@@ -183,6 +192,52 @@ class Course
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
+    }
+
+    // admin ////////////////////////////////////////////////////////////////////////////////
+    public function getAllCourseAdmin($status)
+    {
+        try {
+            $sql = "SELECT 
+    c.*,
+    u.name AS instructor, cate.name AS category_name,
+    COALESCE(ROUND(AVG(r.rating), 1), 0) AS rating,
+    (
+        SELECT ROUND(SUM(TIME_TO_SEC(l.lesson_length)) / 3600,1)
+        FROM sections s
+        LEFT JOIN lessons l ON l.section_id = s.id
+        WHERE s.course_id = c.id
+    ) AS total_length
+    FROM $this->_table AS c
+    INNER JOIN users AS u ON c.teacher_id = u.id
+    INNER JOIN categories AS cate ON c.category_id = cate.id
+    LEFT JOIN reviews r ON r.course_id = c.id
+    WHERE c.status = :status
+    GROUP BY c.id;
+    ORDER BY c.created_at DESC;";
+            $stmt = $this->_connect->prepare($sql);
+            $stmt->bindParam(':status', $status);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        } catch (PDOException $e) {
+            $log_mess = '[' . date('Y-m-d H:i:s') . ']' . $e->getMessage() . PHP_EOL;
+            error_log($log_mess, 3, "./Logs/Course.log");
+        }
+    }
+
+    public function updateStatus($id, $status)
+    {
+        try {
+            $sql = "UPDATE $this->_table SET status = :status, updated_at = NOW() WHERE id = :id";
+            $stmt = $this->_connect->prepare($sql);
+            $stmt->bindParam(':status', $status);
+            $stmt->bindParam(':id', $id);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            $log_mess = '[' . date('Y-m-d H:i:s') . ']' . $e->getMessage() . PHP_EOL;
+            error_log($log_mess, 3, "./Logs/Course.log");
+        }
     }
 }
 ?>

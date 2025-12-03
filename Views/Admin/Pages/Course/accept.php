@@ -1,64 +1,114 @@
+<?php
+$success = $_SESSION['course_success'] ?? null;
+unset($_SESSION['course_success']);
+?>
 <style>
     .truncate-text {
-  max-width: 300px;        /* 👈 độ rộng tối đa của ô */
-  white-space: nowrap;     /* không xuống dòng */
-  overflow: hidden;        /* ẩn phần vượt quá khung */
-  text-overflow: ellipsis; /* hiển thị dấu “...” */
-}
+        max-width: 300px;
+        /* 👈 độ rộng tối đa của ô */
+        white-space: nowrap;
+        /* không xuống dòng */
+        overflow: hidden;
+        /* ẩn phần vượt quá khung */
+        text-overflow: ellipsis;
+        /* hiển thị dấu “...” */
+    }
 </style>
-            <div class="page-heading">
-                <div class="page-title">
-                    <div class="row">
-                        <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>Khóa học chờ duyệt</h3>
-                        </div>
-                        <div class="col-12 col-md-6 order-md-2 order-first">
-                            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Khóa học chờ duyệt</li>
-                                </ol>
-                            </nav>
-                        </div>
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <?php if (!empty($success)): ?>
+                <div id="alert_success" class="alert alert-success d-flex align-items-center" role="alert">
+                    <div>
+                        <?= $success ?>
                     </div>
                 </div>
-                <section class="section">
-                    <div class="card">
-                        <div class="card-body">
-                            <table class="table table-hover" id="table1">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Tên khóa học</th>
-                                        <th>Tên chủ đề</th>
-                                        <th>Tên giảng viên</th>
-                                        <th>Thời lượng</th>
-                                        <th>Giá</th>
-                                        <th>Trạng thái</th>
-                                        <th>Hành động</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td  class="truncate-text">Khóa học lập trình html/css từ zero đến hero</td>
-                                        <td>Lập trình web</td>
-                                        <td>Phan Văn Tính</td>
-                                        <td>24 giờ</td>
-                                        <td><?= number_format(200000) ?>đ</td>
-                                        <td class="text-center">
-                                            <span class="badge bg-secondary">Chờ duyệt</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <button class="btn btn-outline-danger d-inline-flex align-items-center p-2"><i class="bi bi-x-circle-fill"></i></button>
-                                            <button class="btn btn-outline-success d-inline-flex align-items-center p-2"><i class="bi bi-check-circle-fill"></i></button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                </section>
+            <?php endif; ?>
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Khóa học chờ duyệt</h3>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Khóa học chờ duyệt</li>
+                    </ol>
+                </nav>
             </div>
         </div>
+    </div>
+    <section class="section">
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-hover" id="table1">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Tên khóa học</th>
+                            <th>Tên chủ đề</th>
+                            <th>Tên giảng viên</th>
+                            <th>Thời lượng</th>
+                            <th>Giá</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $count = 1; ?>
+                        <?php foreach ($courses as $course): ?>
+                            <tr>
+                                <td><?= $count++; ?></td>
+                                <td class="truncate-text"><?= htmlspecialchars($course['course_name']) ?></td>
+                                <td><?= htmlspecialchars($course['category_name']) ?></td>
+                                <td><?= htmlspecialchars($course['instructor']) ?></td>
+                                <td><?= $course['total_length'] ?? 0 ?> giờ</td>
+                                <td><?= number_format($course['sale_price']) ?>đ</td>
+                                <td class="text-center">
+                                    <button type="button"
+                                        class="btn btn-outline-success d-inline-flex align-items-center p-2"
+                                        data-bs-toggle="modal" data-bs-target="#modalEdit<?= $course['id'] ?>">
+                                        <i class="bi bi-check-circle-fill"></i>
+                                    </button>
+                                    <a href="" class="btn btn-outline-warning d-inline-flex align-items-center p-2"><i
+                                            class="bi bi-eye"></i></a>
+                                </td>
+                            </tr>
+                            <!-- modal edit -->
+                            <!-- Modal Edit -->
+                            <div class="modal fade" id="modalEdit<?= $course['id'] ?>" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content shadow-lg border-0 rounded-4">
+                                        <form action="?page=course&action=update&id=<?= $course['id'] ?>" method="post">
+                                            <input type="hidden" name="return" value="index">
+                                            <input type="hidden" name="status" value="1">
+
+                                            <div class="modal-header bg-warning text-white rounded-top-4">
+                                                <h5 class="modal-title fw-bold">Cập nhật trạng thái</h5>
+                                                <button type="button" class="btn-close btn-close-white"
+                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+
+                                            <div class="modal-body text-center py-4">
+                                                <h4 class="fw-semibold mb-3">Bạn có chắc chắn duyệt khóa học này?</h4>
+                                            </div>
+
+                                            <div class="modal-footer px-4 pb-3">
+                                                <button type="button" class="btn btn-light border" data-bs-dismiss="modal">
+                                                    Trở về
+                                                </button>
+                                                <button type="submit" class="btn btn-primary px-4">
+                                                    Duyệt
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </section>
+</div>
+</div>
