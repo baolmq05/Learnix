@@ -19,7 +19,7 @@ unset($_SESSION['login_success']);
         </div>
 
         <div class="flex items-center gap-2">
-            <a href="index.php?page=teacherAddCourse"
+            <a href="index.php?page=teacher&action=viewCreateCourse"
                 class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium shadow-sm">
                 <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">

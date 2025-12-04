@@ -6,5 +6,5 @@ define("PASSWORD_DB", "gMYyjYea(s3J}@4");
 define("DB_NAME", "nlilgdgwhosting_learnixfpoly");
 
 // Bunny
-define("BUNNY_API_KEY", "c61c9bd5-578d-4bd4-880742202a2d-61bd-42a5");
-define("BUNNY_LIBRARY_ID", "544945");
+define("BUNNY_API_KEY", "7fc51036-6260-4778-a9b02d55720f-9ec8-43e8");
+define("BUNNY_LIBRARY_ID", "553173");

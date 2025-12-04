@@ -239,5 +239,55 @@ class Course
             error_log($log_mess, 3, "./Logs/Course.log");
         }
     }
+
+    // QuocBao
+    public function updateCourseById($data){
+        try {
+            $sql = "UPDATE courses SET category_id=:category_id, course_name=:course_name, description=:description, benefit=:benefit, customer_object=:customer_object, regular_price=:regular_price, sale_price=:sale_price, teacher_id=:teacher_id, image=:image, status=:status  WHERE id=:id";
+            $stmt = $this->_connect->prepare($sql);
+
+            $result = $stmt->execute($data);
+            return $result;
+        } catch (PDOException $e) {
+            $error = "Insert Fail When " . date("Ymd_His") . " with messageError: " . $e->getMessage() . PHP_EOL;
+            file_put_contents("./Logs/Course.log", $error, FILE_APPEND);
+        }
+    }
+
+    public function insert($category, $courseName, $teacherId)
+    {
+        try {
+            $sql = "INSERT INTO courses (category_id, course_name, teacher_id) VALUES (:category, :courseName, :teacher_id)";
+            $stmt = $this->_connect->prepare($sql);
+            $data = [
+                'category' => $category,
+                'courseName' => $courseName,
+                'teacher_id' => $teacherId
+            ];
+
+            $result = $stmt->execute($data);
+            $lastId = $this->_connect->lastInsertId($result);
+            return $lastId;
+        } catch (PDOException $e) {
+            $error = "Insert Fail When " . date("Ymd_His") . " with messageError: " . $e->getMessage() . PHP_EOL;
+            file_put_contents("./Logs/Course.log", $error, FILE_APPEND);
+        }
+    }
+
+    public function getCourseById($id)
+    {
+        try {
+            $sql = "SELECT * FROM courses WHERE id = :id";
+            $stmt = $this->_connect->prepare($sql);
+            $stmt->bindParam(":id", $id);
+            $stmt->execute();
+
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result;
+        } catch (PDOException $e) {
+            $errorMessage = "Lỗi lúc " . date("h:i:sa") . $e->getMessage();
+            file_put_contents("./Logs/Course.log", $errorMessage, FILE_APPEND);
+        }
+    }
 }
 ?>

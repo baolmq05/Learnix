@@ -75,16 +75,28 @@ if ($page == "teacher") {
             $teacherController->viewStudents();
             break;
 
-        case 'createCourse':
-            require_once 'Controllers/Client/CreateCourseController.php';
-            $createCourseController = new CreateCourseController();
-            $createCourseController->createCourse();
+        case 'viewCreateCourse':
+            require_once './Controllers/Client/CreateCourseController.php';
+            $createCourseControl = new CreateCourseController();
+            $createCourseControl->viewCreateCourse();
             break;
 
-        case 'editCourse':
+        case 'createCourse':
+            require_once './Controllers/Client/CreateCourseController.php';
+            $createCourseControl = new CreateCourseController();
+            $createCourseControl->createCourseAction();
+            break;
+
+        case 'viewEditCourse':
             require_once 'Controllers/Client/EditCourseController.php';
             $editCourseController = new EditCourseController();
-            $editCourseController->editCourse();
+            $editCourseController->viewEditCourse();
+            break;
+
+        case 'updateCourse':
+            require_once 'Controllers/Client/EditCourseController.php';
+            $editCourseController = new EditCourseController();
+            $editCourseController->updateCourse();
             break;
 
         default:
