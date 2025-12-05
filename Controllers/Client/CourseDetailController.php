@@ -21,7 +21,7 @@ class CourseDetailController
             $avgRating = $this->_courseModel->getAvgRating($courseId);
             $coursesByTeacher = $this->_courseModel->getCoursesByTeacherId($course['teacher_id'], $courseId, 4);
             $totalCourses = $this->_courseModel->getCountCoursesByTeacher($course['teacher_id']);
-            $benefit = explode(',', $course['benefit']);
+            $benefit = explode('*', $course['benefit']);
             $customer_object = explode(',', $course['customer_object']);
             $reviews = $this->_reviewModel->getAllReviewsByCourseId($courseId);
             if (empty($course)) {

@@ -1,7 +1,7 @@
 <style>
     .truncate-text {
         max-width: 300px;
-        /* 👈 độ rộng tối đa của ô */
+        /*  độ rộng tối đa của ô */
         white-space: nowrap;
         /* không xuống dòng */
         overflow: hidden;
