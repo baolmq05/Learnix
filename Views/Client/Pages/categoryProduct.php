@@ -1,9 +1,17 @@
-<?php ?>
-
+<?php
+$current_page = isset($_GET['page_number']) ? (int)$_GET['page_number'] : 1;
+// Giới hạn số trang hiển thị
+$range = 2; // Số trang hiển thị trước/sau trang hiện tại
+$total_pages = ceil($totalCourses / 5);
+// Tính toán phạm vi
+$start = max(1, $current_page - $range);
+$end = min($total_pages, $current_page + $range);
+?>
 <section class="max-w-screen-xl mx-auto px-5 py-8">
     <div>
         <h1 class="text-2xl md:text-3xl font-semibold text-gray-900"><?= isset($category) ? 'Tất cả khóa học' : '' ?>
-            <?= $category['name'] ?? 'Tất cả khóa học' ?></h1>
+            <?= $category['name'] ?? 'Tất cả khóa học' ?>
+        </h1>
         <p class="mt-2 text-sm text-gray-600"><?= $category['description'] ?? 'Toàn bộ khóa học' ?></p>
     </div>
 
@@ -113,40 +121,86 @@
 
         <main class="flex-1" id="course_list">
             <div class="text-sm text-gray-600 text-right">
-                <span id="results-count"><?= count($courses) ?> kết quả</span>
+                <span id="results-count"><?= $totalCourses ?> kết quả</span>
             </div>
             <div class="space-y-6">
                 <?php
                 foreach ($courses as $course): ?>
                     <article class="flex items-center gap-4 border-b py-3 min-w-0">
-                        <a href="?page=course_detail&id=<?= $course['id'] ?>" class="flex items-center gap-3 flex-1 group min-w-0">
+                        <a href="?page=course_detail&id=<?= $course['id'] ?>"
+                            class="flex items-center gap-3 flex-1 group min-w-0">
                             <div class="flex-shrink-0 w-20 h-14 md:w-56 md:h-32 bg-gray-100 overflow-hidden rounded-sm">
-                                <img src="<?= $course['image'] ?>" alt="<?= htmlspecialchars($course['image']) ?>"
+                                <img src="./Uploads/Courses/<?= $course['image'] ?>" alt="<?= htmlspecialchars($course['image']) ?>"
                                     class="object-cover w-full h-full" />
                             </div>
 
                             <div class="flex-1 min-w-0">
                                 <h3
                                     class="text-sm md:text-base font-semibold text-gray-900 whitespace-nowrap overflow-hidden text-ellipsis truncate group-hover:text-primary">
-                                    <?= htmlspecialchars($course['course_name']) ?></h3>
+                                    <?= htmlspecialchars($course['course_name']) ?>
+                                </h3>
                                 <p
                                     class="mt-1 text-xs md:text-sm text-gray-600 whitespace-nowrap overflow-hidden text-ellipsis truncate">
                                     <?= htmlspecialchars($course['instructor']) ?> · <span
                                         class="text-yellow-600"><?= $course['rating'] == 0 ? 'Chưa có' : $course['rating'] ?>&nbsp;<i
-                                            class="bi bi-star-fill text-xs"></i></span></p>
+                                            class="bi bi-star-fill text-xs"></i></span>
+                                </p>
                                 <p class="mt-1 text-xs text-gray-500 hidden md:block"> Tổng thời lượng :
-                                    <?= $course['total_length'] ?? '0' ?> giờ</p>
+                                    <?= $course['total_length'] ?? '0' ?> giờ
+                                </p>
                             </div>
                         </a>
                         <div class="w-24 flex-shrink-0 text-right">
                             <div class="text-sm md:text-lg font-semibold text-gray-900 truncate">
-                                <?= number_format($course['regular_price']) ?>₫</div>
-                            <?php if (!empty($course['old'])): ?>
-                                <div class="text-xs text-gray-400 line-through truncate"><?= $course['old'] ?>₫</div>
+                                <?= number_format($course['sale_price'] == 0 ? $course['regular_price'] : $course['sale_price']) ?>₫
+                            </div>
+                            <?php if (!empty($course['sale_price'])): ?>
+                                <div class="text-xs text-gray-400 line-through truncate"><?= $course['regular_price'] ?>₫</div>
                             <?php endif; ?>
                         </div>
                     </article>
                 <?php endforeach; ?>
+                <div class="flex justify-center mt-3">
+                    <nav>
+                        <ul class="pagination flex gap-2">
+
+                            <!-- Nút Trang đầu -->
+                            <li class="page-item">
+                                <button class="w-10 h-10 flex items-center justify-center border rounded-lg  <?= ($current_page == 1) ? 'bg-gray-100' : '' ?> hover:bg-gray-100"
+                                  onclick="first()" >Đầu</button>
+                            </li>
+
+                            <!-- Nút Trang trước -->
+                            <li class="page-item">
+                                <button class="w-10 h-10 flex items-center justify-center border rounded-lg  <?= ($current_page == 1) ? 'bg-gray-100' : '' ?> hover:bg-gray-100"
+                                  onclick="previous()" >&lsaquo;</button>
+                            </li>
+
+                            <!-- Các số trang -->
+                            <?php for ($i = $start; $i <= $end; $i++): ?>
+                                <li class="page-item">
+                                    <button class="w-10 h-10 flex <?= ($i == $current_page) ? 'bg-purple-600 text-white' : 'bg-white' ?> items-center justify-center border rounded-lg  hover:bg-purple-400 hover:text-white"
+                                        onclick="goToPage(<?= $i ?>)"><?= $i ?></button>
+                                </li>
+                            <?php endfor; ?>
+
+                            <!-- Nút Trang sau -->
+                            <li class="page-item <?= ($current_page == $total_pages) ? 'disabled' : '' ?>">
+                                <button class="w-10 h-10 flex items-center justify-center border rounded-lg bg-white hover:bg-gray-100"
+                                    onclick="next()" >&rsaquo;</button>
+                            </li>
+
+                            <!-- Nút Trang cuối -->
+                            <li class="page-item <?= ($current_page == $total_pages) ? 'disabled' : '' ?>">
+                                <button class="w-10 h-10 flex items-center justify-center border rounded-lg bg-white hover:bg-gray-100"
+                                    onclick="last()" >Cuối
+                                </button>
+                            </li>
+
+                        </ul>
+                    </nav>
+                </div>
+
             </div>
         </main>
     </div>
@@ -154,6 +208,7 @@
         style="-webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);"></div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        let page = <?= $current_page ?>;
         let getData = function () {
             let rating = $('input[name="rating"]:checked').val();
             let durationMin = $('input[name="duration"]:checked').data('min');
@@ -170,10 +225,12 @@
                     durationMax: durationMax,
                     sort: sort,
                     category_id: category_id,
-                    reset: reset
+                    reset: reset,
+                    page_number: page
                 },
                 success: function (data) {
                     $('#course_list').html(data);
+                    document.getElementById('course_list').scrollIntoView({ behavior: 'smooth' });
                 }
             });
         };
@@ -188,6 +245,29 @@
                 getData();
             });
         });
+        function first(){
+            page = 1;
+            getData();
+        }
+        function previous(){
+            if(page > 1){
+                page--;
+                console.log(page);
+                getData();
+            }
+        }
+        function next(){
+            page++;
+            getData();
+        }
+        function last(){
+            page = <?= $total_pages ?>;
+            getData();
+        }
+        function goToPage(pageNumber){
+            page = pageNumber;
+            getData();
+        }
     </script>
     <script>
         (function () {

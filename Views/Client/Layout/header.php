@@ -38,7 +38,7 @@ if (!empty($_SESSION['client'])) {
             <div class="relative inline-block hidden md:block">
                 <ul class="flex items-center">
                     <li class="relative hidden md:inline-block" data-dropdown-target="explore-dropdown">
-                        <a href="#"
+                        <a href="?page=category_product"
                             class="inline-flex items-center space-x-2 text-gray-700 hover:text-blue-600 transition-colors duration-200"
                             aria-haspopup="true" aria-expanded="false">
                             <span class="dropdown-trigger">Khám phá</span>
@@ -139,7 +139,7 @@ if (!empty($_SESSION['client'])) {
                 </li>
                 <?php foreach ($categories as $cat): ?>
                 <li>
-                    <a href="?page=category_product&category_id=<?= $cat['id'] ?>" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><?= $cat['name'] ?></a>
+                    <a href="?page=category_product&category_id=<?= $cat['id'] ?>" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><?= $cat['name'] ?> (<?= $cat['total_courses'] ?>)</a>
                 </li>
                 <?php endforeach; ?>
             </ul>
@@ -211,12 +211,13 @@ if (!empty($_SESSION['client'])) {
 
     <!-- Thanh category cuộn ngang -->
     <nav id="catSlider"
-        class="flex items-center overflow-x-auto space-x-6 py-3 text-sm scroll-smooth no-scrollbar">
+        class="flex items-center justify-center overflow-x-auto space-x-6 py-3 text-sm scroll-smooth no-scrollbar">
         <?php foreach ($categories as $cat) : ?>
             <a href="?page=category_product&category_id=<?= $cat['id'] ?>"
                class="text-gray-600 hover:text-blue-600 whitespace-nowrap px-2">
-               <?= $cat['name'] ?>
+               <?= $cat['name'] ?> (<?= $cat['total_courses'] ?>)
             </a>
+
         <?php endforeach; ?>
     </nav>
 

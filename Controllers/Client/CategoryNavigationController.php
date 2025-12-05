@@ -4,7 +4,7 @@ require_once 'Models/Category.php';
     private $_categoryModel;
      public function __construct() {
          $this->_categoryModel = new Category();
-         $categories = $this->_categoryModel->getAllByStatus();
+         $categories = $this->_categoryModel->getNameCategoryAndTotalCourseByStatus();
          include "Views/Client/Layout/header.php";
      }
  }      

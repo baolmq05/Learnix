@@ -36,6 +36,18 @@ class Category
         return $result;
     }
 
+    public function getNameCategoryAndTotalCourseByStatus(){
+        $sql = "SELECT c.*, COUNT(cou.id) AS total_courses 
+                FROM $this->_table c
+                JOIN courses cou ON c.id = cou.category_id
+                WHERE c.status = 1 AND cou.status = 1
+                GROUP BY c.id, c.name";
+        $stmt = $this->_connect->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
     public function getByName($name)
     {
         try {
