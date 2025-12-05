@@ -220,7 +220,21 @@ switch ($page) {
         $rechargeController = new RechargeController();
         $rechargeController->viewRecharge();
         break;
-
+    case "vnpay":
+        require_once "Controllers/Client/VnPayController.php";
+        $vnpayController = new VnPayController();
+        switch ($action) {
+            case "createPayment":
+                $vnpayController->createPayment();
+                break;
+            case "vnpay_return":
+                $vnpayController->vnpayReturn();
+                break;
+            case "vnpay_ipn":
+                $vnpayController->vnpayIpn();
+                break;
+        }
+        break;
     case "transaction":
         require_once "Controllers/Client/TransactionController.php";
         $transactionController = new TransactionController();

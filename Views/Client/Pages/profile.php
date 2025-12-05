@@ -95,7 +95,7 @@ unset($_SESSION['update_success']);
     </div>
     <div class="lg:col-span-1 space-y-6">
       <div class="flex gap-3">
-        <a href="#"
+        <a href="?page=recharge"
           class="flex-1 px-2 py-3 bg-green-600 text-white font-semibold rounded-xl hover:bg-green-700 transition shadow-md text-center">
           Nạp thêm
         </a>
