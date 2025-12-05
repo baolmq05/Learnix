@@ -1,6 +1,23 @@
-<?php ?>
+<?php
+$danger = $_SESSION['updateUser_error'] ?? null;
+unset($_SESSION['updateUser_error']);
+?>
 <div class="max-w-screen-2xl mx-auto px-4 py-8">
+  <?php if (!empty($danger)): ?>
+    <div id="alert_success"
+      class="bg-red-100 border border-red-400 text-red-800 px-4 py-3 rounded-lg flex items-center gap-3 mb-4"
+      role="alert">
+      <!-- Icon X -->
+      <svg class="w-5 h-5 flex-shrink-0 text-red-600" fill="none" stroke="currentColor" stroke-width="2"
+        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
 
+      <div class="flex-1">
+        <?= $danger ?>
+      </div>
+    </div>
+  <?php endif; ?>
   <div class="max-w-3xl mx-auto">
     <div class="bg-white rounded-lg p-6 ">
       <div class="flex items-start gap-6">
@@ -54,6 +71,8 @@
 
       <div class="mt-6 flex gap-3">
         <a href="#" class="inline-block bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">Nạp ví</a>
+        <a href="index.php?page=teacher&action=withdraw&id=<?= $teacher['id'] ?>"
+          class="inline-block bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded">Rút tiền</a>
         <a href="index.php?page=teacher&action=editProfile&id=<?= $teacher['id'] ?>"
           class="inline-block border border-gray-300 text-gray-700 px-4 py-2 rounded">Chỉnh sửa</a>
       </div>

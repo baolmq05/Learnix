@@ -62,7 +62,7 @@ switch ($page) {
                 $course->accept();
                 break;
             case 'update':
-                 $course->update();
+                $course->update();
                 break;
         }
         break;
@@ -87,10 +87,10 @@ switch ($page) {
                 $user->viewDetail();
                 break;
 
-                case "update":
+            case "update":
                 $user->update();
                 break;
-                
+
             case "delete":
                 break;
 
@@ -123,7 +123,12 @@ switch ($page) {
             case "":
                 $withDraw->viewIndex();
                 break;
-
+            case "accept":
+                $withDraw->accept();
+                break;
+            case "reject":
+                $withDraw->reject();
+                break;
             default:
                 $withDraw->viewIndex();
                 break;

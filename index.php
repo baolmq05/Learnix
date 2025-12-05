@@ -50,6 +50,12 @@ if ($page == "teacher") {
         case 'statistic':
             $teacherController->statistic();
             break;
+        case "withdraw":
+            $teacherController->getUserWithdraw();
+            break;
+        case "withDrawRequest":
+            $teacherController->withDrawRequest();
+            break;
 
         // case "createCourse":
         //     $teacherController->createCourse();

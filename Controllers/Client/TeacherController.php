@@ -1,15 +1,17 @@
 <?php
 require_once 'Models/Teacher.php';
 require_once 'Models/Profile.php';
+require_once 'Models/WithDraw.php';
 class TeacherController
 {
     private $teacherModel;
     private $profileModel;
-
+    private $withDrawModel;
     public function __construct()
     {
         $this->teacherModel = new Teacher();
         $this->profileModel = new Profile();
+        $this->withDrawModel = new WithDraw();
     }
 
     public function index()
@@ -213,5 +215,88 @@ class TeacherController
     public function viewStudents()
     {
         include 'Views/Client/Pages/Teacher/students.php';
+    }
+    ///////// Bắc WithDraw ////////////////////////////////////////////////////////////////////
+    // lấy thông tin rút tiền của user để dô client
+    public function getUserWithdraw()
+    {
+        $userId = $_SESSION['client']['id'] ?? null;
+        $userIdRoll = $_SESSION['client']['role'] ?? null;
+        if ($userIdRoll != 2) {
+            header("location: index.php");
+            exit();
+        }
+        $withDraw = $this->withDrawModel->getUserWithdraw($userId);
+        include 'Views/Client/Pages/Teacher/withDraw.php';
+    }
+    // tạo yêu cầu rút tiền và bắt lỗi
+    public function withDrawRequest()
+    {
+        $userId = $_SESSION['client']['id'] ?? null;
+        $userIdRoll = $_SESSION['client']['role'] ?? null;
+        if ($userIdRoll != 2) {
+            header("location: index.php");
+            exit();
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header("location: index.php?page=teacher&action=withdraw");
+            exit();
+        }
+        $amount = $_POST['amount'] ?? '';
+        $error = false;
+        $_SESSION['error'] = [];
+
+        // kieem tra số dư hiện tại
+        $withDraw = $this->withDrawModel->getUserWithdraw($userId);
+        $currentBalance = $withDraw['balance'] ?? 0;
+
+        if (empty($withDraw['bank_name']) || empty($withDraw['bank_number']) || empty($withDraw['account_name'])) {
+            $_SESSION['updateUser_error'] = 'Vui lòng cập nhật thông tin ngân hàng trên trang cá nhân trước khi rút tiền';
+            header("location: index.php?page=teacher&action=profile");
+            exit();
+        }
+
+        // Kiểm tra đã có yêu cầu đang chờ duyệt chưa
+        if (method_exists($this->withDrawModel, 'hasPendingRequest')) {
+            $hasPending = $this->withDrawModel->hasPendingRequest($userId);
+            if ($hasPending) {
+                $_SESSION['withdraw_error'] = 'Bạn đã có yêu cầu rút tiền đang chờ duyệt. Vui lòng chờ duyệt trước khi gửi yêu cầu mới.';
+                header("location: index.php?page=teacher&action=withdraw");
+                exit();
+            }
+        }
+
+        if ($amount == '') {
+            $_SESSION['error']['amount'] = 'Vui lòng nhập số tiền muốn rút';
+            $error = true;
+        } else if (!is_numeric($amount) || $amount < 10000) {
+            $_SESSION['error']['amount'] = 'Số tiền không hợp lệ và không nhỏ hơn 10.000 VNĐ';
+            $error = true;
+        } else {
+
+            if ($amount > $currentBalance) {
+                $_SESSION['error']['amount'] = 'Số dư không đủ để rút';
+                $error = true;
+            }
+        }
+
+        if ($error) {
+            header("location: index.php?page=teacher&action=withdraw");
+            exit();
+        }
+        $data = [
+            'user_id' => $userId,
+            'current_balance' => $currentBalance,
+            'amount' => $amount,
+        ];
+        $result = $this->withDrawModel->createWithdrawRequest($data);
+        if ($result) {
+            $_SESSION['withdraw_success'] = 'Yêu cầu rút tiền đã được gửi thành công';
+        } else {
+            $_SESSION['withdraw_error'] = 'Tạo yêu cầu rút tiền thất bại, vui lòng thử lại!';
+        }
+        header("location: index.php?page=teacher&action=withdraw");
+        exit();
     }
 }
