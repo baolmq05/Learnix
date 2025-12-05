@@ -1,12 +1,9 @@
     <main class="relative">
       <div
-        class="bg-black text-white flex items-center border-b justify-between border-white"
-      >
+        class="bg-black text-white flex items-center border-b justify-between border-white">
         <div class="p-3 flex items-center">
           <i class="bi bi-arrow-left-short text-2xl me-2"></i>
-          <a class="hover:text-gray-300" href="#"
-            >Khóa học lập trình html/css từ zero đến hero</a
-          >
+          <a class="hover:text-gray-300" href="#">Khóa học lập trình html/css từ zero đến hero</a>
         </div>
         <button onclick="tutorialPopup()" class="p-2 text-white rounded mx-3 hover:cursor-pointer lg:block hidden">
           <i class="bi bi-question-circle"></i> Hướng dẫn
@@ -24,8 +21,7 @@
               frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               referrerpolicy="strict-origin-when-cross-origin"
-              allowfullscreen
-            ></iframe>
+              allowfullscreen></iframe>
           </div>
 
           <div x-data="{ tab: 1 }" class="w-full mt-2 lg:px-16 px-6">
@@ -33,31 +29,27 @@
               <button
                 @click="tab = 1"
                 :class="tab === 1 ? 'border-b-2 border-blue-600 text-blue-600' : 'text-gray-500'"
-                class="py-2 px-4 hover:cursor-pointer"
-              >
+                class="py-2 px-4 hover:cursor-pointer">
                 Tổng quan
               </button>
               <button
                 @click="tab = 4"
                 :class="tab === 4 ? 'border-b-2 border-blue-600 text-blue-600' : 'text-gray-500'"
-                class="py-2 px-4 hover:cursor-pointer lg:hidden block"
-              >
+                class="py-2 px-4 hover:cursor-pointer lg:hidden block">
                 Nội dung
               </button>
               <button
                 @click="tab = 2"
                 :class="tab === 2 ? 'border-b-2 border-blue-600 text-blue-600' : 'text-gray-500'"
                 class="py-2 px-4 hover:cursor-pointer"
-                id="tab-notes"
-              >
+                id="tab-notes">
                 Ghi chú
               </button>
               <button
                 @click="tab = 3"
                 :class="tab === 3 ? 'border-b-2 border-blue-600 text-blue-600' : 'text-gray-500'"
                 class="py-2 px-4 hover:cursor-pointer"
-                id="tab-review"
-              >
+                id="tab-review">
                 Đánh giá
               </button>
             </div>
@@ -75,21 +67,17 @@
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
                       fill="currentColor"
-                      class="size-6 text-yellow-300 me-1"
-                    >
+                      class="size-6 text-yellow-300 me-1">
                       <path
                         fill-rule="evenodd"
                         d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-                        clip-rule="evenodd"
-                      />
+                        clip-rule="evenodd" />
                     </svg>
                     4.7 (199,000 lượt đánh giá) · 850,000 lượt bán
                   </p>
                   <p class="mt-2">
                     Được đăng bởi
-                    <a href="#" class="text-[#0000e4] ms-1"
-                      >Thầy Phan Văn Tính</a
-                    >
+                    <a href="#" class="text-[#0000e4] ms-1">Thầy Phan Văn Tính</a>
                   </p>
                   <p class="mt-5 flex">
                     <svg
@@ -98,13 +86,11 @@
                       viewBox="0 0 24 24"
                       stroke-width="1.5"
                       stroke="currentColor"
-                      class="size-6 me-1"
-                    >
+                      class="size-6 me-1">
                       <path
                         stroke-linecap="round"
                         stroke-linejoin="round"
-                        d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
-                      />
+                        d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
                     </svg>
                     Cập nhật lần cuối: 10/10/2025
                   </p>
@@ -113,80 +99,45 @@
                       Sau khi hoàn thành khóa học, bạn sẽ:
                     </h2>
                     <div class="grid grid-cols-2 gap-3">
-                      <div class="flex">
-                        <p>
-                          <i
-                            class="bi bi-check-square-fill text-green-500 me-2"
-                          ></i>
-                        </p>
-                        <p>Hiểu rõ cấu trúc và cú pháp của HTML5.</p>
-                      </div>
-                      <div class="flex">
-                        <p>
-                          <i
-                            class="bi bi-check-square-fill text-green-500 me-2"
-                          ></i>
-                        </p>
-                        <p>
-                          Thành thạo trong việc xây dựng các giao diện web thực
-                          tế.
-                        </p>
-                      </div>
-                      <div class="flex">
-                        <p>
-                          <i
-                            class="bi bi-check-square-fill text-green-500 me-2"
-                          ></i>
-                        </p>
-                        <p>
-                          Biết cách sử dụng CSS3 để định dạng, bố cục và tạo
-                          hiệu ứng giao diện.
-                        </p>
-                      </div>
-                      <div class="flex">
-                        <p>
-                          <i
-                            class="bi bi-check-square-fill text-green-500 me-2"
-                          ></i>
-                        </p>
-                        <p>
-                          Tự tin tiếp tục học các công nghệ nâng cao như
-                          JavaScript, Bootstrap, Tailwind hoặc React.
-                        </p>
-                      </div>
-                      <div class="flex">
-                        <p>
-                          <i
-                            class="bi bi-check-square-fill text-green-500 me-2"
-                          ></i>
-                        </p>
-                        <p>
-                          Làm chủ Flexbox và Grid Layout để thiết kế bố cục hiện
-                          đại.
-                        </p>
-                      </div>
-                      <div class="flex">
-                        <p>
-                          <i
-                            class="bi bi-check-square-fill text-green-500 me-2"
-                          ></i>
-                        </p>
-                        <p>
-                          Biết cách responsive website tương thích với mọi thiết
-                          bị (mobile, tablet, PC).
-                        </p>
-                      </div>
+                      <?php
+                      if (isset($benefit)):
+                        foreach ($benefit as $benefitValue):
+                      ?>
+                          <div class="flex">
+                            <p>
+                              <i
+                                class="bi bi-check-square-fill text-green-500 me-2"></i>
+                            </p>
+                            <p><?= $benefitValue ?? "" ?></p>
+                          </div>
+                        <?php
+                        endforeach;
+                      else:
+                        ?>
+                        <div>
+                          <p>Chưa được cập nhật</p>
+                        </div>
+                      <?php
+                      endif;
+                      ?>
                     </div>
                   </div>
                   <div>
                     <h3 class="text-2xl font-bold mt-5">Phù hợp cho ai:</h3>
                     <ul class="list-disc ps-5 mt-3 space-y-1">
-                      <li>Người mới bắt đầu muốn học lập trình web.</li>
-                      <li>
-                        Học sinh, sinh viên muốn tạo website cá nhân hoặc dự án
-                        học tập.
-                      </li>
-                      <li>Người muốn chuyển ngành sang lập trình Front-end.</li>
+                      <?php
+                      if (isset($customerObject)):
+                        foreach ($customerObject as $customerValue):
+                      ?>
+                          <li><?= $customerValue ?? "" ?></li>
+                        <?php
+                        endforeach;
+                      else:
+                        ?>
+                        <div>Chưa được cập nhật</div>
+                      <?php
+                      endif;
+                      ?>
                     </ul>
                   </div>
                   <h3 class="text-2xl font-bold mt-5 mb-3">Giảng viên</h3>
@@ -197,8 +148,7 @@
                           class="rounded-full"
                           src="https://res.cloudinary.com/dfmoftnpw/image/upload/v1762444100/Screenshot_2025-11-06_224724_oheyga.png"
                           width="100%"
-                          alt=""
-                        />
+                          alt="" />
                       </div>
                       <p class="font-bold text-2xl ms-5">
                         <a href="#">Thầy Phan Văn Tính</a>
@@ -215,32 +165,24 @@
               <div x-show="tab === 2">
                 <details class="group">
                   <summary
-                    class="flex justify-between border p-3 mt-3 select-none hover:cursor-pointer bg-[#f9f6f7]"
-                  >
+                    class="flex justify-between border p-3 mt-3 select-none hover:cursor-pointer bg-[#f9f6f7]">
                     <h4 class="font-bold">
                       <i
-                        class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"
-                      ></i
-                      >Thêm ghi chú mới
+                        class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Thêm ghi chú mới
                     </h4>
                     <i class="bi bi-plus-circle-fill"></i>
                   </summary>
                   <div class="border-x border-b p-4">
                     <div
-                      class="flex gap-3 justify-center items-center mt-2 px-10"
-                    >
-                      <span class="px-2 rounded-[20px] bg-black text-white"
-                        >1:00</span
-                      >
+                      class="flex gap-3 justify-center items-center mt-2 px-10">
+                      <span class="px-2 rounded-[20px] bg-black text-white">1:00</span>
                       <textarea
                         class="border border-gray-300 focus:border-blue-500 focus:ring-0 p-2 rounded w-full"
-                        rows="4"
-                      ></textarea>
+                        rows="4"></textarea>
                     </div>
                     <div class="flex gap-3 justify-end items-center mt-3 px-10">
                       <button
-                        class="py-2 px-4 hover:cursor-pointer bg-purple-700 text-white rounded-[5px]"
-                      >
+                        class="py-2 px-4 hover:cursor-pointer bg-purple-700 text-white rounded-[5px]">
                         Lưu ghi chú
                       </button>
                     </div>
@@ -258,8 +200,7 @@
                         <img
                           class="rounded-full"
                           src="https://res.cloudinary.com/dfmoftnpw/image/upload/v1761579295/js-nangcao-images/zhj5snxw4ru14z2kvt67.png"
-                          alt=""
-                        />
+                          alt="" />
                       </div>
                       <div>
                         <p>Nguyễn Hoàng Bảo</p>
@@ -285,8 +226,7 @@
                         <img
                           class="rounded-full"
                           src="https://res.cloudinary.com/dfmoftnpw/image/upload/v1761701354/js-nangcao-images/zoms8n5lnlotl3xc1ytg.jpg"
-                          alt=""
-                        />
+                          alt="" />
                       </div>
                       <div>
                         <p>Đinh Quốc Toàn</p>
@@ -317,26 +257,21 @@
                 </p>
                 <details class="group">
                   <summary
-                    class="flex flex-col border-t select-none border-[#ccc] p-5 mt-3 hover:cursor-pointer bg-[#f9f6f7]"
-                  >
+                    class="flex flex-col border-t select-none border-[#ccc] p-5 mt-3 hover:cursor-pointer bg-[#f9f6f7]">
                     <h4 class="font-bold">
                       <i
-                        class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"
-                      ></i
-                      >Phần 1: Giới thiệu
+                        class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Phần 1: Giới thiệu
                     </h4>
                     <p class="text-sm ms-6">3 bài giảng • 26 phút</p>
                   </summary>
                   <div>
                     <div
-                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                    >
+                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                       <h4>Bài 1: Giới thiệu</h4>
                       <p class="whitespace-nowrap">13 phút</p>
                     </div>
                     <div
-                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                    >
+                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                       <h4>Bài 2: Css là gì?</h4>
                       <p class="whitespace-nowrap">13 phút</p>
                     </div>
@@ -344,26 +279,21 @@
                 </details>
                 <details class="group">
                   <summary
-                    class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]"
-                  >
+                    class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]">
                     <h4 class="font-bold">
                       <i
-                        class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"
-                      ></i
-                      >Phần 1: Giới thiệu
+                        class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Phần 1: Giới thiệu
                     </h4>
                     <p class="text-sm ms-6">3 bài giảng • 26 phút</p>
                   </summary>
                   <div>
                     <div
-                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                    >
+                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                       <h4>Bài 1: Giới thiệu</h4>
                       <p class="whitespace-nowrap">13 phút</p>
                     </div>
                     <div
-                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                    >
+                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                       <h4>Bài 2: Css là gì?</h4>
                       <p class="whitespace-nowrap">13 phút</p>
                     </div>
@@ -371,26 +301,21 @@
                 </details>
                 <details class="group">
                   <summary
-                    class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]"
-                  >
+                    class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]">
                     <h4 class="font-bold">
                       <i
-                        class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"
-                      ></i
-                      >Phần 1: Giới thiệu
+                        class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Phần 1: Giới thiệu
                     </h4>
                     <p class="text-sm ms-6">3 bài giảng • 26 phút</p>
                   </summary>
                   <div>
                     <div
-                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                    >
+                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                       <h4>Bài 1: Giới thiệu</h4>
                       <p class="whitespace-nowrap">13 phút</p>
                     </div>
                     <div
-                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                    >
+                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                       <h4>Bài 2: Css là gì?</h4>
                       <p class="whitespace-nowrap">13 phút</p>
                     </div>
@@ -398,26 +323,21 @@
                 </details>
                 <details class="group">
                   <summary
-                    class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]"
-                  >
+                    class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]">
                     <h4 class="font-bold">
                       <i
-                        class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"
-                      ></i
-                      >Phần 1: Giới thiệu
+                        class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Phần 1: Giới thiệu
                     </h4>
                     <p class="text-sm ms-6">3 bài giảng • 26 phút</p>
                   </summary>
                   <div>
                     <div
-                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                    >
+                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                       <h4>Bài 1: Giới thiệu</h4>
                       <p class="whitespace-nowrap">13 phút</p>
                     </div>
                     <div
-                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                    >
+                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                       <h4>Bài 2: Css là gì?</h4>
                       <p class="whitespace-nowrap">13 phút</p>
                     </div>
@@ -425,26 +345,21 @@
                 </details>
                 <details class="group">
                   <summary
-                    class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]"
-                  >
+                    class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]">
                     <h4 class="font-bold">
                       <i
-                        class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"
-                      ></i
-                      >Phần 1: Giới thiệu
+                        class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Phần 1: Giới thiệu
                     </h4>
                     <p class="text-sm ms-6">3 bài giảng • 26 phút</p>
                   </summary>
                   <div>
                     <div
-                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                    >
+                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                       <h4>Bài 1: Giới thiệu</h4>
                       <p class="whitespace-nowrap">13 phút</p>
                     </div>
                     <div
-                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                    >
+                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                       <h4>Bài 2: Css là gì?</h4>
                       <p class="whitespace-nowrap">13 phút</p>
                     </div>
@@ -452,26 +367,21 @@
                 </details>
                 <details class="group">
                   <summary
-                    class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]"
-                  >
+                    class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]">
                     <h4 class="font-bold">
                       <i
-                        class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"
-                      ></i
-                      >Phần 1: Giới thiệu
+                        class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Phần 1: Giới thiệu
                     </h4>
                     <p class="text-sm ms-6">3 bài giảng • 26 phút</p>
                   </summary>
                   <div>
                     <div
-                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                    >
+                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                       <h4>Bài 1: Giới thiệu</h4>
                       <p class="whitespace-nowrap">13 phút</p>
                     </div>
                     <div
-                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                    >
+                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                       <h4>Bài 2: Css là gì?</h4>
                       <p class="whitespace-nowrap">13 phút</p>
                     </div>
@@ -479,26 +389,21 @@
                 </details>
                 <details class="group">
                   <summary
-                    class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]"
-                  >
+                    class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]">
                     <h4 class="font-bold">
                       <i
-                        class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"
-                      ></i
-                      >Phần 1: Giới thiệu
+                        class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Phần 1: Giới thiệu
                     </h4>
                     <p class="text-sm ms-6">3 bài giảng • 26 phút</p>
                   </summary>
                   <div>
                     <div
-                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                    >
+                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                       <h4>Bài 1: Giới thiệu</h4>
                       <p class="whitespace-nowrap">13 phút</p>
                     </div>
                     <div
-                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                    >
+                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                       <h4>Bài 2: Css là gì?</h4>
                       <p class="whitespace-nowrap">13 phút</p>
                     </div>
@@ -506,26 +411,21 @@
                 </details>
                 <details class="group">
                   <summary
-                    class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]"
-                  >
+                    class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]">
                     <h4 class="font-bold">
                       <i
-                        class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"
-                      ></i
-                      >Phần 1: Giới thiệu
+                        class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Phần 1: Giới thiệu
                     </h4>
                     <p class="text-sm ms-6">3 bài giảng • 26 phút</p>
                   </summary>
                   <div>
                     <div
-                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                    >
+                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                       <h4>Bài 1: Giới thiệu</h4>
                       <p class="whitespace-nowrap">13 phút</p>
                     </div>
                     <div
-                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                    >
+                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                       <h4>Bài 2: Css là gì?</h4>
                       <p class="whitespace-nowrap">13 phút</p>
                     </div>
@@ -533,26 +433,21 @@
                 </details>
                 <details class="group">
                   <summary
-                    class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]"
-                  >
+                    class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]">
                     <h4 class="font-bold">
                       <i
-                        class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"
-                      ></i
-                      >Phần 1: Giới thiệu
+                        class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Phần 1: Giới thiệu
                     </h4>
                     <p class="text-sm ms-6">3 bài giảng • 26 phút</p>
                   </summary>
                   <div>
                     <div
-                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                    >
+                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                       <h4>Bài 1: Giới thiệu</h4>
                       <p class="whitespace-nowrap">13 phút</p>
                     </div>
                     <div
-                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                    >
+                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                       <h4>Bài 2: Css là gì?</h4>
                       <p class="whitespace-nowrap">13 phút</p>
                     </div>
@@ -560,26 +455,21 @@
                 </details>
                 <details class="group">
                   <summary
-                    class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]"
-                  >
+                    class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]">
                     <h4 class="font-bold">
                       <i
-                        class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"
-                      ></i
-                      >Phần 1: Giới thiệu
+                        class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Phần 1: Giới thiệu
                     </h4>
                     <p class="text-sm ms-6">3 bài giảng • 26 phút</p>
                   </summary>
                   <div>
                     <div
-                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                    >
+                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                       <h4>Bài 1: Giới thiệu</h4>
                       <p class="whitespace-nowrap">13 phút</p>
                     </div>
                     <div
-                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                    >
+                      class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                       <h4>Bài 2: Css là gì?</h4>
                       <p class="whitespace-nowrap">13 phút</p>
                     </div>
@@ -590,8 +480,7 @@
           </div>
         </div>
         <div
-          class="w-[30%] border-s max-h-screen sticky top-0 right-0 border-[#ccc] lg:block hidden"
-        >
+          class="w-[30%] border-s max-h-screen sticky top-0 right-0 border-[#ccc] lg:block hidden">
           <h2 class="font-bold text-2xl text-center my-4">Nội dung khóa học</h2>
           <p class="text-center">
             5 phần • 20 bài giảng • Tổng thời lượng 24 giờ
@@ -599,28 +488,23 @@
           <div class="max-h-160 overflow-y-auto">
             <details class="group" open>
               <summary
-                class="flex flex-col border-t border-[#ccc] p-5 mt-3 select-none hover:cursor-pointer bg-[#f9f6f7]"
-              >
+                class="flex flex-col border-t border-[#ccc] p-5 mt-3 select-none hover:cursor-pointer bg-[#f9f6f7]">
                 <h4 class="font-bold">
                   <i
-                    class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"
-                  ></i
-                  >Phần 1: Giới thiệu
+                    class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Phần 1: Giới thiệu
                 </h4>
                 <p class="text-sm ms-6">3 bài giảng • 26 phút</p>
               </summary>
               <div>
                 <div
                   id="lesson-one"
-                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                >
+                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                   <h4>Bài 1: Giới thiệu</h4>
                   <p class="whitespace-nowrap">13 phút</p>
                 </div>
                 <div
                   id="lesson-two"
-                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                >
+                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                   <h4>Bài 2: Css là gì?</h4>
                   <p class="whitespace-nowrap">13 phút</p>
                 </div>
@@ -628,26 +512,21 @@
             </details>
             <details class="group">
               <summary
-                class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]"
-              >
+                class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]">
                 <h4 class="font-bold">
                   <i
-                    class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"
-                  ></i
-                  >Phần 1: Giới thiệu
+                    class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Phần 1: Giới thiệu
                 </h4>
                 <p class="text-sm ms-6">3 bài giảng • 26 phút</p>
               </summary>
               <div>
                 <div
-                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                >
+                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                   <h4>Bài 1: Giới thiệu</h4>
                   <p class="whitespace-nowrap">13 phút</p>
                 </div>
                 <div
-                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                >
+                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                   <h4>Bài 2: Css là gì?</h4>
                   <p class="whitespace-nowrap">13 phút</p>
                 </div>
@@ -655,26 +534,21 @@
             </details>
             <details class="group">
               <summary
-                class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]"
-              >
+                class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]">
                 <h4 class="font-bold">
                   <i
-                    class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"
-                  ></i
-                  >Phần 1: Giới thiệu
+                    class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Phần 1: Giới thiệu
                 </h4>
                 <p class="text-sm ms-6">3 bài giảng • 26 phút</p>
               </summary>
               <div>
                 <div
-                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                >
+                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                   <h4>Bài 1: Giới thiệu</h4>
                   <p class="whitespace-nowrap">13 phút</p>
                 </div>
                 <div
-                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                >
+                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                   <h4>Bài 2: Css là gì?</h4>
                   <p class="whitespace-nowrap">13 phút</p>
                 </div>
@@ -682,26 +556,21 @@
             </details>
             <details class="group">
               <summary
-                class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]"
-              >
+                class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]">
                 <h4 class="font-bold">
                   <i
-                    class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"
-                  ></i
-                  >Phần 1: Giới thiệu
+                    class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Phần 1: Giới thiệu
                 </h4>
                 <p class="text-sm ms-6">3 bài giảng • 26 phút</p>
               </summary>
               <div>
                 <div
-                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                >
+                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                   <h4>Bài 1: Giới thiệu</h4>
                   <p class="whitespace-nowrap">13 phút</p>
                 </div>
                 <div
-                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                >
+                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                   <h4>Bài 2: Css là gì?</h4>
                   <p class="whitespace-nowrap">13 phút</p>
                 </div>
@@ -709,26 +578,21 @@
             </details>
             <details class="group">
               <summary
-                class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]"
-              >
+                class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]">
                 <h4 class="font-bold">
                   <i
-                    class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"
-                  ></i
-                  >Phần 1: Giới thiệu
+                    class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Phần 1: Giới thiệu
                 </h4>
                 <p class="text-sm ms-6">3 bài giảng • 26 phút</p>
               </summary>
               <div>
                 <div
-                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                >
+                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                   <h4>Bài 1: Giới thiệu</h4>
                   <p class="whitespace-nowrap">13 phút</p>
                 </div>
                 <div
-                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                >
+                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                   <h4>Bài 2: Css là gì?</h4>
                   <p class="whitespace-nowrap">13 phút</p>
                 </div>
@@ -736,26 +600,21 @@
             </details>
             <details class="group">
               <summary
-                class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]"
-              >
+                class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]">
                 <h4 class="font-bold">
                   <i
-                    class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"
-                  ></i
-                  >Phần 1: Giới thiệu
+                    class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Phần 1: Giới thiệu
                 </h4>
                 <p class="text-sm ms-6">3 bài giảng • 26 phút</p>
               </summary>
               <div>
                 <div
-                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                >
+                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                   <h4>Bài 1: Giới thiệu</h4>
                   <p class="whitespace-nowrap">13 phút</p>
                 </div>
                 <div
-                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                >
+                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                   <h4>Bài 2: Css là gì?</h4>
                   <p class="whitespace-nowrap">13 phút</p>
                 </div>
@@ -763,26 +622,21 @@
             </details>
             <details class="group">
               <summary
-                class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]"
-              >
+                class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]">
                 <h4 class="font-bold">
                   <i
-                    class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"
-                  ></i
-                  >Phần 1: Giới thiệu
+                    class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Phần 1: Giới thiệu
                 </h4>
                 <p class="text-sm ms-6">3 bài giảng • 26 phút</p>
               </summary>
               <div>
                 <div
-                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                >
+                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                   <h4>Bài 1: Giới thiệu</h4>
                   <p class="whitespace-nowrap">13 phút</p>
                 </div>
                 <div
-                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                >
+                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                   <h4>Bài 2: Css là gì?</h4>
                   <p class="whitespace-nowrap">13 phút</p>
                 </div>
@@ -790,26 +644,21 @@
             </details>
             <details class="group">
               <summary
-                class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]"
-              >
+                class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]">
                 <h4 class="font-bold">
                   <i
-                    class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"
-                  ></i
-                  >Phần 1: Giới thiệu
+                    class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Phần 1: Giới thiệu
                 </h4>
                 <p class="text-sm ms-6">3 bài giảng • 26 phút</p>
               </summary>
               <div>
                 <div
-                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                >
+                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                   <h4>Bài 1: Giới thiệu</h4>
                   <p class="whitespace-nowrap">13 phút</p>
                 </div>
                 <div
-                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                >
+                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                   <h4>Bài 2: Css là gì?</h4>
                   <p class="whitespace-nowrap">13 phút</p>
                 </div>
@@ -817,26 +666,21 @@
             </details>
             <details class="group">
               <summary
-                class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]"
-              >
+                class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]">
                 <h4 class="font-bold">
                   <i
-                    class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"
-                  ></i
-                  >Phần 1: Giới thiệu
+                    class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Phần 1: Giới thiệu
                 </h4>
                 <p class="text-sm ms-6">3 bài giảng • 26 phút</p>
               </summary>
               <div>
                 <div
-                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                >
+                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                   <h4>Bài 1: Giới thiệu</h4>
                   <p class="whitespace-nowrap">13 phút</p>
                 </div>
                 <div
-                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                >
+                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                   <h4>Bài 2: Css là gì?</h4>
                   <p class="whitespace-nowrap">13 phút</p>
                 </div>
@@ -844,26 +688,21 @@
             </details>
             <details class="group">
               <summary
-                class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]"
-              >
+                class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]">
                 <h4 class="font-bold">
                   <i
-                    class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"
-                  ></i
-                  >Phần 1: Giới thiệu
+                    class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Phần 1: Giới thiệu
                 </h4>
                 <p class="text-sm ms-6">3 bài giảng • 26 phút</p>
               </summary>
               <div>
                 <div
-                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                >
+                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                   <h4>Bài 1: Giới thiệu</h4>
                   <p class="whitespace-nowrap">13 phút</p>
                 </div>
                 <div
-                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer"
-                >
+                  class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
                   <h4>Bài 2: Css là gì?</h4>
                   <p class="whitespace-nowrap">13 phút</p>
                 </div>
@@ -872,41 +711,37 @@
           </div>
         </div>
       </div>
-          <!-- Intro modal shown before starting the guide -->
-    <div id="intro-modal-backdrop" class="fixed inset-0 bg-black/40 hidden z-1100 items-center justify-center">
-      <div id="intro-modal" class="bg-white rounded-lg shadow-lg max-w-xl  w-11/12 p-6 mx-auto ">
-        <h2 class="text-xl font-bold mb-2">Chào mừng đến Learnix</h2>
-        <p class="text-sm text-gray-700 mb-4">Chào mừng bạn! Mình sẽ hướng dẫn bạn cách để học trên hệ thống Learnix nhé!</p>
-        <div class="flex justify-end gap-2">
-          <button id="intro-cancel" class="py-2 px-4 bg-gray-200 rounded hover:cursor-pointer">Hủy</button>
-          <button id="intro-start" class="py-2 px-4 bg-blue-600 text-white rounded hover:cursor-pointer">Bắt đầu hướng dẫn</button>
+      <!-- Intro modal shown before starting the guide -->
+      <div id="intro-modal-backdrop" class="fixed inset-0 bg-black/40 hidden z-1100 items-center justify-center">
+        <div id="intro-modal" class="bg-white rounded-lg shadow-lg max-w-xl  w-11/12 p-6 mx-auto ">
+          <h2 class="text-xl font-bold mb-2">Chào mừng đến Learnix</h2>
+          <p class="text-sm text-gray-700 mb-4">Chào mừng bạn! Mình sẽ hướng dẫn bạn cách để học trên hệ thống Learnix nhé!</p>
+          <div class="flex justify-end gap-2">
+            <button id="intro-cancel" class="py-2 px-4 bg-gray-200 rounded hover:cursor-pointer">Hủy</button>
+            <button id="intro-start" class="py-2 px-4 bg-blue-600 text-white rounded hover:cursor-pointer">Bắt đầu hướng dẫn</button>
+          </div>
         </div>
       </div>
-    </div>
     </main>
-        <!-- Overlay che toàn màn hình -->
+    <!-- Overlay che toàn màn hình -->
     <div
       id="guide-overlay"
-      class="fixed inset-0 bg-black/30 hidden z-1000"
-    ></div>
+      class="fixed inset-0 bg-black/30 hidden z-1000"></div>
 
     <!-- Khung highlight phát sáng khu vực được chọn -->
     <div
       id="guide-highlight"
-      class="fixed border-3 border-yellow-400 rounded-l pointer-events-none hidden z-1001 transition-all duration-300"
-    ></div>
+      class="fixed border-3 border-yellow-400 rounded-l pointer-events-none hidden z-1001 transition-all duration-300"></div>
 
     <!-- Tooltip -->
     <div
       id="guide-tooltip"
-      class="fixed bg-white p-4 rounded-lg shadow-lg w-72 hidden z-1002 transition-all duration-300"
-    >
+      class="fixed bg-white p-4 rounded-lg shadow-lg w-72 hidden z-1002 transition-all duration-300">
       <h3 id="guide-title" class="font-bold text-lg"></h3>
       <p id="guide-desc" class="mt-2 text-sm text-gray-700"></p>
       <button
         id="guide-next"
-        class="mt-3 bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 hover:cursor-pointer"
-      >
+        class="mt-3 bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 hover:cursor-pointer">
         Tiếp tục
       </button>
     </div>

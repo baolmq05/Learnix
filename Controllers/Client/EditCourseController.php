@@ -49,7 +49,7 @@ class EditCourseController
 
     private function splitStringToArray($str)
     {
-        $arr = explode(',', $str);
+        $arr = explode('*', $str);
         $arr = array_map('trim', $arr);
 
         return $arr;
@@ -62,7 +62,7 @@ class EditCourseController
             return trim($item) !== '';
         });
 
-        return implode(',', $arr);
+        return implode('*', $arr);
     }
 
     public function updateCourse()

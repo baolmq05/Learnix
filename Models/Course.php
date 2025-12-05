@@ -163,7 +163,7 @@ class Course
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['avg_rating'] ?? 0;
     }
-    
+
     public function getCoursesByTeacherId($teacherId, $excludeCourseId, $limit = 4)
     {
         $sql = "SELECT 
@@ -241,7 +241,8 @@ class Course
     }
 
     // QuocBao
-    public function updateCourseById($data){
+    public function updateCourseById($data)
+    {
         try {
             $sql = "UPDATE courses SET category_id=:category_id, course_name=:course_name, description=:description, benefit=:benefit, customer_object=:customer_object, regular_price=:regular_price, sale_price=:sale_price, teacher_id=:teacher_id, image=:image, status=:status  WHERE id=:id";
             $stmt = $this->_connect->prepare($sql);
@@ -290,4 +291,3 @@ class Course
         }
     }
 }
-?>

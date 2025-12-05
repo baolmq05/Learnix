@@ -63,18 +63,32 @@ function checkError(event) {
     }
 
     if (paidInput.value == 1) {
-        if (regularPrice.value == "") {
+        const regular = Number(regularPrice.value);
+        const sale = Number(discountedPrice.value);
+
+        // Kiểm tra giá gốc
+        if (regularPrice.value.trim() === "") {
             isError = true;
             regularError.innerText = "Giá không được để trống";
+        } else if (regular <= 0) {
+            isError = true;
+            regularError.innerText = "Giá gốc phải lớn hơn 0";
         } else {
             regularError.innerText = "";
+        }
 
-            if (discountedPrice.value >= regularPrice.value) {
-                isError = true;
-                discountedError.innerText = "Giá khuyến mãi phải nhỏ hơn giá gốc";
-            } else {
-                discountedError.innerText = "";
-            }
+        // Kiểm tra giá sale
+        if (discountedPrice.value.trim() === "") {
+            isError = true;
+            discountedError.innerText = "Giá khuyến mãi không được để trống";
+        } else if (sale <= 0) {
+            isError = true;
+            discountedError.innerText = "Giá khuyến mãi phải lớn hơn 0";
+        } else if (sale >= regular) {
+            isError = true;
+            discountedError.innerText = "Giá khuyến mãi phải nhỏ hơn giá gốc";
+        } else {
+            discountedError.innerText = "";
         }
     }
 
@@ -97,7 +111,7 @@ function showAlert(isError) {
         setTimeout(() => {
             document.querySelector("#alert_success").classList.add("hidden");
         }, 3000)
-    }else{
+    } else {
         document.querySelector("#alert_danger").classList.remove("hidden");
         setTimeout(() => {
             document.querySelector("#alert_danger").classList.add("hidden");

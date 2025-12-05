@@ -72,9 +72,13 @@
                         </div>
                     </div>
                     <div class=" flex items-start text-nowrap mt-8">
-                        <a href="#"
-                            class="border-2 p-3 rounded-xl text-purple-900 text-sm font-bold hover:bg-purple-500 hover:text-white transition-colors duration-300 text-nowrap text-xs md:text-sm">Tiếp
-                            tục học</a>
+                        <form action="?page=lesson_player" method="post">
+                            <input type="hidden" name="course_id" value="56">
+                            <button class="border-2 p-3 rounded-xl text-purple-900 text-sm font-bold hover:bg-purple-500 hover:text-white transition-colors duration-300 text-nowrap text-xs md:text-sm">
+                                Tiếp tục học
+                            </button>
+                        </form>
+
                     </div>
                 </div>
                 <!-- End Foreach -->
