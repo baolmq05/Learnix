@@ -162,5 +162,129 @@ class Dashboard
             error_log($log_mess, 3, "./Logs/Dashboard.log");
         }
     }
+
+    // Client dashboard teacher////////////////////////////////////////////////////
+
+    // Tổng số khóa học của 1 giảng viên
+    public function getTotalCoursesByTeacher($status,$teacherId){
+        try{
+            $sql = "SELECT COUNT(*) as total 
+            FROM $this->_courseTable 
+            WHERE teacher_id = :teacher_id AND status = :status";
+            $stmt = $this->_conn->prepare($sql);
+            $stmt->execute(['teacher_id' => $teacherId, 'status' => $status]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $log_mess = '[' . date('Y-m-d H:i:s') . ']' . $e->getMessage() . PHP_EOL;
+            error_log($log_mess, 3, "./Logs/Dashboard.log");
+        }
+    }
+
+    // tổng số học viên đã đăng ký các khóa học của giảng viên
+    public function getTotalStudentByTeacher($teacherId){
+       try{
+         $sql = "SELECT COUNT(DISTINCT e.user_id) as total
+        FROM $this->_enrollCourseTable e
+        INNER JOIN $this->_courseTable c ON e.course_id = c.id
+        WHERE c.teacher_id = :teacher_id";
+        $stmt = $this->_conn->prepare($sql);
+        $stmt->execute(['teacher_id' => $teacherId]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+       }catch (PDOException $e) {
+            $log_mess = '[' . date('Y-m-d H:i:s') . ']' . $e->getMessage() . PHP_EOL;
+            error_log($log_mess, 3, "./Logs/Dashboard.log");
+        }
+    }
+
+    // Số khóa học mới trong 30 ngày
+    public function getTotalNewCoursesIn30Days($teacherId , $status){
+        try{
+            $sql = "SELECT COUNT(*) as total
+            FROM $this->_courseTable
+            WHERE teacher_id = :teacher_id AND status = :status
+            AND created_at >=DATE_SUB(NOW(), INTERVAL 30 DAY)";
+            $stmt = $this->_conn->prepare($sql);
+            $stmt->execute(['teacher_id' => $teacherId, 'status' => $status]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $log_mess = '[' . date('Y-m-d H:i:s') . ']' . $e->getMessage() . PHP_EOL;
+            error_log($log_mess, 3, "./Logs/Dashboard.log");
+        }
+    }
+
+    // số học viên mới trong 30 ngày
+     public function getTotalNewStudentIn30Days($teacherId){
+       try{
+         $sql = "SELECT COUNT(DISTINCT e.user_id) as total 
+        FROM $this->_enrollCourseTable e
+        INNER JOIN $this->_courseTable c ON e.course_id = c.id
+        WHERE c.teacher_id = :teacher_id
+        AND e.created_at >=DATE_SUB(NOW(), INTERVAL 30 DAY)";
+        $stmt = $this->_conn->prepare($sql);
+        $stmt->execute(['teacher_id' => $teacherId]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+       }catch (PDOException $e) {
+            $log_mess = '[' . date('Y-m-d H:i:s') . ']' . $e->getMessage() . PHP_EOL;
+            error_log($log_mess, 3, "./Logs/Dashboard.log");
+        }
+    }
+
+    // Tổng doanh thu từ các khóa học của giảng viên
+    public function getTotalRevenueByTeacher($teacherId){
+        try{
+            $sql = "SELECT SUM(e.price * 0.9) as total_revenue
+            FROM $this->_enrollCourseTable e
+            INNER JOIN $this->_courseTable c ON e.course_id = c.id
+            WHERE c.teacher_id = :teacher_id";
+            $stmt = $this->_conn->prepare($sql);
+            $stmt->execute(['teacher_id' => $teacherId]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $log_mess = '[' . date('Y-m-d H:i:s') . ']' . $e->getMessage() . PHP_EOL;
+            error_log($log_mess, 3, "./Logs/Dashboard.log");
+        }
+    }
+
+
+    
+    // Tổng doanh thu từ các khóa học của giảng viên trong 30 ngày
+    public function getTotalRevenueByTeacherIn30Days($teacherId){
+        try{
+            $sql = "SELECT SUM(e.price * 0.9) as total_revenue
+            FROM $this->_enrollCourseTable e
+            INNER JOIN $this->_courseTable c ON e.course_id = c.id
+            WHERE c.teacher_id = :teacher_id 
+            AND e.created_at >=DATE_SUB(NOW(), INTERVAL 30 DAY)";
+            $stmt = $this->_conn->prepare($sql);
+            $stmt->execute(['teacher_id' => $teacherId]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $log_mess = '[' . date('Y-m-d H:i:s') . ']' . $e->getMessage() . PHP_EOL;
+            error_log($log_mess, 3, "./Logs/Dashboard.log");
+        }
+    }
+
+    // chart doanh thu theo tháng trong năm nay
+       public function getRevenueInYear($teacherId, ?int $year = null)
+    {
+        try {
+        if ($year === null) {
+            $year = date('Y');
+        }
+        $sql = "SELECT DATE_FORMAT(e.created_at, '%m') as month, SUM(e.price*0.9) AS Total_revenue
+                FROM $this->_enrollCourseTable e
+                INNER JOIN $this->_courseTable c ON e.course_id = c.id
+                WHERE c.teacher_id = :teacher_id 
+                AND YEAR(e.created_at) = :year
+                GROUP BY month 
+                ORDER BY month"; // sắp xếp tăng dần
+        $stmt = $this->_conn->prepare($sql);
+        $stmt->execute(['year' => $year, 'teacher_id' => $teacherId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $log_mess = '[' . date('Y-m-d H:i:s') . ']' . $e->getMessage() . PHP_EOL;
+            error_log($log_mess, 3, "./Logs/Dashboard.log");
+        }
+    }
 }
 ?>

@@ -2,16 +2,19 @@
 require_once 'Models/Teacher.php';
 require_once 'Models/Profile.php';
 require_once 'Models/WithDraw.php';
+require_once 'Models/Dashboard.php';
 class TeacherController
 {
     private $teacherModel;
     private $profileModel;
     private $withDrawModel;
+    private $dashboardModel;
     public function __construct()
     {
         $this->teacherModel = new Teacher();
         $this->profileModel = new Profile();
         $this->withDrawModel = new WithDraw();
+        $this->dashboardModel = new Dashboard();
     }
 
     public function index()
@@ -26,6 +29,27 @@ class TeacherController
 
     public function statistic()
     {
+        $userId = $_SESSION['client']['id'] ?? null;
+        $totalCourses = $this->dashboardModel->getTotalCoursesByTeacher(1, $userId);
+        $totalStudents = $this->dashboardModel->getTotalStudentByTeacher($userId);
+        $newCourses30Day = $this->dashboardModel->getTotalNewCoursesIn30Days($userId, 1);
+        $newStudents30Day = $this->dashboardModel->getTotalNewStudentIn30Days($userId);
+        $totalRevenue = $this->dashboardModel->getTotalRevenueByTeacher($userId);
+        $totalRevenueIn30Days = $this->dashboardModel->getTotalRevenueByTeacherIn30Days($userId);
+
+        // chart data
+        $revenueStats = $this->dashboardModel->getRevenueInYear($userId, null);
+
+        $labels = array_column($revenueStats, 'month');
+        $data = array_column($revenueStats, 'Total_revenue');
+
+        $months = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
+        $finalData = [];
+        foreach ($months as $m) {
+            $index = array_search($m, $labels);
+            $finalData[] = $index !== false ? $data[$index] : 0;
+        }
+        
         include 'Views/Client/Pages/Teacher/statistic.php';
     }
 
