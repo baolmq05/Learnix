@@ -46,7 +46,7 @@
                 </div>
 
                 <div class="mx-4 mt-4">
-                    <button
+                    <button onclick="addToCart()"
                         class="bg-[#6d28d2] hover:bg-purple-400 hover:cursor-pointer font-bold text-[1.2rem] rounded-[5px] text-white px-2 py-3 w-full">
                         Thêm vào giỏ
                     </button>
@@ -125,7 +125,8 @@
                                     <h4>Bài <?= $lesson + 1 ?>: <?= $lessonValue['lesson_name'] ?></h4>
                                     <p><?= $lessonValue['lesson_length'] ?></p>
                                 </div>
-                            <?php endif; endforeach; ?>
+                        <?php endif;
+                        endforeach; ?>
                     </div>
                 </details>
             <?php endforeach; ?>
@@ -180,7 +181,8 @@
                             </div>
                         </div>
                     </a>
-                <?php endforeach; else: ?>
+                <?php endforeach;
+            else: ?>
                 <p>Không có khóa học liên quan.</p>
             <?php endif; ?>
             <h3 class="text-2xl font-bold mt-5 mb-3">Giảng viên</h3>
@@ -238,8 +240,7 @@
                 class="text-[#6d28d2] border-[#6d28d2] border hover:bg-purple-100 hover:cursor-pointer font-bold rounded-[5px] px-10 py-2 mt-5">
                 Xem thêm bình luận
             </button>
-            <h3 class="text-2xl font-bold mt-5">Các khóa học của thầy <a href="#" class="text-purple-600">Phan Văn
-                    Tính</a></h3>
+            <h3 class="text-2xl font-bold mt-5">Các khóa học của thầy <a href="#" class="text-purple-600"><?= htmlspecialchars($course['instructor']) ?></a></h3>
             <?php if (!empty($coursesByTeacher)):
                 foreach ($coursesByTeacher as $courseByTeacher): ?>
                     <a href="?page=course_detail&id=<?= $courseByTeacher['id'] ?>">
@@ -282,7 +283,8 @@
                             </div>
                         </div>
                     </a>
-                <?php endforeach; else: ?>
+                <?php endforeach;
+            else: ?>
                 <p>Không có khóa học liên quan.</p>
             <?php endif; ?>
         </div>
@@ -313,6 +315,7 @@
 <script>
     let start = <?= count($reviews) ?>;
     let limit = 3;
+
     function getMoreReview() {
         $.ajax({
             url: 'Controllers/Client/Ajax/AjaxGetMoreReview.php',
@@ -322,22 +325,26 @@
                 start: start,
                 limit: limit
             },
-            success: function (response) {
+            success: function(response) {
                 $('#review').append(response);
                 start += limit;
                 console.log(start);
-                document.getElementById('buttonGetMoreReview').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                document.getElementById('buttonGetMoreReview').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
                 if ($('#no-more-reviews').length) {
                     document.getElementById('buttonGetMoreReview').style.display = 'none';
                 }
                 console.log('Đã tải thêm bình luận thành công');
             },
-            error: function (xhr, status, error) {
+            error: function(xhr, status, error) {
                 // Xử lý lỗi (nếu có)
                 console.error(error);
             }
         })
     }
+
     function toggleContent(reviewId) {
         const paragraph = document.getElementById(reviewId);
         const button = paragraph.nextElementSibling;
@@ -351,4 +358,111 @@
         }
     }
 
+    function showToast(message, type = "success") {
+        const toast = document.createElement("div");
+
+        toast.className =
+            "fixed top-5 right-5 px-5 py-3 rounded shadow-lg text-white z-50 animate-slideIn";
+
+        toast.style.background =
+            type === "success" ? "#22c55e" : "#ef4444"; // xanh / đỏ
+
+        toast.innerText = message;
+
+        document.body.appendChild(toast);
+
+        setTimeout(() => {
+            toast.style.opacity = "0";
+            toast.style.transition = "0.5s";
+            setTimeout(() => toast.remove(), 500);
+        }, 2000);
+    }
+
+    const style = document.createElement("style");
+    style.innerHTML = `
+        @keyframes slideIn {
+            from { transform: translateX(150%); opacity: 0; }
+            to   { transform: translateX(0); opacity: 1; }
+        }
+        .animate-slideIn {
+            animation: slideIn 0.3s ease-out;
+        }
+    `;
+    document.head.appendChild(style);
+
+
+    function addToCart() {
+        let userId = <?= $_SESSION['client']['id'] ?? 'null' ?>;
+        let courseId = <?= $course['id'] ?>;
+        console.log("User ID:", userId);
+        console.log("Course ID:", courseId);
+
+        if (!userId) {
+            showToast("Vui lòng đăng nhập để thêm vào giỏ hàng!", "error");
+            return;
+        }
+
+        let formData = new FormData();
+        formData.append("userId", userId);
+        formData.append("courseId", courseId);
+
+        fetch("Controllers/Client/Ajax/AjaxAddToCart.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+
+                if (data.status === "success") {
+                    showToast(data.message, "success");
+                    showCartDropdown();
+                    loadCartHeader();
+                } else {
+                    showToast(data.message, "error");
+                }
+            })
+            .catch(err => {
+                showToast("Lỗi kết nối server!", "error");
+                console.error(err);
+            });
+    }
+
+    function loadCartHeader() {
+        $.ajax({
+            url: "Controllers/Client/Ajax/AjaxLoadCartHeader.php",
+            method: "GET",
+            dataType: "json",
+            success: function(data) {
+
+                if (data.status === "error") {
+                    $("#cartDropdownItems").html(`
+                    <div class="p-3 text-center text-sm text-gray-600">
+                    Giỏ hàng trống
+                    </div>
+                    `);
+                    $("#cartCount").text(0);
+                    return;
+                }
+
+                $("#cartDropdownItems").html(data.html);
+
+                $("#cartCount").text(data.count);
+            },
+            error: function(xhr, status, error) {
+                console.error("Load Cart Error:", error);
+            }
+        });
+    }
+
+    function showCartDropdown() {
+        const dropdown = document.getElementById('cart-dropdown');
+
+        dropdown.classList.remove('opacity-0', 'invisible', 'pointer-events-none', 'right-0', 'mt-2');
+        dropdown.classList.add('opacity-100', 'visible', 'pointer-events-auto', 'right-0', 'mt-2');
+
+        setTimeout(() => {
+            dropdown.classList.add('opacity-0', 'invisible', 'pointer-events-none', 'right-0', 'mt-2');
+            dropdown.classList.remove('opacity-100', 'visible', 'pointer-events-auto');
+        }, 5000);
+    }
 </script>

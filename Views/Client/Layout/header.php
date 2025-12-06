@@ -61,35 +61,30 @@ if (!empty($_SESSION['client'])) {
                 <input type="text" placeholder="Tìm khóa học..." name="q"
                     class="flex-1 px-3 py-1 outline-none text-gray-700 text-sm" />
             </div>
-
-
-
-
-
             <div class="relative inline-block hidden md:block">
                 <ul class="flex items-center space-x-6">
                     <li class="relative hidden md:inline-block" data-dropdown-target="teach-dropdown">
                         <a href="<?= (
-                            !$isLoggedIn 
-                            ? '?page=login'
-                            : (
-                                (($_SESSION['client']['role'] ?? 0) == 1) 
-                                ? '?page=about_teacher' 
-                                : (
-                                    (
-                                        ($_SESSION['client']['information'] ?? null) === null ||
-                                        ($_SESSION['client']['bank_name'] ?? null) === null ||
-                                        ($_SESSION['client']['bank_number'] ?? null) === null
-                                    )
-                                    ? '?page=teacher&action=editProfile' 
-                                    : (
-                                        (($_SESSION['client']['role'] ?? 0) == 2)
-                                        ? '?page=teacher' 
-                                        : '?page=about_teacher' 
-                                    )
-                                )
-                            )
-                        ) ?>" class="inline-flex items-center space-x-2 text-gray-700 hover:text-blue-600 transition-colors duration-200"
+                                        !$isLoggedIn
+                                        ? '?page=login'
+                                        : (
+                                            (($_SESSION['client']['role'] ?? 0) == 1)
+                                            ? '?page=about_teacher'
+                                            : (
+                                                (
+                                                    ($_SESSION['client']['information'] ?? null) === null ||
+                                                    ($_SESSION['client']['bank_name'] ?? null) === null ||
+                                                    ($_SESSION['client']['bank_number'] ?? null) === null
+                                                )
+                                                ? '?page=teacher&action=editProfile'
+                                                : (
+                                                    (($_SESSION['client']['role'] ?? 0) == 2)
+                                                    ? '?page=teacher'
+                                                    : '?page=about_teacher'
+                                                )
+                                            )
+                                        )
+                                    ) ?>" class="inline-flex items-center space-x-2 text-gray-700 hover:text-blue-600 transition-colors duration-200"
                             aria-haspopup="true" aria-expanded="false">
                             <span class="dropdown-trigger">Giảng dạy với Learnix</span>
                         </a>
@@ -138,9 +133,9 @@ if (!empty($_SESSION['client'])) {
                         cả khóa học</a>
                 </li>
                 <?php foreach ($categories as $cat): ?>
-                <li>
-                    <a href="?page=category_product&category_id=<?= $cat['id'] ?>" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><?= $cat['name'] ?> (<?= $cat['total_courses'] ?>)</a>
-                </li>
+                    <li>
+                        <a href="?page=category_product&category_id=<?= $cat['id'] ?>" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><?= $cat['name'] ?></a>
+                    </li>
                 <?php endforeach; ?>
             </ul>
         </div>
@@ -151,17 +146,52 @@ if (!empty($_SESSION['client'])) {
                 <a href="#" class="text-blue-600 font-medium">Khám phá các khóa học</a>
             </div>
         </div>
+        <!-- Cart here -->
         <div id="cart-dropdown"
-            class="dropdown-menu absolute w-72 bg-white rounded border-t border-gray-200 shadow-sm opacity-0 invisible translate-y-0 transition-all duration-200 pointer-events-none z-50">
-            <div class="p-3 text-sm text-gray-700">
+            class="dropdown-menu absolute right-0 w-72 bg-white rounded shadow-xl border border-gray-300 
+     opacity-0 invisible translate-y-0 transition-all duration-200 pointer-events-none z-50 m-0">
+            <div id="cart-icon" class="p-3 text-sm text-gray-700">
                 <p class="font-medium mb-2">Giỏ hàng</p>
-                <div class="text-gray-500">Chưa có sản phẩm trong giỏ hàng.</div>
+                <div id="cartDropdownItems">
+                    <?php if (empty($cartItems)) : ?>
+                        <div class="text-gray-500">Chưa có sản phẩm trong giỏ hàng.</div>
+                    <?php endif; ?>
+                    <ul class="overflow-y-auto scrollbar-hide max-h-[150px]">
+
+                        <?php foreach ($cartItems as $item) : ?>
+                            <li class="flex items-center mb-3">
+                                <a href="?page=course_detail&id=<?= $item['id'] ?>" class="flex items-center flex-1">
+                                    <img src="<?= $item['image'] ?>"
+                                        alt="<?= $item['course_name'] ?>"
+                                        class="w-12 h-12 rounded mr-3 object-cover">
+                                    <div class="flex-1">
+                                        <p class="font-bold text-sm two-line-ellipsis me-3"><?= $item['course_name'] ?></p>
+                                    </div>
+                                </a>
+                                <div class="text-wrap">
+                                <?php if ($item['sale_price'] != 0): ?>
+                                    <div class="text-gray-800 font-medium">
+                                        <?= number_format($item['sale_price'], 0, ',', '.') . '₫' ?>
+                                    </div>
+                                <?php endif; ?>
+                                <div class="text-gray-800 font-medium <?= $item['sale_price'] != 0 ? 'line-through text-gray-400' : '' ?>">
+                                    <?= number_format($item['regular_price'], 0, ',', '.') . '₫' ?>
+                                </div>
+                                </div>
+
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+
+                </div>
                 <div class="mt-3 text-right">
-                    <a href="?page=cart" class="inline-block px-3 py-1 bg-blue-600 text-white rounded text-sm">Xem giỏ
-                        hàng</a>
+                    <a href="?page=cart" class="inline-block px-3 py-1 bg-blue-600 text-white rounded text-sm">
+                        Xem giỏ hàng
+                    </a>
                 </div>
             </div>
         </div>
+        <!-- end cart -->
         <div id="notification-dropdown"
             class="dropdown-menu absolute w-72 bg-white rounded border-t border-gray-200 shadow-sm opacity-0 invisible translate-y-0 transition-all duration-200 pointer-events-none z-50">
             <div class="p-3 text-sm text-gray-700">
@@ -202,31 +232,30 @@ if (!empty($_SESSION['client'])) {
     </nav>
     <div class="bg-white shadow hidden md:block">
         <div class="max-w-screen-xl mx-auto px-4">
-<div class="relative w-full">
-    <!-- Nút trái -->
-    <button id="btnLeft"
-        class="absolute lg:left-[-40px] px-3 left-0 top-1/2 -translate-y-1/2 bg-white border border-gray-300 shadow p-2 rounded-full z-10">
-        <i class="bi bi-chevron-left"></i>
-    </button>
+            <div class="relative w-full">
+                <!-- Nút trái -->
+                <button id="btnLeft"
+                    class="absolute lg:left-[-40px] px-3 left-0 top-1/2 -translate-y-1/2 bg-white border border-gray-300 shadow p-2 rounded-full z-10">
+                    <i class="bi bi-chevron-left"></i>
+                </button>
 
-    <!-- Thanh category cuộn ngang -->
-    <nav id="catSlider"
-        class="flex items-center justify-center overflow-x-auto space-x-6 py-3 text-sm scroll-smooth no-scrollbar">
-        <?php foreach ($categories as $cat) : ?>
-            <a href="?page=category_product&category_id=<?= $cat['id'] ?>"
-               class="text-gray-600 hover:text-blue-600 whitespace-nowrap px-2">
-               <?= $cat['name'] ?> (<?= $cat['total_courses'] ?>)
-            </a>
+                <!-- Thanh category cuộn ngang -->
+                <nav id="catSlider"
+                    class="flex items-center overflow-x-auto space-x-6 py-3 text-sm scroll-smooth no-scrollbar">
+                    <?php foreach ($categories as $cat) : ?>
+                        <a href="?page=category_product&category_id=<?= $cat['id'] ?>"
+                            class="text-gray-600 hover:text-blue-600 whitespace-nowrap px-2">
+                            <?= $cat['name'] ?>
+                        </a>
+                    <?php endforeach; ?>
+                </nav>
 
-        <?php endforeach; ?>
-    </nav>
-
-    <!-- Nút phải -->
-    <button id="btnRight"
-        class="absolute lg:right-[-40px] px-3 right-0 top-1/2 -translate-y-1/2 bg-white shadow border border-gray-300 p-2 rounded-full z-10">
-        <i class="bi bi-chevron-right"></i>
-    </button>
-</div>
+                <!-- Nút phải -->
+                <button id="btnRight"
+                    class="absolute lg:right-[-40px] px-3 right-0 top-1/2 -translate-y-1/2 bg-white shadow border border-gray-300 p-2 rounded-full z-10">
+                    <i class="bi bi-chevron-right"></i>
+                </button>
+            </div>
 
         </div>
     </div>
