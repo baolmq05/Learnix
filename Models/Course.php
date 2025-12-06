@@ -38,7 +38,7 @@ AND total_length <= :durationMax) AS total;";
 
     public function getTotalCoursesByCategory($categoryId, $rating = 0, $durationMin = 0, $durationMax = 1000)
     {
-                $sql = "SELECT COUNT(*) AS total FROM (
+        $sql = "SELECT COUNT(*) AS total FROM (
         SELECT 
     c.*,
     u.name AS instructor,
@@ -231,11 +231,11 @@ LIMIT 5 OFFSET :offset";
         return $result;
     }
 
-    public function getAvgRating($courseId)
+    public function getAvgRating($teacherId)
     {
-        $sql = "SELECT ROUND(AVG(rating), 1) AS avg_rating FROM reviews WHERE course_id = :course_id";
+        $sql = "SELECT ROUND(AVG(rating), 1) AS avg_rating FROM reviews r LEFT JOIN courses c ON c.id = r.course_id WHERE c.teacher_id = :teacher_id";
         $stmt = $this->_connect->prepare($sql);
-        $stmt->bindParam(':course_id', $courseId);
+        $stmt->bindParam(':teacher_id', $teacherId);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['avg_rating'] ?? 0;

@@ -18,7 +18,7 @@ class CourseDetailController
             $sections = $this->_courseModel->getSectionByCourseId($courseId);
             $lessons = $this->_courseModel->getAllLessonByCourseId($courseId);
             $relatedCourses = $this->_courseModel->getRelatedCourses($course['category_id'], $courseId, 4);
-            $avgRating = $this->_courseModel->getAvgRating($courseId);
+            $avgRating = $this->_courseModel->getAvgRating($course["teacher_id"]);
             $coursesByTeacher = $this->_courseModel->getCoursesByTeacherId($course['teacher_id'], $courseId, 4);
             $totalCourses = $this->_courseModel->getCountCoursesByTeacher($course['teacher_id']);
             $benefit = explode('*', $course['benefit']);

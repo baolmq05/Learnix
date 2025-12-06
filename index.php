@@ -57,14 +57,6 @@ if ($page == "teacher") {
             $teacherController->withDrawRequest();
             break;
 
-        // case "createCourse":
-        //     $teacherController->createCourse();
-        //     break;
-
-        // case "editCourse":
-        //     $teacherController->editCourse();
-        //     break;
-
         case 'profile':
             $teacherController->profile();
             break;
@@ -109,6 +101,15 @@ if ($page == "teacher") {
             $teacherController->index();
             break;
     }
+    require_once 'Views/Client/Layout/footer.php';
+    exit;
+}
+
+if ($page == "lesson_player") {
+    include_once "Views/Client/Layout/headerLessonPlayer.php";
+    require_once "Controllers/Client/LessonPlayerController.php";
+    $lessonController = new LessonPlayerController();
+    $lessonController->viewLesson();
     require_once 'Views/Client/Layout/footer.php';
     exit;
 }
@@ -207,12 +208,6 @@ switch ($page) {
         require_once "Controllers/Client/AboutTeacherController.php";
         $aboutTeacherControl = new AboutTeacherController();
         $aboutTeacherControl->viewAboutTeacher();
-        break;
-
-    case "lesson_player":
-        require_once "Controllers/Client/LessonPlayerController.php";
-        $lessonController = new LessonPlayerController();
-        $lessonController->viewLesson();
         break;
 
     case "course_learning":

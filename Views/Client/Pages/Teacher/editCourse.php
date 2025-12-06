@@ -634,13 +634,13 @@
             popup.classList.remove("hidden");
 
             // Nếu 2s không load → close lại
-            setTimeout(() => {
-                if (!didLoad) {
-                    console.warn("Iframe load failed → đóng popup");
-                    iframe.src = "";
-                    popup.classList.add("hidden");
-                }
-            }, 2000);
+            // setTimeout(() => {
+            //     if (!didLoad) {
+            //         console.warn("Iframe load failed → đóng popup");
+            //         iframe.src = "";
+            //         popup.classList.add("hidden");
+            //     }
+            // }, 2000);
         }
 
         function closeVideoPopup() {
