@@ -5,7 +5,8 @@ unset($_SESSION['login_success']);
 unset($_SESSION['logout_success']);
 ?>
 <?php if (!empty($success)): ?>
-    <div id="alert_success" class="flex items-center w-full p-4 mb-4 text-green-800 bg-green-100 rounded-lg z-11" role="alert">
+    <div id="alert_success" class="flex items-center w-full p-4 mb-4 text-green-800 bg-green-100 rounded-lg z-11"
+        role="alert">
         <div>
             <?= $success ?>
         </div>
@@ -31,7 +32,8 @@ unset($_SESSION['logout_success']);
     <?php endif; ?>
     <section class="mb-10">
         <div class="lg:h-[600px] h-[450px] sm:h-[400px] basis-5xl">
-            <img id="slider" class="h-full w-full object-cover rounded-md" src="https://i.pinimg.com/1200x/86/03/1e/86031ee63ebece19314575d1e47f5599.jpg" alt="">
+            <img id="slider" class="h-full w-full object-cover rounded-md"
+                src="https://i.pinimg.com/1200x/86/03/1e/86031ee63ebece19314575d1e47f5599.jpg" alt="">
         </div>
     </section>
 
@@ -50,18 +52,25 @@ unset($_SESSION['logout_success']);
                 foreach ($courses as $course):
                     ?>
                     <div class="item flex border border-[#ccc] rounded-sm hover:shadow-2xl">
-                        <div class="image-box h-[120px]">
-                            <a href="?page=course_detail">
-                                <img class="h-full w-full object-cover" src="<?= htmlspecialchars($course['image'] ?? '') ?>"
-                                    alt="Ảnh lỗi">
-                            </a>
+                        <div class="image-box h-[120px] w-[160px] overflow-hidden">
+                            <form action="?page=lesson_player" method="POST" class="h-full w-full">
+                                <input type="hidden" name="course_id" value="<?= $course['id'] ?>">
+                                <button type="submit" class="h-full w-full p-0 m-0 border-0 bg-transparent cursor-pointer">
+                                    <img class="h-full w-full object-cover" src="<?= htmlspecialchars($course['image']) ?>"
+                                        alt="Ảnh lỗi">
+                                </button>
+                            </form>
                         </div>
                         <div class="p-2 flex justify-start flex-col">
-                            <a href="?page=course_detail">
-                                <p><?= htmlspecialchars($course['course_name'] ?? '') ?></p>
-                            </a>
-                            <p class="font-bold">Bải giảng: <?= $course['percent_completed'] ?>%</p>
-                            <p class="justify-self-end mt-auto"><?= htmlspecialchars($course['total_length'] ?? 0) . ' Giờ' ?>
+                            <form action="?page=lesson_player" method="POST">
+                                <input type="hidden" name="course_id" value="<?= $course['id'] ?>">
+                                <button type="submit" class="text-left p-0 m-0 bg-transparent hover:underline">
+                                    <?= htmlspecialchars($course['course_name']) ?>
+                                </button>
+                            </form>
+                            <p class="font-bold">Bài giảng: <?= $course['percent_completed'] ?>%</p>
+                            <p class="justify-self-end mt-auto">
+                                <?= htmlspecialchars($course['total_length'] ?? 0) ?> Giờ
                             </p>
                         </div>
                     </div>
@@ -147,7 +156,8 @@ unset($_SESSION['logout_success']);
                 <h3 class="text-xl font-bold"><?= htmlspecialchars(number_format($top1[0]['sale_price'] ?? 0)) ?> đ
                     <span
                         class="font-normal opacity-[0.8] line-through"><?= htmlspecialchars(number_format($top1[0]['regular_price'] ?? 0)) ?>
-                        đ</span></h3>
+                        đ</span>
+                </h3>
             </div>
         </div>
     </section>
@@ -170,7 +180,7 @@ unset($_SESSION['logout_success']);
                     </div>
                     <div class="p-2 flex border border-[#ccc] justify-start flex-col">
                         <a href="?page=course_detail">
-                            <p class="font-bold mb-2 truncate"><?= htmlspecialchars($course['course_name'] ?? '') ?></p>
+                            <p class="font-bold mb-2 truncate"><?= htmlspecialchars($top['course_name'] ?? '') ?></p>
                         </a>
                         <p class="opacity-[0.8] text-xs mb-2"><?= htmlspecialchars($top['instructor'] ?? '') ?></p>
                         <p class="mb-2">Đánh giá: (<?= htmlspecialchars($top['rating'] ?? 'Chưa có đánh giá') ?>)<i
@@ -178,7 +188,8 @@ unset($_SESSION['logout_success']);
                         <p class="justify-self-end mt-auto font-bold mb-2">
                             <?= htmlspecialchars(number_format($top['sale_price'] ?? 0)) ?> đ <span
                                 class="ml-1 font-medium line-through opacity-[0.7]"><?= htmlspecialchars(number_format($top['regular_price'] ?? 0)) ?>
-                                đ</span></p>
+                                đ</span>
+                        </p>
                     </div>
                 </div>
                 <?php
