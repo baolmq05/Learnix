@@ -2,7 +2,8 @@
 session_start();
 require_once '../../../Models/Review.php';
 $reviewModel = new Review();
-$courseId = isset($_GET['courseId']);
+
+$courseId = isset($_GET['courseId']) ? intval($_GET['courseId']) : 0;
 $start = isset($_GET['start']) ? intval($_GET['start']) : 3;
 $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 3;
 $reviews = $reviewModel->getAllReviewsByCourseId($courseId, $start, $limit); 
@@ -11,11 +12,12 @@ if (empty($reviews)) {
     exit;
 }
 ?>
- <?php foreach ($reviews as $review): ?>
+ <?php foreach ($reviews as $review):
+    ?>
                     <div class="border w-full p-5">
                         <div class="flex gap-5">
                             <div class="w-15 h-15">
-                                <img class="rounded-full" src="Uploads/Avatar/<?= $review['avatar'] ?? 'default.webp' ?>"
+                                <img class="rounded-full w-full h-full object-cover" src="Uploads/Avatar/<?= $review['avatar'] ?? 'default.webp' ?>"
                                     alt="" />
                             </div>
                             <div>

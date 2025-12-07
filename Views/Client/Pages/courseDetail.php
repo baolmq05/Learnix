@@ -125,7 +125,7 @@
                                     <h4>Bài <?= $lesson + 1 ?>: <?= $lessonValue['lesson_name'] ?></h4>
                                     <p><?= $lessonValue['lesson_length'] ?></p>
                                 </div>
-                        <?php endif;
+                            <?php endif;
                         endforeach; ?>
                     </div>
                 </details>
@@ -189,8 +189,9 @@
             <div class="flex justify-between items-center">
                 <div class="flex items-center">
                     <div class="w-20 h-20">
-                        <img class="rounded-full" src="Uploads/Avatar/<?= $course['avatar'] ?? 'default.webp' ?>"
-                            width="100%" alt="" />
+                        <img class="rounded-full object-cover h-20 w-20"
+                            src="Uploads/Avatar/<?= $course['avatar'] ?? 'default.webp' ?>" width="100%" height="100%"
+                            alt="" />
                     </div>
                     <p class="font-bold text-2xl ms-5">
                         <a href="#"><?= $course['instructor'] ?></a>
@@ -214,8 +215,8 @@
                     <div class="border w-full p-5">
                         <div class="flex gap-5">
                             <div class="w-15 h-15">
-                                <img class="rounded-full" src="Uploads/Avatar/<?= $review['avatar'] ?? 'default.webp' ?>"
-                                    alt="" />
+                                <img class="rounded-full w-full h-full object-cover"
+                                    src="Uploads/Avatar/<?= $review['avatar'] ?? 'default.webp' ?>" alt="" width="100%" height="100%" />
                             </div>
                             <div>
                                 <p><?= htmlspecialchars($review['name']) ?></p>
@@ -232,7 +233,8 @@
                         <p class="mt-3 text-justify two-line-ellipsis" id="<?= $review['id'] ?>">
                             <?= htmlspecialchars($review['content']) ?>
                         </p>
-                        <button class="font-bold hover:cursor-pointer" onclick="toggleContent(<?= $review['id'] ?>)">Xem thêm</button>
+                        <button class="font-bold hover:cursor-pointer" onclick="toggleContent(<?= $review['id'] ?>)">Xem
+                            thêm</button>
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -240,7 +242,8 @@
                 class="text-[#6d28d2] border-[#6d28d2] border hover:bg-purple-100 hover:cursor-pointer font-bold rounded-[5px] px-10 py-2 mt-5">
                 Xem thêm bình luận
             </button>
-            <h3 class="text-2xl font-bold mt-5">Các khóa học của thầy <a href="#" class="text-purple-600"><?= htmlspecialchars($course['instructor']) ?></a></h3>
+            <h3 class="text-2xl font-bold mt-5">Các khóa học của thầy <a href="#"
+                    class="text-purple-600"><?= htmlspecialchars($course['instructor']) ?></a></h3>
             <?php if (!empty($coursesByTeacher)):
                 foreach ($coursesByTeacher as $courseByTeacher): ?>
                     <a href="?page=course_detail&id=<?= $courseByTeacher['id'] ?>">
@@ -315,20 +318,19 @@
 <script>
     let start = <?= count($reviews) ?>;
     let limit = 3;
-
+    let courseId = <?= $course['id'] ?>;
     function getMoreReview() {
         $.ajax({
             url: 'Controllers/Client/Ajax/AjaxGetMoreReview.php',
             type: 'GET',
             data: {
-                courseId: <?= $course['id'] ?>,
+                courseId: courseId,
                 start: start,
                 limit: limit
             },
-            success: function(response) {
+            success: function (response) {
                 $('#review').append(response);
                 start += limit;
-                console.log(start);
                 document.getElementById('buttonGetMoreReview').scrollIntoView({
                     behavior: 'smooth',
                     block: 'center'
@@ -336,9 +338,10 @@
                 if ($('#no-more-reviews').length) {
                     document.getElementById('buttonGetMoreReview').style.display = 'none';
                 }
+                checkContentHeight();
                 console.log('Đã tải thêm bình luận thành công');
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 // Xử lý lỗi (nếu có)
                 console.error(error);
             }
@@ -357,7 +360,19 @@
             button.textContent = 'Xem thêm';
         }
     }
+    function checkContentHeight() {
+    //Kiểm tra xem bình luận có hơn 2 dòng hay không để hiển thị nút "Xem thêm"
+    document.querySelectorAll('.two-line-ellipsis').forEach(paragraph => {
+        const lineHeight = parseFloat(getComputedStyle(paragraph).lineHeight);
+        const maxHeight = lineHeight * 2; // Giới hạn 2 dòng
 
+        if (paragraph.scrollHeight <= maxHeight) {
+            const button = paragraph.nextElementSibling;
+            button.style.display = 'none';
+        }
+    });
+}
+checkContentHeight();
     function showToast(message, type = "success") {
         const toast = document.createElement("div");
 
@@ -407,9 +422,9 @@
         formData.append("courseId", courseId);
 
         fetch("Controllers/Client/Ajax/AjaxAddToCart.php", {
-                method: "POST",
-                body: formData
-            })
+            method: "POST",
+            body: formData
+        })
             .then(res => res.json())
             .then(data => {
 
@@ -432,7 +447,7 @@
             url: "Controllers/Client/Ajax/AjaxLoadCartHeader.php",
             method: "GET",
             dataType: "json",
-            success: function(data) {
+            success: function (data) {
 
                 if (data.status === "error") {
                     $("#cartDropdownItems").html(`
@@ -448,7 +463,7 @@
 
                 $("#cartCount").text(data.count);
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.error("Load Cart Error:", error);
             }
         });
