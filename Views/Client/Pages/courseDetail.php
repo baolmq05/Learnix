@@ -52,10 +52,13 @@
                     </button>
                 </div>
                 <div class="mx-4 mt-2">
-                    <button
-                        class="text-[#6d28d2] border-[#6d28d2] border hover:bg-purple-100 hover:cursor-pointer font-bold text-[1.2rem] rounded-[5px] px-10 py-3 w-full">
-                        Mua ngay
-                    </button>
+                    <form action="?page=checkout&action=viewCheckout" method="POST">
+                        <input type="hidden" name="course_id" value="<?= $course['id'] ?>">
+                        <button type="submit"
+                            class="text-[#6d28d2] border-[#6d28d2] border hover:bg-purple-100 hover:cursor-pointer font-bold text-[1.2rem] rounded-[5px] px-10 py-3 w-full">
+                            Mua ngay
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

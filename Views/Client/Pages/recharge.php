@@ -1,3 +1,16 @@
+<?php
+$message = $_SESSION['needed_amount'] ?? '';
+unset($_SESSION['needed_amount']);
+
+?>
+<?php if (!empty($message)): ?>
+        <div id="alert_success" class="flex items-center w-full p-4 mb-4 text-yellow-800 bg-yellow-100 rounded-lg"
+            role="alert">
+            <div>
+               Cần nạp thêm  <?= number_format($message, 0, ',', '.') ?>₫ 
+            </div>
+        </div>
+<?php endif; ?>
 <section class="m-5">
     <div class="grid gap-5 order-2 sm:order-1 sm:grid-cols-2">
         <div class="grid sm:justify-end order-2 sm:order-1">
@@ -48,9 +61,8 @@
             <div class="col-span-1 w-full md:w-[500px] p-5">
                 <div class="border-2 border-gray-500 rounded-lg p-4">
                     <p class="text-2xl font-bold text-center">Thông tin chi tiết</p>
-                    <p class="mt-3"><span class="font-semibold">Số tài khoản:</span> 123456789</p>
-                    <p class="mt-3"><span class="font-semibold">Số dư hiện tại:</span> 500.000₫</p>
-                    <p class="mt-3"><span class="font-semibold">Người nạp:</span> Nguyễn Hoàng Bảo</p>
+                    <p class="mt-3"><span class="font-semibold">Số dư hiện tại:</span> <?= number_format($_SESSION['client']['balance'] ?? 0, 0, ',', '.') ?>₫</p>
+                    <p class="mt-3"><span class="font-semibold">Người nạp:</span> <?= htmlspecialchars($_SESSION['client']['name'] ?? '') ?></p>
                 </div>
             </div>
         </div>

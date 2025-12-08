@@ -263,6 +263,24 @@ switch ($page) {
                 break;
         }
         break;
+        case "checkout":
+        require_once "Controllers/Client/CheckoutController.php";
+        $checkoutController = new CheckoutController();
+        switch ($action) {
+            case "viewCheckout":
+                $checkoutController->viewCheckout();
+                break;
+            case "checkoutReturn":
+                $checkoutController->checkoutReturn();
+                break;
+            case "success":
+                $checkoutController->checkoutReturn();
+                break;
+            case "handleCheckout":
+                $checkoutController->handleCheckout();
+                break;
+        }
+        break;
     case "transaction":
         require_once "Controllers/Client/TransactionController.php";
         $transactionController = new TransactionController();

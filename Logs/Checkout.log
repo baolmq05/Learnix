@@ -1,0 +1,39 @@
+HandleCheckout - cartItems from DB: []
+CartItems: []
+CartItems is EMPTY!
+User ID: 43
+CartData count: 1
+HandleCheckout - cartItems: [{"course_id":7,"price":850000}]
+CartItems: [{"course_id":7,"price":850000}]
+Processing course_id: 7, price: 850000
+Enrolled user 43 into course 7
+Teacher ID: 8
+Added 765000 to teacher 8
+Added 85000 to admin 89
+User ID: 43
+CartData count: 0
+HandleCheckout - cartItems: []
+Buy Now - Course ID: 10
+Final cartItems: [{"course_id":10,"price":1100000}]
+CartItems: [{"course_id":10,"price":1100000}]
+Processing course_id: 10, price: 1100000
+Enrolled user 43 into course 10
+Teacher ID: 12
+Added 990000 to teacher 12
+Added 110000 to admin 89
+Buy Now - Course ID: 59
+Final cartItems: [{"course_id":59,"price":999000}]
+CartItems: [{"course_id":59,"price":999000}]
+Processing course_id: 59, price: 999000
+Enrolled user 43 into course 59 (enroll_course_id: 19)
+Enroll lessons error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'created_at' in 'INSERT INTO'
+Lỗi lúc 07:38:44pm: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'created_at' in 'INSERT INTO'
+Buy Now - Course ID: 59
+Final cartItems: [{"course_id":59,"price":999000}]
+CartItems: [{"course_id":59,"price":999000}]
+Processing course_id: 59, price: 999000
+Enrolled user 43 into course 59 (enroll_course_id: 20)
+Enrolled 43 into 10 lessons of enroll_course_id 20
+Teacher ID: 72
+Added 899100 to teacher 72
+Added 99900 to admin 89
