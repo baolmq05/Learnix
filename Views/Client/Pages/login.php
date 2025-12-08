@@ -116,7 +116,13 @@ unset($_SESSION['error']['message']);
                 }, 3000);
             }
         });
+
+        let loginError = sessionStorage.getItem('loginError');
+        if (loginError) {
+            sessionStorage.removeItem('loginError');
+        }
     </script>
+
 </body>
 
 </html>

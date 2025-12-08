@@ -1,13 +1,11 @@
 <?php
 session_start();
 
-// Xóa mọi output thừa gây lỗi JSON
 ob_clean();
 
 require_once '../../../Models/Cart.php';
 header("Content-Type: application/json");
 
-// Lấy user_id từ Session
 $user_id = $_SESSION['client']['id'] ?? null;
 $course_id = $_POST['courseId'] ?? null;
 
@@ -35,10 +33,8 @@ if (!$course_id) {
     exit;
 }
 
-// Thực hiện xóa
 $deleteCart = $cartModel->deleteCartItem($user_id, $course_id);
 
-// Nếu xóa thất bại
 if (!$deleteCart) {
     $response["message"] = "Không thể xóa sản phẩm khỏi giỏ hàng.";
     echo json_encode($response);
@@ -47,14 +43,12 @@ if (!$deleteCart) {
 
 try {
 
-    // Lấy danh sách giỏ hàng sau khi xóa
     $cartItems = $cartModel->getAllCart($user_id);
 
     $totalPrice  = 0;
     $totalNoSale = 0;
     $htmlCartItems = "";
 
-    // Nếu còn sản phẩm
     if (!empty($cartItems)) {
 
         foreach ($cartItems as $item) {
@@ -120,7 +114,7 @@ try {
 
         $response = [
             "status"      => "success",
-            "message"     => "Đã xóa thành công.",
+            "message"     => "Đã xóa thành công",
             "totalPrice"  => number_format($totalPrice, 0, ',', '.') . "₫",
             "totalNoSale" => number_format($totalNoSale, 0, ',', '.') . "₫",
             "hasItems"    => true,

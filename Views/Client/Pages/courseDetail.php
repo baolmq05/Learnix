@@ -125,7 +125,7 @@
                                     <h4>Bài <?= $lesson + 1 ?>: <?= $lessonValue['lesson_name'] ?></h4>
                                     <p><?= $lessonValue['lesson_length'] ?></p>
                                 </div>
-                            <?php endif;
+                        <?php endif;
                         endforeach; ?>
                     </div>
                 </details>
@@ -319,6 +319,7 @@
     let start = <?= count($reviews) ?>;
     let limit = 3;
     let courseId = <?= $course['id'] ?>;
+
     function getMoreReview() {
         $.ajax({
             url: 'Controllers/Client/Ajax/AjaxGetMoreReview.php',
@@ -328,7 +329,7 @@
                 start: start,
                 limit: limit
             },
-            success: function (response) {
+            success: function(response) {
                 $('#review').append(response);
                 start += limit;
                 document.getElementById('buttonGetMoreReview').scrollIntoView({
@@ -341,7 +342,7 @@
                 checkContentHeight();
                 console.log('Đã tải thêm bình luận thành công');
             },
-            error: function (xhr, status, error) {
+            error: function(xhr, status, error) {
                 // Xử lý lỗi (nếu có)
                 console.error(error);
             }
@@ -360,27 +361,32 @@
             button.textContent = 'Xem thêm';
         }
     }
-    function checkContentHeight() {
-    //Kiểm tra xem bình luận có hơn 2 dòng hay không để hiển thị nút "Xem thêm"
-    document.querySelectorAll('.two-line-ellipsis').forEach(paragraph => {
-        const lineHeight = parseFloat(getComputedStyle(paragraph).lineHeight);
-        const maxHeight = lineHeight * 2; // Giới hạn 2 dòng
 
-        if (paragraph.scrollHeight <= maxHeight) {
-            const button = paragraph.nextElementSibling;
-            button.style.display = 'none';
-        }
-    });
-}
-checkContentHeight();
+    function checkContentHeight() {
+        //Kiểm tra xem bình luận có hơn 2 dòng hay không để hiển thị nút "Xem thêm"
+        document.querySelectorAll('.two-line-ellipsis').forEach(paragraph => {
+            const lineHeight = parseFloat(getComputedStyle(paragraph).lineHeight);
+            const maxHeight = lineHeight * 2; // Giới hạn 2 dòng
+
+            if (paragraph.scrollHeight <= maxHeight) {
+                const button = paragraph.nextElementSibling;
+                button.style.display = 'none';
+            }
+        });
+    }
+    checkContentHeight();
+
     function showToast(message, type = "success") {
         const toast = document.createElement("div");
 
-        toast.className =
-            "fixed top-5 right-5 px-5 py-3 rounded shadow-lg text-white z-50 animate-slideIn";
+        toast.id = type === "success" ? "alert_success" : "alert_danger";
 
-        toast.style.background =
-            type === "success" ? "#22c55e" : "#ef4444"; // xanh / đỏ
+        toast.style.background = type === "success" ? "#22c55e" : "#ef4444";
+
+        toast.className =
+            "fixed top-5 right-5 max-w-[80vw] px-4 py-2 text-white rounded-lg shadow-lg z-[9999] break-words";
+
+        toast.style.transition = "opacity 0.5s ease";
 
         toast.innerText = message;
 
@@ -388,9 +394,9 @@ checkContentHeight();
 
         setTimeout(() => {
             toast.style.opacity = "0";
-            toast.style.transition = "0.5s";
-            setTimeout(() => toast.remove(), 500);
-        }, 2000);
+        }, 2500);
+
+        setTimeout(() => toast.remove(), 3000);
     }
 
     const style = document.createElement("style");
@@ -412,19 +418,21 @@ checkContentHeight();
         console.log("User ID:", userId);
         console.log("Course ID:", courseId);
 
-        if (!userId) {
-            showToast("Vui lòng đăng nhập để thêm vào giỏ hàng!", "error");
-            return;
-        }
-
         let formData = new FormData();
         formData.append("userId", userId);
         formData.append("courseId", courseId);
 
+        if (!userId) {
+            showToast("Vui lòng đăng nhập để thêm vào giỏ hàng!", "error");
+            sessionStorage.setItem('loginError', 'Vui lòng đăng nhập để thực hiện chức năng');
+            window.location.href = "/index.php?page=login";
+            return;
+        }
+
         fetch("Controllers/Client/Ajax/AjaxAddToCart.php", {
-            method: "POST",
-            body: formData
-        })
+                method: "POST",
+                body: formData
+            })
             .then(res => res.json())
             .then(data => {
 
@@ -447,7 +455,7 @@ checkContentHeight();
             url: "Controllers/Client/Ajax/AjaxLoadCartHeader.php",
             method: "GET",
             dataType: "json",
-            success: function (data) {
+            success: function(data) {
 
                 if (data.status === "error") {
                     $("#cartDropdownItems").html(`
@@ -463,7 +471,7 @@ checkContentHeight();
 
                 $("#cartCount").text(data.count);
             },
-            error: function (xhr, status, error) {
+            error: function(xhr, status, error) {
                 console.error("Load Cart Error:", error);
             }
         });

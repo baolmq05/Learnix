@@ -129,7 +129,7 @@ class LoginController
         $user = $userModel->checkLogin($email, $password);
 
         if ($user == 'locked') {
-            $_SESSION['loginError'] = 'Tài khoản đã bị khóa!';
+            $_SESSION['error']['loginError'] = 'Tài khoản đã bị khóa!';
             header('Location: ?page=login');
             exit;
         } elseif ($user === false) {

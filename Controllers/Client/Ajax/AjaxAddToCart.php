@@ -29,7 +29,7 @@ if (empty($user_id) || !isset($course_id)) {
 if (in_array($course_id, array_column($oldCart, 'id'))) {
     echo json_encode([
         "status" => "error",
-        "message" => "Khóa học đã có trong giỏ hàng!"
+        "message" => "Đã có trong giỏ hàng!"
     ]);
     exit;
 }
@@ -39,7 +39,7 @@ $newCart = $cartModel->addToCart($user_id, $course_id);
 if ($newCart) {
     echo json_encode([
         "status" => "success",
-        "message" => "Thêm vào giỏ hàng thành công!",
+        "message" => "Thêm thành công!",
     ]);
     exit;
 }

@@ -142,7 +142,7 @@
                         $("#total-no-sale").text(data.totalNoSale);
                         loadCartHeader();
                         if (!data.hasItems) {
-                            $("#cart-default").html( `
+                            $("#cart-default").html(`
                                 <h2 class="text-center text-4xl font-bold my-5">Giỏ hàng</h2>
                                 <p class="text-center text-gray-600 h-[250px]">Giỏ hàng của bạn hiện đang trống.</p>
                             `);
@@ -160,43 +160,46 @@
             });
         }
 
-        
-    function loadCartHeader() {
-        $.ajax({
-            url: "Controllers/Client/Ajax/AjaxLoadCartHeader.php",
-            method: "GET",
-            dataType: "json",
-            success: function(data) {
 
-                if (data.status === "error") {
-                    $("#cartDropdownItems").html(`
+        function loadCartHeader() {
+            $.ajax({
+                url: "Controllers/Client/Ajax/AjaxLoadCartHeader.php",
+                method: "GET",
+                dataType: "json",
+                success: function(data) {
+
+                    if (data.status === "error") {
+                        $("#cartDropdownItems").html(`
                     <div class="p-3 text-center text-sm text-gray-600">
                     Giỏ hàng trống
                     </div>
                     `);
-                    $("#cartCount").text(0);
-                    return;
+                        $("#cartCount").text(0);
+                        return;
+                    }
+
+                    $("#cartDropdownItems").html(data.html);
+
+                    $("#cartCount").text(data.count);
+                },
+                error: function(xhr, status, error) {
+                    console.error("Load Cart Error:", error);
                 }
-
-                $("#cartDropdownItems").html(data.html);
-
-                $("#cartCount").text(data.count);
-            },
-            error: function(xhr, status, error) {
-                console.error("Load Cart Error:", error);
-            }
-        });
-    }
+            });
+        }
 
 
         function showToast(message, type = "success") {
             const toast = document.createElement("div");
 
-            toast.className =
-                "fixed top-5 right-5 px-5 py-3 rounded shadow-lg text-white z-50 animate-slideIn";
+            toast.id = type === "success" ? "alert_success" : "alert_danger";
 
-            toast.style.background =
-                type === "success" ? "#22c55e" : "#ef4444";
+            toast.style.background = type === "success" ? "#22c55e" : "#ef4444";
+
+            toast.className =
+                "fixed top-5 right-5 max-w-[80vw] px-4 py-2 text-white rounded-lg shadow-lg z-[9999] break-words";
+
+            toast.style.transition = "opacity 0.5s ease";
 
             toast.innerText = message;
 
@@ -204,8 +207,8 @@
 
             setTimeout(() => {
                 toast.style.opacity = "0";
-                toast.style.transition = "0.5s";
-                setTimeout(() => toast.remove(), 500);
-            }, 2000);
+            }, 2500);
+
+            setTimeout(() => toast.remove(), 3000);
         }
     </script>
