@@ -5,7 +5,7 @@
                 <b><?= $course['course_name'] ?></b>
             </h1>
             <p class="text-justify mt-5 leading-7">
-                <?= $course['description'] ?>
+                <?= html_entity_decode($course['description']) ?>
             </p>
             <p class="flex mt-5">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -34,7 +34,7 @@
         <div class="lg:col-span-3 col-span-6 col-start-3">
             <div class="p-2 rounded-sm bg-white text-black">
                 <div class="w-full">
-                    <img class="object-cover" src="<?= $course['image'] ?? 'Hello' ?>" alt="" width="100%" />
+                    <img class="object-cover" src="Uploads/Courses/<?= $course['image'] ?? 'Hello' ?>" alt="" width="100%" />
                 </div>
                 <div class="flex items-center">
                     <h3 class="font-bold text-2xl mx-4 mt-4">

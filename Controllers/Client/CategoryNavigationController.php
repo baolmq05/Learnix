@@ -8,7 +8,7 @@ class CategoryNavigationController
     public function __construct()
     {
         $this->_categoryModel = new Category();
-        $categories = $this->_categoryModel->getAllByStatus();
+        $categories = $this->_categoryModel->getNameCategoryAndTotalCourseByStatus();
         $this->_cartModel = new Cart();
         $user_id = $_SESSION['client']['id'] ?? '';
         $cartItems = $this->_cartModel->getAllCart($user_id);
