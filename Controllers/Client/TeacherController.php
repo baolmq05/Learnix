@@ -3,23 +3,42 @@ require_once 'Models/Teacher.php';
 require_once 'Models/Profile.php';
 require_once 'Models/WithDraw.php';
 require_once 'Models/Dashboard.php';
+require_once "./Models/Course.php";
 class TeacherController
 {
     private $teacherModel;
     private $profileModel;
     private $withDrawModel;
     private $dashboardModel;
+    private $_courseModel;
+
     public function __construct()
     {
         $this->teacherModel = new Teacher();
         $this->profileModel = new Profile();
         $this->withDrawModel = new WithDraw();
         $this->dashboardModel = new Dashboard();
+        $this->_courseModel = new Course();
     }
 
     public function index()
     {
-        include 'Views/Client/Pages/Teacher/teacher.php';
+        $userId = isset($_SESSION["client"]["id"]) ? $_SESSION["client"]["id"] : "";
+
+        if (!empty($userId)) {
+            $courseApproved = $this->_courseModel->getTeacherCourses($userId, 1);
+            $coursePending = $this->_courseModel->getTeacherCourses($userId, 2);
+            $courseEditing = $this->_courseModel->getTeacherCourses($userId, 0);
+            $courseDisabled = $this->_courseModel->getTeacherCourses($userId, 3);
+            $courseReject = $this->_courseModel->getTeacherCourses($userId, 4);
+
+            $countCourseObj = $this->_courseModel->countTeacherCourseByStatus($userId);
+
+            include 'Views/Client/Pages/Teacher/teacher.php';
+        } else {
+            header("location: index.php");
+            exit;
+        }
     }
 
     public function viewDetail()
@@ -49,7 +68,7 @@ class TeacherController
             $index = array_search($m, $labels);
             $finalData[] = $index !== false ? $data[$index] : 0;
         }
-        
+
         include 'Views/Client/Pages/Teacher/statistic.php';
     }
 
@@ -234,7 +253,6 @@ class TeacherController
             header('Location: ?page=teacher&action=editProfile');
             exit;
         }
-
     }
     public function viewStudents()
     {

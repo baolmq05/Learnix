@@ -127,7 +127,7 @@
 
         <div class="bg-black text-white p-3 flex items-center justify-between sticky top-0 z-1">
             <div class="flex items-center">
-                <a href="" class="text-[1.1rem]">
+                <a href="?page=teacher" class="text-[1.1rem]">
                     <i class="bi bi-chevron-left me-2"></i>Quay lại
                 </a>
                 <span class="mx-4">|</span>

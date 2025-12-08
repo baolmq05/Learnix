@@ -90,7 +90,6 @@ AND total_length <= :durationMax
 $filter
 LIMIT 5 OFFSET :offset";
 
-
         $stmt = $this->_connect->prepare($sql);
         $stmt->bindParam(':rating', $rating);
         $stmt->bindParam(':durationMin', $durationMin);
@@ -357,6 +356,61 @@ LIMIT 5 OFFSET :offset";
             $sql = "SELECT * FROM courses WHERE id = :id";
             $stmt = $this->_connect->prepare($sql);
             $stmt->bindParam(":id", $id);
+            $stmt->execute();
+
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result;
+        } catch (PDOException $e) {
+            $errorMessage = "Lỗi lúc " . date("h:i:sa") . $e->getMessage();
+            file_put_contents("./Logs/Course.log", $errorMessage, FILE_APPEND);
+        }
+    }
+
+    public function getTeacherCourses($teacherId, $status)
+    {
+        try {
+            $sql = "SELECT 
+                courses.id AS course_id, 
+                courses.image AS course_image,
+                courses.course_name AS course_name,
+                courses.sale_price AS sale_price,
+                courses.regular_price AS regular_price,
+                COUNT(DISTINCT enroll_courses.id) AS student_quantity,
+                COALESCE(ROUND(AVG(reviews.rating), 1), 0) AS rating
+                FROM courses
+                LEFT JOIN enroll_courses ON enroll_courses.course_id = courses.id
+                LEFT JOIN reviews ON reviews.course_id = courses.id
+                WHERE courses.teacher_id = :teacher_id 
+                AND courses.status = :status
+                GROUP BY courses.id";
+            $stmt = $this->_connect->prepare($sql);
+            $stmt->bindParam(":teacher_id", $teacherId);
+            $stmt->bindParam(":status", $status);
+            $stmt->execute();
+
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        } catch (PDOException $e) {
+            $errorMessage = "Lỗi lúc " . date("h:i:sa") . $e->getMessage();
+            file_put_contents("./Logs/Course.log", $errorMessage, FILE_APPEND);
+        }
+    }
+
+    public function countTeacherCourseByStatus($teacherId)
+    {
+        try {
+
+            // 0 là đang chỉnh sửa, 1 là đã duyệt và được phép bán, 2 là đang chờ duyệt, 3 là ngừng bán, 4 là từ chối
+            $sql = "SELECT
+                    SUM(CASE WHEN status = 0 THEN 1 ELSE 0 END) AS editing_count,
+                    SUM(CASE WHEN status = 1 THEN 1 ELSE 0 END) AS approved_count,
+                    SUM(CASE WHEN status = 2 THEN 1 ELSE 0 END) AS pending_count,
+                    SUM(CASE WHEN status = 3 THEN 1 ELSE 0 END) AS disabled_count,
+                    SUM(CASE WHEN status = 4 THEN 1 ELSE 0 END) AS rejected_count
+                    FROM courses
+                    WHERE teacher_id = :teacher_id;";
+            $stmt = $this->_connect->prepare($sql);
+            $stmt->bindParam(":teacher_id", $teacherId);
             $stmt->execute();
 
             $result = $stmt->fetch(PDO::FETCH_ASSOC);

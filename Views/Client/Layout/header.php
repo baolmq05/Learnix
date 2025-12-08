@@ -23,7 +23,7 @@ if (!empty($_SESSION['client'])) {
 
 </head>
 
-<body>
+<body class="flex flex-col justify-between h-screen">
     <nav class="bg-white shadow px-6 pt-3 pb-2 relative">
         <div class="max-w-full mx-auto flex items-center justify-between mb-3">
 
