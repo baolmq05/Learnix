@@ -66,7 +66,7 @@ unset($_SESSION['error']['message']);
                             class="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500" />
                     </div>
                     <div class="w-full py-4 text-right">
-                        <a class="font-bold text-md" href="">Quên mật khẩu?</a>
+                        <a href="/index.php?page=forgot_password&action=index" class="font-bold text-md" href="">Quên mật khẩu?</a>
                     </div>
                     <button type="submit" name="login"
                         class="w-full bg-black text-white p-2 rounded-lg mb-6 hover:opacity-[0.8] hover:text-white">

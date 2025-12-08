@@ -114,7 +114,7 @@ if ($page == "lesson_player") {
     exit;
 }
 
-if ($page != "login" && $page != "register") {
+if ($page != "login" && $page != "register" && $page != "forgot_password" && $page != "change_password") {
     require "./Controllers/Client/CategoryNavigationController.php";
     $categoryNavigationController = new CategoryNavigationController();
 }
@@ -175,6 +175,33 @@ switch ($page) {
                 break;
             case 'handleRegister':
                 $auth->handleRegister();
+                break;
+        }
+        break;
+
+    case "change_password":
+        require_once "./Controllers/Client/AuthController.php";
+        $auth = new AuthController();
+        switch ($action) {
+            case '':
+                $auth->changePassword();
+                break;
+            case 'handleChangePassword':
+                $auth->handleChangePassword();
+                break;
+        }
+        break;
+
+    case "forgot_password":
+        require_once "./Controllers/Client/AuthController.php";
+        $auth = new AuthController();
+        switch ($action) {
+            case 'index':
+                $auth->forgotPassword();
+                break;
+
+            case 'handle':
+                $auth->handleForgotPassword();
                 break;
         }
         break;
@@ -256,6 +283,6 @@ switch ($page) {
         break;
 }
 
-if ($page != "login" && $page != "register") {
+if ($page != "login" && $page != "register" && $page != "forgot_password" && $page != "change_password") {
     require "Views/Client/Layout/footer.php";
 }
