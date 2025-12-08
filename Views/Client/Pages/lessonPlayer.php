@@ -2,7 +2,7 @@
         <div
             class="bg-black text-white flex items-center border-b justify-between border-white">
             <div class="p-3 flex items-center">
-                <i class="bi bi-arrow-left-short text-2xl me-2"></i>
+                <a href="?page=course_learning"><i class="bi bi-arrow-left-short text-2xl me-2"></i></a>
                 <a class="hover:text-gray-300" href="?page=course_learning"><?= $courseCurrent["course_name"] ?? "" ?></a>
             </div>
             <button onclick="tutorialPopup()" class="p-2 text-white rounded mx-3 hover:cursor-pointer lg:block hidden">
