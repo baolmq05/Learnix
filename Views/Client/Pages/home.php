@@ -104,14 +104,14 @@ unset($_SESSION['logout_success']);
                 ?>
                 <div class="item rounded-sm hover:scale-[1.05] transition-all overflow-hidden ">
                     <div class="image-box h-[300px] lg:h-[200px]">
-                        <a href="?page=course_detail">
+                        <a href="?page=course_detail&id=<?= $course["course_id"] ?>">
                             <img class="h-full w-full object-cover" src="<?= htmlspecialchars($course['image'] ?? '') ?>"
                                 alt="">
                         </a>
                     </div>
                     <div class="p-2 flex border border-[#ccc] justify-start flex-col">
                         <a href="?page=course_detail">
-                            <p class="font-bold mb-2 truncate"><?= htmlspecialchars($course['course_name'] ?? '') ?></p>
+                            <p class="font-bold mb-2 truncate"><a class="text-decoration-none" href="?page=course_detail&id=<?= $course["course_id"] ?>"><?= htmlspecialchars($course['course_name'] ?? '') ?></a></p>
                         </a>
                         <p class="opacity-[0.8] text-xs mb-2"><?= htmlspecialchars($course['instructor'] ?? '') ?></p>
                         <p class="mb-2">
@@ -136,7 +136,7 @@ unset($_SESSION['logout_success']);
         <div
             class="rounded-md mx-auto container border-[#ccc] grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 mt-4 border py-5 px-8 gap-6">
             <div class="image-box h-[400px] hover:opacity-[0.8]">
-                <a href="?page=course_detail">
+                <a href="?page=course_detail&id=<?= $top1[0]["course_id"] ?>">
 
                     <img class="w-full h-full" src="<?= htmlspecialchars($top1[0]['image'] ?? '') ?>" alt="">
                 </a>
@@ -144,7 +144,7 @@ unset($_SESSION['logout_success']);
 
             <div class="flex flex-col justify-between">
                 <div>
-                    <a href="?page=course_detail">
+                    <a href="?page=course_detail&id=<?= $top1[0]["course_id"] ?>">
                         <h3 class="font-bold text-2xl mb-3"><?= htmlspecialchars($top1[0]['course_name'] ?? '') ?></h3>
                     </a>
                     <p class="mb-3">Mô tả: <?= htmlspecialchars($top1[0]['description'] ?? '') ?></p>
@@ -173,13 +173,13 @@ unset($_SESSION['logout_success']);
                         <?= htmlspecialchars(round($top['discount_percent'] ?? 0)) ?>%
                     </div>
                     <div class="image-box h-[300px] lg:h-[200px]">
-                        <a href="?page=course_detail">
+                        <a href="?page=course_detail&id=<?= $top["id"] ?>">
                             <img class="h-full w-full object-cover" src="<?= htmlspecialchars($top['image'] ?? '') ?>"
                                 alt="">
                         </a>
                     </div>
                     <div class="p-2 flex border border-[#ccc] justify-start flex-col">
-                        <a href="?page=course_detail">
+                        <a href="?page=course_detail&id=<?= $top["id"] ?>">
                             <p class="font-bold mb-2 truncate"><?= htmlspecialchars($top['course_name'] ?? '') ?></p>
                         </a>
                         <p class="opacity-[0.8] text-xs mb-2"><?= htmlspecialchars($top['instructor'] ?? '') ?></p>
