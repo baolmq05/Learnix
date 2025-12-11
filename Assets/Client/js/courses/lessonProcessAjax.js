@@ -234,9 +234,9 @@ async function processUpdateLesson(btnLessonUpdate) {
 
 async function processDeleteLesson(btnLessonDelete) {
     let confirmResult = confirm("Chắc chắn xóa?");
-    
-    if(!confirmResult) return;
-    
+
+    if (!confirmResult) return;
+
     let form = btnLessonDelete.closest("form");
     let details = form.closest("details");
     let videoIdInput = details.querySelector(".video_id_update");
@@ -246,12 +246,12 @@ async function processDeleteLesson(btnLessonDelete) {
         url: "/Controllers/Client/Ajax/AjaxLessonDelete.php",
         type: "POST",
         // dataType: "json",
-        data: { 
-            videoId: videoIdInput.value, 
-            lessonId: lessonIdInput.value 
+        data: {
+            videoId: videoIdInput.value,
+            lessonId: lessonIdInput.value
         },
         success: function (res) {
-            if(res == true) {
+            if (res == true) {
                 details.remove();
                 alert("Xóa thành công!!!");
             }
@@ -351,23 +351,30 @@ function getVideoInfoUpdate(progressMain, progressText, progressBar, videoId, me
     }, 1000);
 }
 
-function getVideoInfo(progressMain, progressText, progressBar, videoId, messageSuccess, lessonName, videoFile, sectionId, lessonObj, videoName, uploadButton) {
+function getVideoInfo(
+    progressMain, progressText, progressBar, videoId, messageSuccess,
+    lessonName, videoFile, sectionId, lessonObj, videoName, uploadButton
+) {
+
+    let lastErrorTime = 0;   // Dùng để tránh spam lỗi liên tục trong console
+
     const interval = setInterval(() => {
+
         $.ajax({
             url: "/Controllers/Client/Ajax/AjaxLessonProgress.php",
             type: "POST",
             dataType: "json",
             data: { videoId: videoId },
-            success: function (res) {
-                let encodeProgress = Number(res.encodeProgress);
 
+            success: function (res) {
+
+                let encodeProgress = Number(res.encodeProgress);
                 setProgress(encodeProgress, progressText, progressBar);
 
                 if (encodeProgress >= 100) {
                     clearInterval(interval);
-                    encodeProgress = 100;
 
-                    // Render new Lesson
+                    // Render new lesson
                     renderNewLession(sectionId, lessonName.value, videoId, lessonObj, videoName);
 
                     // Reset input
@@ -381,19 +388,32 @@ function getVideoInfo(progressMain, progressText, progressBar, videoId, messageS
 
                     // Reset bar
                     setProgress(0, progressText, progressBar);
+
                     // Turn off bar
                     progressToggle(progressMain, false);
-                    // Show Message
+
+                    // Show success message
                     messageSuccess.style.display = "block";
                     setTimeout(() => {
                         messageSuccess.style.display = "none";
                     }, 3000);
                 }
             },
+
             error: function (xhr, status, error) {
-                console.log("Lỗi:", error);
+
+                // Chỉ log lỗi 1 lần mỗi 3 giây → đỡ spam console
+                const now = Date.now();
+                if (now - lastErrorTime > 3000) {
+                    console.log("Lỗi API progress:", error);
+                    lastErrorTime = now;
+                }
+
+                // Không dừng interval vì đây là realtime → server có thể trả lỗi tạm thời
             },
+
         });
+
     }, 1000);
 }
 

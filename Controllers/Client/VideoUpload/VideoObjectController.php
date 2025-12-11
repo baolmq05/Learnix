@@ -1,4 +1,5 @@
 <?php
+set_time_limit(0);
 require_once(__DIR__ . "../../../../Config/Global.php");
 
 class VideoObjectController {
@@ -57,7 +58,7 @@ class VideoObjectController {
                 "AccessKey: {$this->_api_key}",
                 'Content-Type: application/json',
             ],
-            CURLOPT_TIMEOUT        => 30,
+            CURLOPT_TIMEOUT        => 60,
 
             CURLOPT_SSL_VERIFYPEER => !$this->_skip_ssl_verify,
             CURLOPT_SSL_VERIFYHOST => !$this->_skip_ssl_verify ? 2 : 0,

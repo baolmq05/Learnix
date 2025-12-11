@@ -1,11 +1,3 @@
-<style>
-    body {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-    }
-</style>
-
 <?php
 $success = $_SESSION['login_success'] ?? '';
 unset($_SESSION['login_success']);
