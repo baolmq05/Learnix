@@ -66,6 +66,22 @@ class Course
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['total'];
     }
+
+    public function checkDuplicateName($courseName)
+    {
+        try {
+            $sql = "SELECT * FROM courses WHERE course_name = :course_name";
+            $stmt = $this->_connect->prepare($sql);
+            $stmt->bindParam(":course_name", $courseName);
+            $result = $stmt->execute();
+        
+            return $result;
+        } catch (PDOException $e) {
+            $log_mess = '[' . date('Y-m-d H:i:s') . ']' . $e->getMessage() . PHP_EOL;
+            error_log($log_mess, 3, "./Logs/Course.log");
+        }
+    }
+
     public function getAllCourse($offset = 0, $rating = 0, $durationMin = 0, $durationMax = 1000, $sort = 'DESC', $dataSort = 'rating')
     {
         $filter = 'ORDER BY ' . $dataSort . ' ' . $sort;

@@ -25,11 +25,22 @@ class CreateCourseController
 
         if ($btnCheck) {
             $courseName = isset($_POST["course_name"]) ? htmlspecialchars($_POST["course_name"]) : "";
+
             $category = isset($_POST["category"]) ? htmlspecialchars($_POST["category"]) : "";
             $userCurrent = $_SESSION["client"];
 
             $role = $userCurrent["role"];
             if ($role == 2) {
+                $checkDuplicateName = $this->_courseModel->checkDuplicateName($courseName);
+               
+                // Check trùng tên khóa học
+                if($checkDuplicateName == 1) {
+                    $_SESSION["course_name_error"] = "Tên khóa học đã tồn tại";
+                    $_SESSION["course_name_old"] = $courseName;
+                    header("location: ?page=teacher&action=viewCreateCourse");
+                    exit;
+                }
+
                 $teacherId = $userCurrent["id"];
                 $result = $this->_courseModel->insert($category, $courseName, $teacherId);
 

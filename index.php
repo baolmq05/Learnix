@@ -85,6 +85,12 @@ if ($page == "teacher") {
             $createCourseControl->createCourseAction();
             break;
 
+        case 'createCategory':
+            require_once "./Controllers/Client/CreateCategoryController.php";
+            $createCateControl = new CreateCategoryController();
+            $createCateControl->createCategory();
+            break;
+
         case 'viewEditCourse':
             require_once 'Controllers/Client/EditCourseController.php';
             $editCourseController = new EditCourseController();
