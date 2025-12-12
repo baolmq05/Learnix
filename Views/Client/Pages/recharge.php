@@ -4,12 +4,12 @@ unset($_SESSION['needed_amount']);
 
 ?>
 <?php if (!empty($message)): ?>
-        <div id="alert_success" class="flex items-center w-full p-4 mb-4 text-yellow-800 bg-yellow-100 rounded-lg z-100"
-            role="alert">
-            <div>
-               Cần nạp thêm  <?= number_format($message, 0, ',', '.') ?>₫ 
-            </div>
+    <div id="alert_success" class="flex items-center w-full p-4 mb-4 text-yellow-800 bg-yellow-100 rounded-lg z-100"
+        role="alert">
+        <div>
+            Cần nạp thêm <?= number_format($message, 0, ',', '.') ?>₫
         </div>
+    </div>
 <?php endif; ?>
 <section class="m-5">
     <div class="grid gap-5 order-2 sm:order-1 sm:grid-cols-2">
@@ -27,10 +27,12 @@ unset($_SESSION['needed_amount']);
                                 class="absolute text-sm text-fg-success-strong duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto flex items-center gap-2">
                                 Nhập số tiền</label>
                         </div>
+                        <small id="price_error" class="text-red-600 text-sm mt-1 block"></small>
+
                         <p id="price-help" class="mt-2 text-xs text-gray-700 text-fg-success-strong"><span
                                 class="font-medium">Nhập số
                                 tiền
-                                tối đa 3.000.000₫</span></p>
+                                tối đa 10.000.000₫</span></p>
                         <div class="grid grid-cols-4  sm:grid-cols-3 md:grid-cols-4 mt-3 gap-3">
                             <button type="button"
                                 class="amount-btn border border-gray-300 rounded-lg p-2 text-sm hover:bg-gray-200 transition-colors duration-300">100.000₫</button>
@@ -70,24 +72,56 @@ unset($_SESSION['needed_amount']);
 </section>
 <script>
     const input = document.getElementById('price');
+    const errorTag = document.getElementById('price_error');
     const amountButtons = document.querySelectorAll('.amount-btn');
 
     const defaultClass = "border border-gray-300 rounded-lg p-2 text-sm hover:bg-gray-200 transition-colors duration-300";
     const activeClass = "border border-blue-600 rounded-lg p-2 text-sm bg-blue-100 text-blue-700";
 
+    // Set nhanh giá khi bấm button
     amountButtons.forEach(btn => {
         btn.addEventListener('click', () => {
-
             amountButtons.forEach(b => b.className = defaultClass);
-
             btn.className = activeClass;
-
-            btn.focus();
 
             const value = btn.textContent.replace(/[^\d]/g, "");
             input.value = value;
 
-            input.focus();
+            errorTag.textContent = ""; // clear lỗi
+            input.classList.remove("border-red-500");
         });
+    });
+
+    document.getElementById("frmCreateOrder").addEventListener("submit", function(e) {
+
+        let value = input.value.replace(/[^\d]/g, "");
+
+        errorTag.textContent = "";
+        input.classList.remove("border-red-500");
+
+        if (!value) {
+            e.preventDefault();
+            errorTag.textContent = "Vui lòng nhập số tiền cần nạp.";
+            input.classList.add("border-red-500");
+            return false;
+        }
+
+        value = parseInt(value);
+
+        if (value < 10000) {
+            e.preventDefault();
+            errorTag.textContent = "Số tiền tối thiểu để nạp là 10.000₫.";
+            input.classList.add("border-red-500");
+            return false;
+        }
+
+        if (value > 10000000) {
+            e.preventDefault();
+            errorTag.textContent = "Số tiền tối đa là 10.000.000₫.";
+            input.classList.add("border-red-500");
+            return false;
+        }
+
+        return true;
     });
 </script>
