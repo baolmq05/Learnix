@@ -20,20 +20,28 @@ unset($_SESSION['logout_success']);
     </div>
 <?php endif ?>
 <main class="px-5">
-
     <?php if ($_SESSION['client'] ?? false): ?>
-        <section class="flex gap-5 my-10 items-center">
-            <div class=" bg-black text-white px-5 box-border font-bold text-2xl py-5 rounded-[50%]">LX</div>
-            <div class="p-3 background-">
-                <h3 class="text-2xl font-bold">Chào mừng bạn trở lại <span
-                        class="font-bold text-blue-600"><?php echo $_SESSION['client']['name'] ?? ''; ?></span>!</h3>
+        <section class="flex gap-5 my-5 items-center">
+            <div class="w-15 h-15 rounded-full overflow-hidden border-4 border-blue-600 shadow-lg">
+                <img src="<?= isset($_SESSION['client']['avatar']) ? "./Uploads/Avatar/" . $_SESSION['client']['avatar'] : 'https://i.ibb.co/4pDNDk1/avatar.png' ?>"
+                    alt="Avatar"
+                    class="w-full h-full object-cover">
+            </div>
+
+            <div class="p-1">
+                <h3 class="text-2xl font-bold">
+                    Chào mừng bạn trở lại
+                    <span class="font-bold text-blue-600">
+                        <?php echo $_SESSION['client']['name'] ?? ''; ?>
+                    </span>!
+                </h3>
             </div>
         </section>
     <?php endif; ?>
     <section class="mb-10">
         <div class="lg:h-[600px] h-[450px] sm:h-[400px] basis-5xl">
             <img id="slider" class="h-full w-full object-cover rounded-md"
-                src="https://i.pinimg.com/1200x/86/03/1e/86031ee63ebece19314575d1e47f5599.jpg" alt="">
+                src="./Uploads/Backgrounds/MainBackground.png" alt="">
         </div>
     </section>
 
@@ -45,12 +53,12 @@ unset($_SESSION['logout_success']);
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-3">
             <?php
             if (!$userId):
-                ?>
+            ?>
                 <p class=" text-xl">Vui lòng đăng nhập để xem khóa học đã mua</p>
                 <?php
             elseif (!empty($courses)):
                 foreach ($courses as $course):
-                    ?>
+                ?>
                     <div class="item flex border border-[#ccc] rounded-sm hover:shadow-2xl">
                         <div class="image-box h-[120px] w-[160px] overflow-hidden">
                             <form action="?page=lesson_player" method="POST" class="h-full w-full">
@@ -74,12 +82,12 @@ unset($_SESSION['logout_success']);
                             </p>
                         </div>
                     </div>
-                    <?php
+                <?php
                 endforeach;
             else:
                 ?>
                 <p class="text-xl">Hãy mua thêm khóa học</p>
-                <?php
+            <?php
             endif;
 
             ?>
@@ -90,10 +98,10 @@ unset($_SESSION['logout_success']);
         <section class="mb-10 bg-black rounded-md p-3 flex items-center justify-between">
             <p class="text-white">Bạn muốn đăng bán khóa học?</p>
             <a href="<?= (
-                !$userId
-                ? '?page=login'
-                :
-                '?page=about_teacher') ?>" class="bg-white p-2 rounded-md">Làm giảng viên</a>
+                            !$userId
+                            ? '?page=login'
+                            :
+                            '?page=about_teacher') ?>" class="bg-white p-2 rounded-md">Làm giảng viên</a>
         </section>
     <?php endif; ?>
     <section class="mb-10">
@@ -101,7 +109,7 @@ unset($_SESSION['logout_success']);
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5 mt-3">
             <?php
             foreach ($result as $course):
-                ?>
+            ?>
                 <div class="item rounded-sm hover:scale-[1.05] transition-all overflow-hidden ">
                     <div class="image-box h-[300px] lg:h-[200px]">
                         <a href="?page=course_detail&id=<?= $course["course_id"] ?>">
@@ -125,7 +133,7 @@ unset($_SESSION['logout_success']);
                         </p>
                     </div>
                 </div>
-                <?php
+            <?php
             endforeach;
             ?>
         </div>
@@ -167,7 +175,7 @@ unset($_SESSION['logout_success']);
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5 mt-3">
             <?php
             foreach ($top10Sale as $top):
-                ?>
+            ?>
                 <div class="relative item rounded-sm hover:scale-[1.05] transition-all overflow-hidden">
                     <div class="absolute bg-red-400 font-bold text-white top-0 left-0 p-2 border-l-0 rounded-l-none px-4">
                         <?= htmlspecialchars(round($top['discount_percent'] ?? 0)) ?>%
@@ -192,7 +200,7 @@ unset($_SESSION['logout_success']);
                         </p>
                     </div>
                 </div>
-                <?php
+            <?php
             endforeach;
             ?>
         </div>

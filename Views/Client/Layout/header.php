@@ -111,23 +111,34 @@ if (!empty($_SESSION['client'])) {
 
             <div>
                 <ul class="flex item-center space-x-4 md:space-x-6">
-                    <li class="md:block" data-dropdown-target="wishlist-dropdown">
+                    <!-- <li class="md:block" data-dropdown-target="wishlist-dropdown">
                         <i class="bi bi-heart text-2xl text-gray-700 hover:text-blue-600 cursor-pointer"></i>
-                    </li>
+                    </li> -->
                     <li class="md:block" data-dropdown-target="cart-dropdown">
                         <a href="?page=cart">
                             <i class="bi bi-cart3 text-2xl text-gray-700 hover:text-blue-600 cursor-pointer"></i>
                         </a>
                     </li>
-                    <li class="hidden md:block" data-dropdown-target="notification-dropdown">
+                    <!-- <li class="hidden md:block" data-dropdown-target="notification-dropdown">
                         <a href="?page=notification">
                             <i class="bi bi-bell text-2xl text-gray-700 hover:text-blue-600 cursor-pointer"></i>
                         </a>
-                    </li>
+                    </li> -->
                     <li class="hidden md:block" data-dropdown-target="profile-dropdown">
+                        <?php
+                        $avatar = $_SESSION["client"]["avatar"] ?? "";
+                        $hasAvatar = !empty($avatar);
+                        ?>
+
                         <a href="<?= $isLoggedIn ? '?page=profile' : '?page=login' ?>">
-                            <i
-                                class="bi bi-person-circle text-2xl text-gray-700 hover:text-blue-600 cursor-pointer"></i>
+                            <?php if ($hasAvatar): ?>
+                                <img
+                                    src="<?= htmlspecialchars('./Uploads/Avatar/' . $avatar) ?>"
+                                    alt="Avatar"
+                                    class="w-8 h-8 rounded-full object-cover border border-gray-300 cursor-pointer">
+                            <?php else: ?>
+                                <i class="bi bi-person-circle text-2xl text-gray-700 hover:text-blue-600 cursor-pointer"></i>
+                            <?php endif; ?>
                         </a>
                     </li>
                 </ul>
@@ -178,14 +189,14 @@ if (!empty($_SESSION['client'])) {
                                     </div>
                                 </a>
                                 <div class="text-wrap">
-                                <?php if ($item['sale_price'] != 0): ?>
-                                    <div class="text-gray-800 font-medium">
-                                        <?= number_format($item['sale_price'], 0, ',', '.') . '₫' ?>
+                                    <?php if ($item['sale_price'] != 0): ?>
+                                        <div class="text-gray-800 font-medium">
+                                            <?= number_format($item['sale_price'], 0, ',', '.') . '₫' ?>
+                                        </div>
+                                    <?php endif; ?>
+                                    <div class="text-gray-800 font-medium <?= $item['sale_price'] != 0 ? 'line-through text-gray-400' : '' ?>">
+                                        <?= number_format($item['regular_price'], 0, ',', '.') . '₫' ?>
                                     </div>
-                                <?php endif; ?>
-                                <div class="text-gray-800 font-medium <?= $item['sale_price'] != 0 ? 'line-through text-gray-400' : '' ?>">
-                                    <?= number_format($item['regular_price'], 0, ',', '.') . '₫' ?>
-                                </div>
                                 </div>
 
                             </li>
