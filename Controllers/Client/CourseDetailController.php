@@ -24,13 +24,17 @@ class CourseDetailController
             $avgRating = $this->_courseModel->getAvgRating($course["teacher_id"]);
             $coursesByTeacher = $this->_courseModel->getCoursesByTeacherId($course['teacher_id'], $courseId, 4);
             $totalCourses = $this->_courseModel->getCountCoursesByTeacher($course['teacher_id']);
-            $benefit = explode('*', $course['benefit']);
-            $customer_object = explode('*', $course['customer_object']);
+            $benefit = explode('*', ($course['benefit']) ?? '' );
+            $customer_object = explode('*', ($course['customer_object']) ?? '' );
             $reviews = $this->_reviewModel->getAllReviewsByCourseId($courseId);
             $enrollments = $this->_enrollCourseModel->getEnrollCourseByUserIdAndCourseId($_SESSION['client']['id'] ?? null, $courseId);
             if (empty($course)) {
                 header('location: index.php');
+            }elseif($course['status'] != 1){
+                if($course['teacher_id'] != ($_SESSION['client']['id'] ?? null)){
+                    header('location: index.php');
             }
+        }
         } else {
             header('location: index.php');
         }

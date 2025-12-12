@@ -5,7 +5,7 @@
                 <b><?= $course['course_name'] ?></b>
             </h1>
             <p class="text-justify mt-5 leading-7">
-                <?= html_entity_decode($course['description']) ?>
+                <?= html_entity_decode($course['description'] ?? '') ?>
             </p>
             <p class="flex mt-5">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -34,12 +34,12 @@
         <div class="lg:col-span-3 col-span-6 col-start-3">
             <div class="p-2 rounded-sm bg-white text-black">
                 <div class="w-full">
-                    <img class="object-cover" src="Uploads/Courses/<?= $course['image'] ?? 'Hello' ?>" alt=""
+                    <img class="object-cover" src="Uploads/Courses/<?= $course['image'] ?? 'defaultCourse.jpg' ?>" alt=""
                         width="100%" />
                 </div>
                 <div class="flex items-center">
                     <h3 class="font-bold text-2xl mx-4 mt-4">
-                        <?= number_format($course['sale_price'] != 0 ? $course['sale_price'] : $course['regular_price']) ?>₫
+                        <?= number_format(($course['sale_price'] != 0 ? $course['sale_price'] : $course['regular_price']) ?? 0) ?>₫
                     </h3>
                     <h3 class="text-lg mt-4 line-through">
                         <?= $course['sale_price'] != 0 ? number_format($course['regular_price']) . '₫' : '' ?>
@@ -158,7 +158,7 @@
                     <a href="?page=course_detail&id=<?= $relatedCourse['id'] ?>">
                         <div class="flex mt-5 gap-6 items-center">
                             <div class="min-w-[20%] min-h-20 w-[20%] h-20">
-                                <img class="object-cover w-full h-full" src="<?= $relatedCourse['image'] ?>" width="100%"
+                                <img class="object-cover w-full h-full" src="Uploads/Courses/<?= $relatedCourse['image'] ?? 'defaultCourse.jpg' ?>" width="100%"
                                     alt="" />
                             </div>
                             <div class="flex flex-col justify-center w-[40%] min-w-[40%]">
@@ -250,10 +250,12 @@
                     </div>
                 <?php endforeach; ?>
             </div>
+            <?php if(count($reviews) > 3): ?>
             <button onclick="getMoreReview()" id="buttonGetMoreReview"
                 class="text-[#6d28d2] border-[#6d28d2] border hover:bg-purple-100 hover:cursor-pointer font-bold rounded-[5px] px-10 py-2 mt-5">
                 Xem thêm bình luận
             </button>
+            <?php endif; ?>
             <h3 class="text-2xl font-bold mt-5">Các khóa học của thầy <a href="#"
                     class="text-purple-600"><?= htmlspecialchars($course['instructor']) ?></a></h3>
             <?php if (!empty($coursesByTeacher)):
@@ -261,7 +263,7 @@
                     <a href="?page=course_detail&id=<?= $courseByTeacher['id'] ?>">
                         <div class="flex mt-5 gap-6 items-center">
                             <div class="min-w-[20%] min-h-20 w-[20%] h-20">
-                                <img class="object-cover w-full h-full" src="<?= $courseByTeacher['image'] ?>" width="100%"
+                                <img class="object-cover w-full h-full" src="Uploads/Courses/<?= $courseByTeacher['image'] ?? 'defaultCourse.jpg' ?>" width="100%"
                                     alt="" />
                             </div>
                             <div class="flex flex-col justify-center w-[40%] min-w-[40%]">

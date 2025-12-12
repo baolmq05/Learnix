@@ -163,7 +163,7 @@ LIMIT 5 OFFSET :offset";
     FROM $this->_table AS c
     INNER JOIN users AS u ON c.teacher_id = u.id
     LEFT JOIN reviews r ON r.course_id = c.id
-    WHERE c.status = 1 AND c.id = :courseId
+    WHERE c.status != 0 AND c.id = :courseId
     GROUP BY c.id;";
         $stmt = $this->_connect->prepare($sql);
         $stmt->bindParam(':courseId', $courseId);
