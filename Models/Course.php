@@ -21,15 +21,15 @@ class Course
         FROM sections s
         LEFT JOIN lessons l ON l.section_id = s.id
         WHERE s.course_id = c.id
-    ), 0) AS total_length
-FROM $this->_table AS c
-INNER JOIN users AS u ON c.teacher_id = u.id
-LEFT JOIN reviews r ON r.course_id = c.id
-WHERE c.status = 1
-GROUP BY c.id
-HAVING rating >= :rating
-AND total_length >= :durationMin
-AND total_length <= :durationMax) AS total;";
+        ), 0) AS total_length
+        FROM $this->_table AS c
+        INNER JOIN users AS u ON c.teacher_id = u.id
+        LEFT JOIN reviews r ON r.course_id = c.id
+        WHERE c.status = 1
+        GROUP BY c.id
+        HAVING rating >= :rating
+        AND total_length >= :durationMin
+        AND total_length <= :durationMax) AS total;";
         $stmt = $this->_connect->prepare($sql);
         $stmt->execute([':rating' => $rating, ':durationMin' => $durationMin, ':durationMax' => $durationMax]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -48,15 +48,15 @@ AND total_length <= :durationMax) AS total;";
         FROM sections s
         LEFT JOIN lessons l ON l.section_id = s.id
         WHERE s.course_id = c.id
-    ), 0) AS total_length
-FROM $this->_table AS c
-INNER JOIN users AS u ON c.teacher_id = u.id
-LEFT JOIN reviews r ON r.course_id = c.id
-WHERE c.status = 1 AND c.category_id = :category_id
-GROUP BY c.id
-HAVING rating >= :rating
-AND total_length >= :durationMin
-AND total_length <= :durationMax) AS total;";
+        ), 0) AS total_length
+        FROM $this->_table AS c
+        INNER JOIN users AS u ON c.teacher_id = u.id
+        LEFT JOIN reviews r ON r.course_id = c.id
+        WHERE c.status = 1 AND c.category_id = :category_id
+        GROUP BY c.id
+        HAVING rating >= :rating
+        AND total_length >= :durationMin
+        AND total_length <= :durationMax) AS total;";
         $stmt = $this->_connect->prepare($sql);
         $stmt->bindParam(':category_id', $categoryId);
         $stmt->bindParam(':rating', $rating);
@@ -78,18 +78,17 @@ AND total_length <= :durationMax) AS total;";
         FROM sections s
         LEFT JOIN lessons l ON l.section_id = s.id
         WHERE s.course_id = c.id
-    ), 0) AS total_length
-FROM courses AS c
-INNER JOIN users AS u ON c.teacher_id = u.id
-LEFT JOIN reviews r ON r.course_id = c.id
-WHERE c.status = 1
-GROUP BY c.id
-HAVING rating >= :rating
-AND total_length >= :durationMin
-AND total_length <= :durationMax
-$filter
-LIMIT 5 OFFSET :offset";
-
+        ), 0) AS total_length
+        FROM courses AS c
+        INNER JOIN users AS u ON c.teacher_id = u.id
+        LEFT JOIN reviews r ON r.course_id = c.id
+        WHERE c.status = 1
+        GROUP BY c.id
+        HAVING rating >= :rating
+        AND total_length >= :durationMin
+        AND total_length <= :durationMax
+        $filter
+        LIMIT 5 OFFSET :offset";
         $stmt = $this->_connect->prepare($sql);
         $stmt->bindParam(':rating', $rating);
         $stmt->bindParam(':durationMin', $durationMin);
@@ -112,17 +111,17 @@ LIMIT 5 OFFSET :offset";
         FROM sections s
         LEFT JOIN lessons l ON l.section_id = s.id
         WHERE s.course_id = c.id
-    ), 0) AS total_length
-FROM courses AS c
-INNER JOIN users AS u ON c.teacher_id = u.id
-LEFT JOIN reviews r ON r.course_id = c.id
-WHERE c.status = 1 AND c.category_id = :category_id
-GROUP BY c.id
-HAVING rating >= :rating
-AND total_length >= :durationMin
-AND total_length <= :durationMax
-$filter
-LIMIT 5 OFFSET :offset";
+        ), 0) AS total_length
+        FROM courses AS c
+        INNER JOIN users AS u ON c.teacher_id = u.id
+        LEFT JOIN reviews r ON r.course_id = c.id
+        WHERE c.status = 1 AND c.category_id = :category_id
+        GROUP BY c.id
+        HAVING rating >= :rating
+        AND total_length >= :durationMin
+        AND total_length <= :durationMax
+        $filter
+        LIMIT 5 OFFSET :offset";
         $stmt = $this->_connect->prepare($sql);
         $stmt->bindParam(':category_id', $categoryId);
         $stmt->bindParam(':rating', $rating);
@@ -414,6 +413,23 @@ LIMIT 5 OFFSET :offset";
             $stmt->execute();
 
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result;
+        } catch (PDOException $e) {
+            $errorMessage = "Lỗi lúc " . date("h:i:sa") . $e->getMessage();
+            file_put_contents("./Logs/Course.log", $errorMessage, FILE_APPEND);
+        }
+    }
+
+    public function searchCoursesByName($courseName)
+    {
+        try {
+            $sql = "SELECT id, course_name, image FROM courses WHERE course_name LIKE :course_name AND status=1 LIMIT 10";
+            $stmt = $this->_connect->prepare($sql);
+            $likeCourseName = '%' . $courseName . '%';
+            $stmt->bindParam(":course_name", $likeCourseName);
+            $stmt->execute();
+
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $result;
         } catch (PDOException $e) {
             $errorMessage = "Lỗi lúc " . date("h:i:sa") . $e->getMessage();

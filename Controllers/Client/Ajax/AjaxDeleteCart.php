@@ -67,7 +67,7 @@ try {
 
                     <div class="col-span-9 flex">
                         <div class="w-[45%] h-[180px] overflow-hidden rounded">
-                            <img src="'.$item["image"].'" class="w-full h-full object-cover">
+                            <img src="Uploads/Courses/'.$item["image"].'" class="w-full h-full object-cover">
                         </div>
 
                         <div class="ml-4 w-[55%]">

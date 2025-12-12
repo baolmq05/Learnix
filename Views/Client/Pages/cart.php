@@ -15,7 +15,7 @@
                                 data-cart-id="<?= $item['id'] ?>">
                                 <div class="col-span-9 flex">
                                     <div class="w-[45%] h-[180px] overflow-hidden rounded">
-                                        <img src="<?= $item['image'] ?>" class="w-full h-full object-cover">
+                                        <img src="Uploads/Courses/<?= $item['image'] ?>" class="w-full h-full object-cover">
                                     </div>
                                     <div class="ml-4 w-[55%]">
                                         <a href="index.php?page=course_detail&id=<?= $item['id'] ?>">
@@ -196,11 +196,16 @@
     function showToast(message, type = "success") {
         const toast = document.createElement("div");
 
-        toast.className =
-            "fixed top-5 right-5 px-5 py-3 rounded shadow-lg text-white z-50 animate-slideIn";
+        toast.id = type === "success" ? "alert_success" : "alert_danger";
 
-        toast.style.background =
-            type === "success" ? "#22c55e" : "#ef4444";
+        toast.style.background = type === "success" ? "#DEFCE9" : "#FFE2E2";
+
+        toast.style.color = type === "success" ? "#027A48" : "#D92D20";
+
+        toast.className =
+            "flex items-center w-full p-4 mb-4 rounded-lg z-111";
+
+        toast.style.transition = "opacity 0.5s ease";
 
         toast.innerText = message;
 
@@ -208,8 +213,8 @@
 
         setTimeout(() => {
             toast.style.opacity = "0";
-            toast.style.transition = "0.5s";
-            setTimeout(() => toast.remove(), 500);
-        }, 2000);
+        }, 2500);
+
+        setTimeout(() => toast.remove(), 3000);
     }
 </script>

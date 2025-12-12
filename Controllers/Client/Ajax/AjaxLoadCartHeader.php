@@ -32,7 +32,7 @@ foreach ($cartItems as $item) {
     $html .= '
         <li class="flex items-center mb-3">
             <a href="?page=course_detail&id=' . $item['id'] . '" class="flex items-center flex-1">
-                <img src="' . $item['image'] . '" 
+                <img src="Uploads/Courses/' . $item['image'] . '" 
                      alt="' . $item['course_name'] . '" 
                      class="w-12 h-12 rounded mr-3 object-cover">
                 <div class="flex-1">

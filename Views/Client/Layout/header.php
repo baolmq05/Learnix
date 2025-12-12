@@ -51,16 +51,25 @@ if (!empty($_SESSION['client'])) {
                     </li>
                 </ul>
             </div>
-            <div
-                class="hidden md:flex items-center border rounded-full overflow-hidden w-40 h-11 sm:w-64 md:w-96 bg-white focus-within:ring-2 ">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-4 h-4 text-gray-500 ml-3">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M21 21l-4.35-4.35M10 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16z" />
-                </svg>
-                <input type="text" placeholder="Tìm khóa học..." name="q"
-                    class="flex-1 px-3 py-1 outline-none text-gray-700 text-sm" />
+            <!-- Search -->
+            <div class="relative">
+                <div
+                    class="hidden md:flex items-center border rounded-full overflow-hidden w-40 h-11 sm:w-64 md:w-96 bg-white focus-within:ring-[0.5px]">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-4 h-4 text-gray-500 ml-3">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21 21l-4.35-4.35M10 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16z" />
+                    </svg>
+                    <input type="text" id="searchInput" placeholder="Tìm khóa học..." name="q"
+                        class="flex-1 px-3 py-1 outline-none text-gray-700 text-sm" autocomplete="off" />
+                </div>
+
+                <!-- Box gợi ý -->
+                <div id="suggestBox"
+                    class="absolute left-0 w-full bg-white border border-gray-300 rounded-lg shadow hidden max-h-64 overflow-y-auto z-50 mt-1">
+                </div>
             </div>
+            <!-- end Search -->
             <div class="relative inline-block hidden md:block">
                 <ul class="flex items-center space-x-6">
                     <li class="relative hidden md:inline-block" data-dropdown-target="teach-dropdown">
@@ -161,7 +170,7 @@ if (!empty($_SESSION['client'])) {
                         <?php foreach ($cartItems as $item) : ?>
                             <li class="flex items-center mb-3">
                                 <a href="?page=course_detail&id=<?= $item['id'] ?>" class="flex items-center flex-1">
-                                    <img src="<?= $item['image'] ?>"
+                                    <img src="Uploads/Courses/<?= $item['image'] ?>"
                                         alt="<?= $item['course_name'] ?>"
                                         class="w-12 h-12 rounded mr-3 object-cover">
                                     <div class="flex-1">
@@ -200,15 +209,6 @@ if (!empty($_SESSION['client'])) {
                 <ul class="mt-2">
                     <li class="text-xs text-gray-400">—</li>
                 </ul>
-            </div>
-        </div>
-        <div id="learning-dropdown"
-            class="dropdown-menu absolute w-100 bg-white rounded border-t border-gray-200 shadow-sm opacity-0 invisible translate-y-0 transition-all duration-200 pointer-events-none z-50">
-            <div class="p-4 text-center  text-gray-700">
-                <p class="mb-2 text-xl">Bắt đầu học ngay hôm nay</p>
-                <a href="#"
-                    class="inline-block px-3 py-1 border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white rounded text-lg">Tìm
-                    kiếm</a>
             </div>
         </div>
         <div id="profile-dropdown"

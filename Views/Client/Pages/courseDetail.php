@@ -1,3 +1,6 @@
+<?php
+
+?>
 <main>
     <div class="bg-[#16161d] text-white py-15 grid grid-cols-10 gap-20">
         <div class="lg:col-start-2 lg:col-span-5 col-span-8 col-start-2">
@@ -395,10 +398,12 @@
 
         toast.id = type === "success" ? "alert_success" : "alert_danger";
 
-        toast.style.background = type === "success" ? "#22c55e" : "#ef4444";
+        toast.style.background = type === "success" ? "#DEFCE9" : "#FFE2E2";
+
+        toast.style.color = type === "success" ? "#027A48" : "#D92D20";
 
         toast.className =
-            "fixed top-5 right-5 max-w-[80vw] px-4 py-2 text-white rounded-lg shadow-lg z-[9999] break-words";
+            "flex items-center w-full p-4 mb-4 rounded-lg z-111";
 
         toast.style.transition = "opacity 0.5s ease";
 

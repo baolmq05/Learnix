@@ -111,5 +111,46 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+<script>
+  document.getElementById('searchInput').addEventListener('keyup', function() {
+    let keyword = this.value.trim();
+
+    if (keyword.length === 0) {
+      document.getElementById('suggestBox').classList.add('hidden');
+      return;
+    }
+
+    fetch(`Controllers/Client/Ajax/AjaxSearch.php?q=${keyword}`)
+      .then(response => response.json())
+      .then(data => {
+        let box = document.getElementById('suggestBox');
+        box.innerHTML = "";
+
+        if (data.length === 0) {
+          box.innerHTML = `<div class="p-2 text-gray-500 text-sm">Không có kết quả</div>`;
+        } else {
+          data.forEach(item => {
+            box.innerHTML += `
+                        <a href="?page=course_detail&id=${item.id}" 
+                           class="flex items-center gap-3 p-2 hover:bg-gray-100 cursor-pointer">
+                            <img src="Uploads/Courses/${item.image}" class="w-10 h-10 rounded-md object-cover">
+                            <span class="text-gray-700 two-line-ellipsis text-sm">${item.course_name}</span>
+                        </a>
+                    `;
+          });
+        }
+        box.classList.remove('hidden');
+      });
+  });
+
+  document.addEventListener("click", function(e) {
+    const box = document.getElementById("suggestBox");
+    const input = document.getElementById("searchInput");
+
+    if (!box.contains(e.target) && e.target !== input) {
+      box.classList.add("hidden");
+    }
+  });
+</script>
 
 </html>

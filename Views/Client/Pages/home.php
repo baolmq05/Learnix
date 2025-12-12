@@ -56,7 +56,7 @@ unset($_SESSION['logout_success']);
                             <form action="?page=lesson_player" method="POST" class="h-full w-full">
                                 <input type="hidden" name="course_id" value="<?= $course['id'] ?>">
                                 <button type="submit" class="h-full w-full p-0 m-0 border-0 bg-transparent cursor-pointer">
-                                    <img class="h-full w-full object-cover" src="<?= htmlspecialchars($course['image']) ?>"
+                                    <img class="h-full w-full object-cover" src="Uploads/Courses/<?= $course['image'] ?>"
                                         alt="Ảnh lỗi">
                                 </button>
                             </form>
