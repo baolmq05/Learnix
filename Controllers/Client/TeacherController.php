@@ -27,8 +27,8 @@ class TeacherController
 
         if (!empty($userId)) {
             $courseApproved = $this->_courseModel->getTeacherCourses($userId, 1);
-            $coursePending = $this->_courseModel->getTeacherCourses($userId, 2);
-            $courseEditing = $this->_courseModel->getTeacherCourses($userId, 0);
+            $courseEditing = $this->_courseModel->getTeacherCourses($userId, 2);
+            $coursePending = $this->_courseModel->getTeacherCourses($userId, 0);
             $courseDisabled = $this->_courseModel->getTeacherCourses($userId, 3);
             $courseReject = $this->_courseModel->getTeacherCourses($userId, 4);
 

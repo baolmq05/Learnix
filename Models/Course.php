@@ -402,9 +402,9 @@ LIMIT 5 OFFSET :offset";
 
             // 0 là đang chỉnh sửa, 1 là đã duyệt và được phép bán, 2 là đang chờ duyệt, 3 là ngừng bán, 4 là từ chối
             $sql = "SELECT
-                    SUM(CASE WHEN status = 0 THEN 1 ELSE 0 END) AS editing_count,
+                    SUM(CASE WHEN status = 2 THEN 1 ELSE 0 END) AS editing_count,
                     SUM(CASE WHEN status = 1 THEN 1 ELSE 0 END) AS approved_count,
-                    SUM(CASE WHEN status = 2 THEN 1 ELSE 0 END) AS pending_count,
+                    SUM(CASE WHEN status = 0 THEN 1 ELSE 0 END) AS pending_count,
                     SUM(CASE WHEN status = 3 THEN 1 ELSE 0 END) AS disabled_count,
                     SUM(CASE WHEN status = 4 THEN 1 ELSE 0 END) AS rejected_count
                     FROM courses

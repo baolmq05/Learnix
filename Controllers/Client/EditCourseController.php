@@ -76,7 +76,7 @@ class EditCourseController
         $customerObject = isset($_POST["customer_object"]) ? $_POST["customer_object"] : "";
         $regularPrice = isset($_POST["regular_price"]) ? htmlspecialchars($_POST["regular_price"]) : "";
         $salePrice = isset($_POST["discounted_price"]) ? htmlspecialchars($_POST["discounted_price"]) : 0;
-        $status = 0;
+        $status = isset($_POST["status"]) ? $_POST["status"] : "";
 
         if (is_numeric($courseId)) {
             if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
@@ -135,9 +135,12 @@ class EditCourseController
             $benefit = $this->transferArrayToString($benefit);
             $customerObject = $this->transferArrayToString($customerObject);
 
-            if ($regularPrice <= 0 || empty($regularPrice)) {
-                $regularPrice = 0;
+            if($salePrice == 0) {
                 $salePrice = 0;
+            }
+
+            if($status == "") {
+                $status = 2;
             }
 
             $data = [

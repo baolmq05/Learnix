@@ -357,7 +357,7 @@ function getVideoInfo(
 ) {
 
     let lastErrorTime = 0;   // Dùng để tránh spam lỗi liên tục trong console
-
+    let isSuccess = false;
     const interval = setInterval(() => {
 
         $.ajax({
@@ -367,13 +367,14 @@ function getVideoInfo(
             data: { videoId: videoId },
 
             success: function (res) {
-
+                isSuccess = true;
                 let encodeProgress = Number(res.encodeProgress);
                 setProgress(encodeProgress, progressText, progressBar);
 
-                if (encodeProgress >= 100) {
+                if (encodeProgress >= 100 && isSuccess) {
+                    console.log("clear interval here");
                     clearInterval(interval);
-
+                    isSuccess = false;
                     // Render new lesson
                     renderNewLession(sectionId, lessonName.value, videoId, lessonObj, videoName);
 

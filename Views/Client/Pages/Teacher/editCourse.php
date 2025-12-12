@@ -315,6 +315,7 @@
                             <small class="text-red-400 font-semibold block" id="discounted_error"></small>
                         </div>
                     </div>
+                    <input type="hidden" name="status" value="<?= isset($courseResult["status"]) ? $courseResult["status"] : "" ?>">
                     <button
                         class="p-2 border border-gray-300 bg-purple-700 mt-3 rounded-[5px] text-white">
                         Lưu thông tin
@@ -622,7 +623,7 @@
         function openVideoPopup(videoId) {
             const popup = document.getElementById("videoPopup");
             const iframe = document.getElementById("popupIframe");
-            const url = "https://iframe.mediadelivery.net/embed/553173/";
+            const url = "https://iframe.mediadelivery.net/embed/561446/";
 
             let didLoad = false;
 
@@ -632,15 +633,6 @@
 
             iframe.src = url + videoId;
             popup.classList.remove("hidden");
-
-            // Nếu 2s không load → close lại
-            // setTimeout(() => {
-            //     if (!didLoad) {
-            //         console.warn("Iframe load failed → đóng popup");
-            //         iframe.src = "";
-            //         popup.classList.add("hidden");
-            //     }
-            // }, 2000);
         }
 
         function closeVideoPopup() {
