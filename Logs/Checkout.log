@@ -66,3 +66,25 @@ Enrolled 92 into 11 lessons of enroll_course_id 27
 Teacher ID: 72
 Added 801000 to teacher 72
 Added 89000 to admin 89
+Buy Now - Course ID: 67
+Final cartItems: [{"course_id":67,"price":850000}]
+Buy Now - Course ID: 67
+Final cartItems: [{"course_id":67,"price":850000}]
+CartItems: [{"course_id":67,"price":850000}]
+Processing course_id: 67, price: 850000
+Enrolled user 99 into course 67 (enroll_course_id: 31)
+Enrolled 99 into 7 lessons of enroll_course_id 31
+Teacher ID: 95
+Added 765000 to teacher 95
+Added 85000 to admin 89
+Buy Now - Course ID: 68
+Final cartItems: [{"course_id":68,"price":1090000}]
+Buy Now - Course ID: 68
+Final cartItems: [{"course_id":68,"price":1090000}]
+CartItems: [{"course_id":68,"price":1090000}]
+Processing course_id: 68, price: 1090000
+Enrolled user 99 into course 68 (enroll_course_id: 32)
+Enrolled 99 into 7 lessons of enroll_course_id 32
+Teacher ID: 96
+Added 981000 to teacher 96
+Added 109000 to admin 89

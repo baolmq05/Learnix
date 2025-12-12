@@ -27,6 +27,7 @@ class LessonPlayerController
         // Cours
         if (isset($_SESSION["client"]) || isset($_SESSION["admin"])) {
             if (isset($_POST["course_id"]) && is_numeric($_POST["course_id"])) {
+                $userId = $_SESSION["client"]["id"];
                 $courseId = $_POST["course_id"];
                 $courseCurrent = $this->_courseModel->getOneCourse($courseId);
                 $teacherRating = $this->_courseModel->getAvgRating($courseCurrent["teacher_id"]);
@@ -35,24 +36,30 @@ class LessonPlayerController
                 // Show lesson and section
                 $lessonCurrent = [];
                 $sectionList = $this->_courseModel->getSectionByCourseId($courseId);
-                $lessonList = $this->_enrollCourseModel->getByCourseId($courseId);
+                $lessonList = $this->_enrollCourseModel->getByCourseId($courseId, $userId);
 
                 $librabryId = BUNNY_LIBRARY_ID;
 
                 $urlEmbed = "https://iframe.mediadelivery.net/embed/$librabryId/";
-                
 
-                for($i = 0; $i < count($lessonList); $i++) {
-                    if($lessonList[$i]["enroll_lesson_status"] == 0) {
+
+                for ($i = 0; $i < count($lessonList); $i++) {
+                    if ($lessonList[$i]["enroll_lesson_status"] == 0) {
                         $lessonCurrent = $lessonList[$i];
                         $lessonCurrent["index"] = $i + 1;
                         break;
                     }
                 }
 
+                if(count($lessonCurrent) <= 0) {
+                    $lastIndex = count($lessonList) - 1;
+                    $lessonCurrent = $lessonList[$lastIndex];
+                }
+
                 // echo "<pre>";
                 // print_r($lessonCurrent);
 
+                // echo "<pre>";
                 // print_r($lessonList);
 
                 if (!empty($courseCurrent["benefit"])) {
@@ -64,13 +71,11 @@ class LessonPlayerController
                 }
             }
             include 'Views/Client/Pages/lessonPlayer.php';
-        }else{
+        } else {
             header("location: ?page=login");
             exit;
         }
-
     }
-
     private function splitStringToArray($str)
     {
         $arr = explode('*', $str);

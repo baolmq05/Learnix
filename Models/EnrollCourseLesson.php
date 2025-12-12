@@ -10,13 +10,15 @@ class EnrollCourseLesson
         $this->_connect = $db->getConnect();
     }
 
-    public function getByCourseId($courseId)
+    public function getByCourseId($courseId, $userId)
     {
         try {
-            $sql = "SELECT l.*, el.status AS enroll_lesson_status, el.enroll_course_id, el.lesson_id FROM `enroll_course_lessons` el INNER JOIN enroll_courses ec ON ec.id = el.enroll_course_id INNER JOIN lessons l ON l.id = el.lesson_id WHERE ec.course_id = :course_id";
+            $sql = "SELECT l.*, el.status AS enroll_lesson_status, el.enroll_course_id, el.lesson_id FROM `enroll_course_lessons` el INNER JOIN enroll_courses ec ON ec.id = el.enroll_course_id INNER JOIN lessons l ON l.id = el.lesson_id WHERE ec.course_id = :course_id AND ec.user_id = :user_id
+                GROUP BY el.lesson_id";
             $stmt = $this->_connect->prepare($sql);
 
             $stmt->bindParam(":course_id", $courseId);
+            $stmt->bindParam(":user_id", $userId);
             $stmt->execute();
 
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);

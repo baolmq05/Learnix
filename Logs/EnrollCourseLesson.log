@@ -1,1 +1,2 @@
 Lỗi lúc: 10:24:21. Lỗi là: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'nlilgdgwhosting_learnixfpoly.enroll_course_lesson' doesn't exist
+Lỗi lúc: 12:41:19. Lỗi là: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens

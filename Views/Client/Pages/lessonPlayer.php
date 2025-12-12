@@ -144,11 +144,10 @@
                                 <h3 class="text-2xl font-bold mt-5 mb-3">Giảng viên</h3>
                                 <div class="flex justify-between items-center">
                                     <div class="flex items-center">
-                                        <div class="w-20 h-20">
+                                        <div class="w-20 h-20 overflow-hidden">
                                             <img
-                                                class="rounded-full"
+                                                class="rounded-full object-cover w-full h-full"
                                                 src="<?= './Uploads/Avatar/' . htmlspecialchars($courseCurrent['avatar'] ?? 'default.webp') ?>"
-                                                width="100%"
                                                 alt="" />
                                         </div>
                                         <p class="font-bold text-2xl ms-5">
@@ -244,12 +243,12 @@
                             if (!empty($sectionList)):
                                 foreach ($sectionList as $sectionKey => $sectionValue):
                             ?>
-                                    <details class="group" open>
+                                    <details class="group" <?= (!empty($lessonCurrent) && $lessonCurrent["section_id"] == $sectionValue["section_id"]) ? "open" : "" ?>>
                                         <summary
                                             class="flex flex-col border-t border-[#ccc] p-5 mt-3 select-none hover:cursor-pointer bg-[#f9f6f7]">
                                             <h4 class="font-bold">
                                                 <i
-                                                    class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Phần <?= $sectionKey + 1 ?>: <?= $sectionValue["section_name"] ?>
+                                                    class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i><?= $sectionValue["section_name"] ?>
                                             </h4>
                                             <p class="text-sm ms-6"><?= $sectionValue["total_lesson"] ?? 0 ?> bài giảng • <?= !empty($sectionValue["total_length"] && $sectionValue["total_length"] < 1) ? ($sectionValue["total_length"] * 60) . " phút" : ($sectionValue["total_length"] . " giờ")  ?></p>
                                         </summary>
@@ -261,12 +260,12 @@
                                                     <div data-videoId="<?= $lessonValue["video_id"] ?? "" ?>"
                                                         data-lessonName="<?= $lessonValue["lesson_name"] ?? "" ?>"
                                                         onclick="changeVideo(this)"
-                                                        id="lesson-<?= ($lessonKey + 1) == 1 ? "one" : "two" ?>"
-                                                        class="flex justify-between items-center px-4 py-5 hover:bg-gray-200 hover:cursor-pointer lesson_container
-                                                <?=
-                                                    ($lessonValue["enroll_lesson_status"] == 1 ? 'bg-blue-100' : '') .
-                                                        (!empty($lessonCurrent) && $lessonCurrent["lesson_id"] == $lessonValue["lesson_id"] ? 'bg-gray-300' : '')
-                                                ?>">
+
+                                                        class=" flex justify-between items-center px-4 py-5 hover:bg-gray-200 hover:cursor-pointer lesson_container
+                                                        <?=
+                                                        ($lessonValue["enroll_lesson_status"] == 1 ? 'bg-blue-100' : '') .
+                                                            (!empty($lessonCurrent) && $lessonCurrent["lesson_id"] == $lessonValue["lesson_id"] ? 'bg-gray-300' : '')
+                                                        ?>">
 
                                                         <!-- Bên trái -->
                                                         <div class="flex items-center space-x-3">
@@ -279,7 +278,7 @@
 
                                                             <!-- Tên bài học -->
                                                             <h4>
-                                                                Bài <?= $lessonKey + 1 . ": " . $lessonValue["lesson_name"] ?>
+                                                                <?= $lessonValue["lesson_name"] ?>
                                                             </h4>
                                                         </div>
 
@@ -298,226 +297,6 @@
                                 endforeach;
                             endif;
                             ?>
-                            <!-- <details class="group">
-                                <summary
-                                    class="flex flex-col border-t select-none border-[#ccc] p-5 mt-3 hover:cursor-pointer bg-[#f9f6f7]">
-                                    <h4 class="font-bold">
-                                        <i
-                                            class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Phần 1: Giới thiệu
-                                    </h4>
-                                    <p class="text-sm ms-6">3 bài giảng • 26 phút</p>
-                                </summary>
-                                <div>
-                                    <div
-                                        class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
-                                        <h4>Bài 1: Giới thiệu</h4>
-                                        <p class="whitespace-nowrap">13 phút</p>
-                                    </div>
-                                    <div
-                                        class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
-                                        <h4>Bài 2: Css là gì?</h4>
-                                        <p class="whitespace-nowrap">13 phút</p>
-                                    </div>
-                                </div>
-                            </details>
-                            <details class="group">
-                                <summary
-                                    class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]">
-                                    <h4 class="font-bold">
-                                        <i
-                                            class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Phần 1: Giới thiệu
-                                    </h4>
-                                    <p class="text-sm ms-6">3 bài giảng • 26 phút</p>
-                                </summary>
-                                <div>
-                                    <div
-                                        class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
-                                        <h4>Bài 1: Giới thiệu</h4>
-                                        <p class="whitespace-nowrap">13 phút</p>
-                                    </div>
-                                    <div
-                                        class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
-                                        <h4>Bài 2: Css là gì?</h4>
-                                        <p class="whitespace-nowrap">13 phút</p>
-                                    </div>
-                                </div>
-                            </details>
-                            <details class="group">
-                                <summary
-                                    class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]">
-                                    <h4 class="font-bold">
-                                        <i
-                                            class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Phần 1: Giới thiệu
-                                    </h4>
-                                    <p class="text-sm ms-6">3 bài giảng • 26 phút</p>
-                                </summary>
-                                <div>
-                                    <div
-                                        class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
-                                        <h4>Bài 1: Giới thiệu</h4>
-                                        <p class="whitespace-nowrap">13 phút</p>
-                                    </div>
-                                    <div
-                                        class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
-                                        <h4>Bài 2: Css là gì?</h4>
-                                        <p class="whitespace-nowrap">13 phút</p>
-                                    </div>
-                                </div>
-                            </details>
-                            <details class="group">
-                                <summary
-                                    class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]">
-                                    <h4 class="font-bold">
-                                        <i
-                                            class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Phần 1: Giới thiệu
-                                    </h4>
-                                    <p class="text-sm ms-6">3 bài giảng • 26 phút</p>
-                                </summary>
-                                <div>
-                                    <div
-                                        class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
-                                        <h4>Bài 1: Giới thiệu</h4>
-                                        <p class="whitespace-nowrap">13 phút</p>
-                                    </div>
-                                    <div
-                                        class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
-                                        <h4>Bài 2: Css là gì?</h4>
-                                        <p class="whitespace-nowrap">13 phút</p>
-                                    </div>
-                                </div>
-                            </details>
-                            <details class="group">
-                                <summary
-                                    class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]">
-                                    <h4 class="font-bold">
-                                        <i
-                                            class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Phần 1: Giới thiệu
-                                    </h4>
-                                    <p class="text-sm ms-6">3 bài giảng • 26 phút</p>
-                                </summary>
-                                <div>
-                                    <div
-                                        class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
-                                        <h4>Bài 1: Giới thiệu</h4>
-                                        <p class="whitespace-nowrap">13 phút</p>
-                                    </div>
-                                    <div
-                                        class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
-                                        <h4>Bài 2: Css là gì?</h4>
-                                        <p class="whitespace-nowrap">13 phút</p>
-                                    </div>
-                                </div>
-                            </details>
-                            <details class="group">
-                                <summary
-                                    class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]">
-                                    <h4 class="font-bold">
-                                        <i
-                                            class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Phần 1: Giới thiệu
-                                    </h4>
-                                    <p class="text-sm ms-6">3 bài giảng • 26 phút</p>
-                                </summary>
-                                <div>
-                                    <div
-                                        class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
-                                        <h4>Bài 1: Giới thiệu</h4>
-                                        <p class="whitespace-nowrap">13 phút</p>
-                                    </div>
-                                    <div
-                                        class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
-                                        <h4>Bài 2: Css là gì?</h4>
-                                        <p class="whitespace-nowrap">13 phút</p>
-                                    </div>
-                                </div>
-                            </details>
-                            <details class="group">
-                                <summary
-                                    class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]">
-                                    <h4 class="font-bold">
-                                        <i
-                                            class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Phần 1: Giới thiệu
-                                    </h4>
-                                    <p class="text-sm ms-6">3 bài giảng • 26 phút</p>
-                                </summary>
-                                <div>
-                                    <div
-                                        class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
-                                        <h4>Bài 1: Giới thiệu</h4>
-                                        <p class="whitespace-nowrap">13 phút</p>
-                                    </div>
-                                    <div
-                                        class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
-                                        <h4>Bài 2: Css là gì?</h4>
-                                        <p class="whitespace-nowrap">13 phút</p>
-                                    </div>
-                                </div>
-                            </details>
-                            <details class="group">
-                                <summary
-                                    class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]">
-                                    <h4 class="font-bold">
-                                        <i
-                                            class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Phần 1: Giới thiệu
-                                    </h4>
-                                    <p class="text-sm ms-6">3 bài giảng • 26 phút</p>
-                                </summary>
-                                <div>
-                                    <div
-                                        class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
-                                        <h4>Bài 1: Giới thiệu</h4>
-                                        <p class="whitespace-nowrap">13 phút</p>
-                                    </div>
-                                    <div
-                                        class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
-                                        <h4>Bài 2: Css là gì?</h4>
-                                        <p class="whitespace-nowrap">13 phút</p>
-                                    </div>
-                                </div>
-                            </details>
-                            <details class="group">
-                                <summary
-                                    class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]">
-                                    <h4 class="font-bold">
-                                        <i
-                                            class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Phần 1: Giới thiệu
-                                    </h4>
-                                    <p class="text-sm ms-6">3 bài giảng • 26 phút</p>
-                                </summary>
-                                <div>
-                                    <div
-                                        class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
-                                        <h4>Bài 1: Giới thiệu</h4>
-                                        <p class="whitespace-nowrap">13 phút</p>
-                                    </div>
-                                    <div
-                                        class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
-                                        <h4>Bài 2: Css là gì?</h4>
-                                        <p class="whitespace-nowrap">13 phút</p>
-                                    </div>
-                                </div>
-                            </details>
-                            <details class="group">
-                                <summary
-                                    class="flex flex-col border-t border-[#ccc] p-5 select-none hover:cursor-pointer bg-[#f9f6f7]">
-                                    <h4 class="font-bold">
-                                        <i
-                                            class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Phần 1: Giới thiệu
-                                    </h4>
-                                    <p class="text-sm ms-6">3 bài giảng • 26 phút</p>
-                                </summary>
-                                <div>
-                                    <div
-                                        class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
-                                        <h4>Bài 1: Giới thiệu</h4>
-                                        <p class="whitespace-nowrap">13 phút</p>
-                                    </div>
-                                    <div
-                                        class="flex justify-between px-4 py-5 hover:bg-gray-200 hover:cursor-pointer">
-                                        <h4>Bài 2: Css là gì?</h4>
-                                        <p class="whitespace-nowrap">13 phút</p>
-                                    </div>
-                                </div>
-                            </details> -->
                         </div>
                     </div>
                 </div>
@@ -533,12 +312,12 @@
                     if (!empty($sectionList)):
                         foreach ($sectionList as $sectionKey => $sectionValue):
                     ?>
-                            <details class="group" open>
+                            <details class="group" <?= (!empty($lessonCurrent) && $lessonCurrent["section_id"] == $sectionValue["section_id"]) ? "open" : "" ?>>
                                 <summary
                                     class="flex flex-col border-t border-[#ccc] p-5 mt-3 select-none hover:cursor-pointer bg-[#f9f6f7]">
                                     <h4 class="font-bold">
                                         <i
-                                            class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Phần <?= $sectionKey + 1 ?>: <?= $sectionValue["section_name"] ?>
+                                            class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i><?= $sectionValue["section_name"] ?>
                                     </h4>
                                     <p class="text-sm ms-6"><?= $sectionValue["total_lesson"] ?? 0 ?> bài giảng • <?= !empty($sectionValue["total_length"] && $sectionValue["total_length"] < 1) ? ($sectionValue["total_length"] * 60) . " phút" : ($sectionValue["total_length"] . " giờ")  ?></p>
                                 </summary>
@@ -550,7 +329,7 @@
                                             <div data-videoId="<?= $lessonValue["video_id"] ?? "" ?>"
                                                 data-lessonName="<?= $lessonValue["lesson_name"] ?? "" ?>"
                                                 onclick="changeVideo(this)"
-                                                id="lesson-<?= ($lessonKey + 1) == 1 ? "one" : "two" ?>"
+                                                id="lesson-<?php if (($lessonKey + 1) == 1) {echo "one";} else if (($lessonKey + 1) == 2) {echo "two";} else {echo "three" . $lessonKey;}?>"
                                                 class="flex justify-between items-center px-4 py-5 hover:bg-gray-200 hover:cursor-pointer lesson_container
                                                 <?=
                                                 ($lessonValue["enroll_lesson_status"] == 1 ? 'bg-blue-100' : '') .
@@ -568,7 +347,7 @@
 
                                                     <!-- Tên bài học -->
                                                     <h4>
-                                                        Bài <?= $lessonKey + 1 . ": " . $lessonValue["lesson_name"] ?>
+                                                        <?= $lessonValue["lesson_name"] ?>
                                                     </h4>
                                                 </div>
 
@@ -684,7 +463,7 @@
 
             // Change main video
             let mainVideo = document.querySelector("#main_video");
-            mainVideo.src = "https://iframe.mediadelivery.net/embed/553173" + "/" + videoId + "?loop=false&muted=false&preload=true&responsive=true";
+            mainVideo.src = "https://iframe.mediadelivery.net/embed/561446" + "/" + videoId + "?loop=false&muted=false&preload=true&responsive=true";
 
             // Change Title
             let lessonTitle = document.querySelector("#main_title");

@@ -5,11 +5,6 @@
         desc: "Đây là bài học đầu tiên của bạn.",
       },
       {
-        element: "#lesson-two",
-        title: "Bài học thứ hai",
-        desc: "Đây là bài học thứ hai của bạn.",
-      },
-      {
         element: "#video-player",
         title: "Video bài học",
         desc: "Tại đây bạn xem video bài giảng theo từng bài học.",
