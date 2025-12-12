@@ -57,11 +57,95 @@ class Auth
 
             $mail->isHTML(true);
             $mail->Subject = 'Mã xác nhận đặt lại mật khẩu';
-            $mail->Body = "
-                Mã xác nhận đặt lại mật khẩu của bạn là:
-                <h2>{$reset_token}</h2>
-                Mã này hết hạn trong 10 phút.
-            ";
+$mail->Body = '
+<div style="font-family: Arial, sans-serif; background-color:#f3f4f6; padding:32px;">
+
+    <div style="
+        max-width:520px;
+        margin:0 auto;
+        background:white;
+        border-radius:16px;
+        padding:32px;
+        box-shadow:0 8px 30px rgba(0,0,0,0.08);
+        border:1px solid #e5e7eb;
+    ">
+
+        <!-- Logo -->
+        <div style="text-align:center; margin-bottom:24px;">
+            <img src="https://res.cloudinary.com/dfmoftnpw/image/upload/v1765528592/logo_sajaxq.jpg" 
+                 alt="Logo" 
+                 style="width:100px; opacity:0.95;">
+        </div>
+
+        <h1 style="
+            font-size:24px;
+            font-weight:700;
+            text-align:center;
+            margin-bottom:16px;
+            color:#111827;
+        ">
+            Yêu cầu đặt lại mật khẩu
+        </h1>
+
+        <p style="
+            font-size:16px;
+            color:#374151;
+            text-align:center;
+            margin-bottom:24px;
+            line-height:1.6;
+        ">
+            Chúng tôi đã nhận được yêu cầu đặt lại mật khẩu từ bạn.<br>
+            Dưới đây là mã xác nhận của bạn:
+        </p>
+
+        <!-- Token Box -->
+        <div style="
+            background:#111827;
+            color:white;
+            padding:20px;
+            font-size:32px;
+            font-weight:700;
+            text-align:center;
+            border-radius:12px;
+            letter-spacing:4px;
+            margin-bottom:24px;
+            box-shadow:0 4px 12px rgba(0,0,0,0.15);
+        ">
+            ' . $reset_token . '
+        </div>
+
+        <!-- Warning Box -->
+        <div style="
+            background:#fef3c7;
+            border-left:6px solid #f59e0b;
+            padding:16px;
+            margin-bottom:24px;
+            border-radius:8px;
+            color:#92400e;
+            font-size:15px;
+        ">
+            Mã này sẽ hết hạn trong <strong>10 phút</strong>. 
+            Vui lòng không chia sẻ mã với bất kỳ ai.
+        </div>
+
+        <p style="
+            font-size:15px;
+            color:#6b7280;
+            line-height:1.6;
+            margin-bottom:32px;
+        ">
+            Nếu bạn không thực hiện yêu cầu này, vui lòng bỏ qua email. 
+            Tài khoản của bạn vẫn được đảm bảo an toàn.
+        </p>
+
+        <div style="text-align:center; color:#9ca3af; font-size:13px;">
+            © ' . date("Y") . ' Learnix. All rights reserved.
+        </div>
+
+    </div>
+</div>
+';
+
 
             $mail->send();
 
