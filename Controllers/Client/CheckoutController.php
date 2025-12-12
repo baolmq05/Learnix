@@ -21,7 +21,12 @@ class CheckoutController
     public function viewCheckout()
     {
         $user_id = $_SESSION['client']['id'] ?? null;
-        
+        if(!$user_id){
+                $error['loginError'] = 'Vui lòng đăng nhập!';
+                $_SESSION['error'] = $error;
+                header('Location: index.php?page=login');
+                exit();
+            }
         $cartItems = [];
         $subTotal = 0;
         $shipping = 0;
@@ -29,6 +34,7 @@ class CheckoutController
 
         // Trường hợp 1: Thanh toán toàn bộ giỏ hàng (POST['cart'])
         if (isset($_POST['cart']) && $user_id) {
+            
             $cartData = $this->cartModel->getAllCart($user_id);
             
             foreach ($cartData as $course) {

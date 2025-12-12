@@ -15,7 +15,9 @@ if (!$user_id) {
         "status" => "error",
         "message" => "Vui lòng đăng nhập để thêm vào giỏ hàng!"
     ]);
+    $_SESSION['error']['loginError'] = 'Vui lòng đăng nhập để thêm vào giỏ hàng!';
     exit;
+    
 }
 
 if (empty($user_id) || !isset($course_id)) {

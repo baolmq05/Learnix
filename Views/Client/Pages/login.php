@@ -58,7 +58,7 @@ unset($_SESSION['error']['message']);
                         <span class="mb-2 text-md">Email</span>
                         <input type="email"
                             class="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
-                            name="email" id="email"  value="<?= $_SESSION['error']['old_login_email'] ?? '' ?>" />
+                            name="email" id="email" value="<?= $_SESSION['error']['old_login_email'] ?? '' ?>" />
                     </div>
                     <div class="py-4">
                         <span class="mb-2 text-md">Mật khẩu</span>
@@ -97,6 +97,43 @@ unset($_SESSION['error']['message']);
         </div>
     </div>
     <script>
+        function showToast(message, type = "success") {
+            const toast = document.createElement("div");
+            toast.id = type === "success" ? "alert_success" : "alert_danger";
+            toast.style.background = type === "success" ? "#DEFCE9" : "#FFE2E2";
+            toast.style.color = type === "success" ? "#027A48" : "#D92D20";
+            toast.className =
+                "flex items-center w-full p-4 mb-4 rounded-lg z-111";
+            toast.style.transition = "opacity 0.5s ease";
+            toast.innerText = message;
+            toast.classList.add("animate-slideIn");
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = "0";
+            }, 2500);
+
+            setTimeout(() => toast.remove(), 5000);
+        }
+        // Hiện lỗi lưu trong localStorage
+        let cartError = localStorage.getItem('loginError');
+        if (cartError) {
+            showToast(cartError, "danger");
+            localStorage.removeItem('loginError');
+        }
+
+
+        const style = document.createElement("style");
+        style.innerHTML = `
+        @keyframes slideIn {
+            from { transform: translateX(150%); opacity: 0; }
+            to   { transform: translateX(0); opacity: 1; }
+        }
+        .animate-slideIn {
+            animation: slideIn 0.3s ease-out;
+        }
+        `;
+        document.head.appendChild(style);
+
         window.addEventListener('DOMContentLoaded', () => {
             const alertSuccess = document.getElementById('alert_success');
 
@@ -127,4 +164,5 @@ unset($_SESSION['error']['message']);
 <?php
 unset($_SESSION['error']);
 ?>
+
 </html>

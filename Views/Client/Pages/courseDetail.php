@@ -442,8 +442,7 @@
         formData.append("courseId", courseId);
 
         if (!userId) {
-            showToast("Vui lòng đăng nhập để thêm vào giỏ hàng!", "error");
-            sessionStorage.setItem('loginError', 'Vui lòng đăng nhập để thực hiện chức năng');
+            localStorage.setItem('loginError', 'Vui lòng đăng nhập!');
             window.location.href = "/index.php?page=login";
             return;
         }

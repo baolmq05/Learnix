@@ -14,9 +14,22 @@ class CourseLearningController
 
     public function viewCourseLearning()
     {
+        $userId = $_SESSION["client"]["id"];
+        if (!$userId) {
+            $error['loginError'] = 'Vui lòng đăng nhập!';
+            $_SESSION['error'] = $error;
+            header("location: ?page=login");
+            exit();
+        }
         // Data
         if (isset($_SESSION["client"])) {
             $userId = $_SESSION["client"]["id"];
+            if (!$userId) {
+                $error['loginError'] = 'Vui lòng đăng nhập!';
+                $_SESSION['error'] = $error;
+                header("location: ?page=login");
+                exit();
+            }
             $countTotal = $this->_enrollCourseLessonModel->getTotalCountByUserId($userId);
             $countCourseLearning = $this->_enrollCourseLessonModel->getCountByStatusUserId($userId, 0);
 
