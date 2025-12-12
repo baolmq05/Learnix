@@ -24,7 +24,7 @@
 							$lineTotal = $qty * $price;
 						?>
 							<div class="p-6 flex items-center gap-4">
-								<img src="<?=($item['image'] ?? '') ?>" alt="item" class="w-16 h-16 rounded-lg object-cover border border-slate-200">
+								<img src="Uploads/Courses/<?=($item['image'] ?? '') ?>" alt="item" class="w-16 h-16 rounded-lg object-cover border border-slate-200">
 								<div class="flex-1 min-w-0">
 									<div class="flex items-start justify-between gap-3">
 										<div>
