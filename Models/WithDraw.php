@@ -4,6 +4,8 @@ class WithDraw
 {
     private $_table = 'users';
     private $_transactionsTable = 'transactions';
+
+    private $_courseTable = 'courses';
     protected $_connection;
 
     public function __construct()
@@ -75,7 +77,6 @@ class WithDraw
     {
         try {
             $this->_connection->beginTransaction();
-
             // Lock user row để tránh 2 2 máy gửi cùng lúc
             $sqlCheck = "SELECT id FROM $this->_transactionsTable 
                      WHERE user_id = :user_id AND status = 0 
@@ -105,7 +106,7 @@ class WithDraw
                 'transaction_code' => $transactionCode
             ]);
 
-            $this->_connection->commit(); // quan trọng!!!
+            $this->_connection->commit();
             return true;
 
         } catch (PDOException $e) {
@@ -195,6 +196,21 @@ class WithDraw
             return false;
         }
     }
+
+    public function countApprovedCourses($teacherId)
+    {
+        try {
+            $sql = "SELECT COUNT(*) FROM $this->_courseTable  WHERE teacher_id = :teacher_id AND status = 1";
+            $stmt = $this->_connection->prepare($sql);
+            $stmt->execute(['teacher_id' => $teacherId]);
+            return $stmt->fetchColumn();
+        } catch (PDOException $e) {
+            $log_mess = '[' . date('Y-m-d H:i:s') . '] ' . $e->getMessage() . PHP_EOL;
+            error_log($log_mess, 3, "./Logs/WithDraw.log");
+            return false;
+        }
+    }
+
 
 
 }

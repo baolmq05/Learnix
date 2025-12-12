@@ -31,12 +31,6 @@ unset($_SESSION['withdraw_error']);
         <div id="alert_success"
             class="bg-red-100 border border-red-400 text-red-800 px-4 py-3 rounded-lg flex items-center gap-3 mb-4"
             role="alert">
-            <!-- Icon X -->
-            <svg class="w-5 h-5 flex-shrink-0 text-red-600" fill="none" stroke="currentColor" stroke-width="2"
-                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-
             <div class="flex-1">
                 <?= $danger ?>
             </div>
@@ -52,7 +46,7 @@ unset($_SESSION['withdraw_error']);
         Quay lại Profile
     </a>
     <h2 class="text-3xl font-semibold text-gray-800 mb-8 pb-3 border-b">
-        Yêu Cầu Rút Tiền Thù Lao (Thủ Công)
+        Yêu Cầu Rút Tiền Thù Lao 
     </h2>
     <form action="index.php?page=teacher&action=withDrawRequest" method="POST">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">

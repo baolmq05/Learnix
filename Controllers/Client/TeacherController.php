@@ -299,6 +299,13 @@ class TeacherController
             exit();
         }
 
+        // kiểm tra giảng viên đã có khóa học được duyệt chưa
+        $approvedCoursesCount = $this->withDrawModel->countApprovedCourses( $userId);
+        if($approvedCoursesCount == 0) {
+            $_SESSION['withdraw_error'] = 'Cần ít nhất 1 khóa học được duyệt';
+            header("location: index.php?page=teacher&action=withdraw");
+            exit();
+        }
         // Kiểm tra đã có yêu cầu đang chờ duyệt chưa
         if (method_exists($this->withDrawModel, 'hasPendingRequest')) {
             $hasPending = $this->withDrawModel->hasPendingRequest($userId);
