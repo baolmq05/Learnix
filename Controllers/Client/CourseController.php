@@ -19,6 +19,9 @@
         $totalCourses = $this->_courseModel->getTotalCourses();
         $courses = $this->_courseModel->getAllCourse();
        }
+       if(empty($courses)){
+        header("location: index.php");
+       }
          include 'Views/Client/Pages/categoryProduct.php';
      }
     }

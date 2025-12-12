@@ -17,7 +17,7 @@ class CourseDetailController
     {
         if (isset($_GET['id'])) {
             $courseId = $_GET['id'];
-            $course = $this->_courseModel->getOneCourse($courseId);
+            $course = $this->_courseModel->getOneCourseWithCategoryStatus($courseId);
             $sections = $this->_courseModel->getSectionByCourseId($courseId);
             $lessons = $this->_courseModel->getAllLessonByCourseId($courseId);
             $relatedCourses = $this->_courseModel->getRelatedCourses($course['category_id'], $courseId, 4);
