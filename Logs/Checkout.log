@@ -88,3 +88,5 @@ Enrolled 99 into 7 lessons of enroll_course_id 32
 Teacher ID: 96
 Added 981000 to teacher 96
 Added 109000 to admin 89
+Buy Now - Course ID: 66
+Final cartItems: [{"course_id":66,"price":999000}]

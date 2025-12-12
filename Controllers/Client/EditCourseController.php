@@ -120,7 +120,7 @@ class EditCourseController
                     mkdir($uploadDir, 0777, true);
                 }
 
-                $cleanName = preg_replace('/[^a-zA-Z0-9_-]/', '', $courseName);
+                $cleanName = "image";
                 $imageName = "course_{$cleanName}_" . time() . "." . $extension;
                 $uploadPath = $uploadDir . $imageName;
 

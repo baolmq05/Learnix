@@ -4,7 +4,7 @@ unset($_SESSION['needed_amount']);
 
 ?>
 <?php if (!empty($message)): ?>
-        <div id="alert_success" class="flex items-center w-full p-4 mb-4 text-yellow-800 bg-yellow-100 rounded-lg"
+        <div id="alert_success" class="flex items-center w-full p-4 mb-4 text-yellow-800 bg-yellow-100 rounded-lg z-100"
             role="alert">
             <div>
                Cần nạp thêm  <?= number_format($message, 0, ',', '.') ?>₫ 
