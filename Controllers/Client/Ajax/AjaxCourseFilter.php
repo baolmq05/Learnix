@@ -83,10 +83,11 @@ $end = min($total_pages, $page_number + $range);
             </article>
         <?php endforeach; ?>
     </div>
+<?php endif; ?>
+<?php if($total_pages > 1): ?>
     <div class="flex justify-center mt-3">
         <nav>
             <ul class="pagination flex gap-2">
-
                 <!-- Nút Trang đầu -->
                 <li class="page-item ">
                     <button

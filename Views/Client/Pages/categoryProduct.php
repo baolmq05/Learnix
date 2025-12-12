@@ -155,11 +155,15 @@ $end = min($total_pages, $current_page + $range);
                                 <?= number_format($course['sale_price'] == 0 ? $course['regular_price'] : $course['sale_price']) ?>₫
                             </div>
                             <?php if (!empty($course['sale_price'])): ?>
-                                <div class="text-xs text-gray-400 line-through truncate"><?= $course['regular_price'] ?>₫</div>
+                                <div class="text-xs text-gray-400 line-through truncate"><?= number_format($course['regular_price']) ?>₫</div>
                             <?php endif; ?>
                         </div>
                     </article>
                 <?php endforeach; ?>
+                <?php if (empty($courses)): ?>
+                    <p class="text-center text-gray-500">Không có khóa học nào phù hợp với bộ lọc của bạn.</p>
+                <?php endif; ?>
+                <?php if($total_pages > 1): ?>
                 <div class="flex justify-center mt-3">
                     <nav>
                         <ul class="pagination flex gap-2">
@@ -200,7 +204,7 @@ $end = min($total_pages, $current_page + $range);
                         </ul>
                     </nav>
                 </div>
-
+                <?php endif; ?>
             </div>
         </main>
     </div>
@@ -257,7 +261,9 @@ $end = min($total_pages, $current_page + $range);
             }
         }
         function next(){
-            page++;
+            if(page < <?= $total_pages ?>){
+                page++;
+            }
             getData();
         }
         function last(){
