@@ -34,7 +34,8 @@
         <div class="lg:col-span-3 col-span-6 col-start-3">
             <div class="p-2 rounded-sm bg-white text-black">
                 <div class="w-full">
-                    <img class="object-cover" src="Uploads/Courses/<?= $course['image'] ?? 'Hello' ?>" alt="" width="100%" />
+                    <img class="object-cover" src="Uploads/Courses/<?= $course['image'] ?? 'Hello' ?>" alt=""
+                        width="100%" />
                 </div>
                 <div class="flex items-center">
                     <h3 class="font-bold text-2xl mx-4 mt-4">
@@ -44,22 +45,33 @@
                         <?= $course['sale_price'] != 0 ? number_format($course['regular_price']) . '₫' : '' ?>
                     </h3>
                 </div>
-
-                <div class="mx-4 mt-4">
-                    <button onclick="addToCart()"
-                        class="bg-[#6d28d2] hover:bg-purple-400 hover:cursor-pointer font-bold text-[1.2rem] rounded-[5px] text-white px-2 py-3 w-full">
-                        Thêm vào giỏ
-                    </button>
-                </div>
-                <div class="mx-4 mt-2">
-                    <form action="?page=checkout&action=viewCheckout" method="POST">
-                        <input type="hidden" name="course_id" value="<?= $course['id'] ?>">
-                        <button type="submit"
-                            class="text-[#6d28d2] border-[#6d28d2] border hover:bg-purple-100 hover:cursor-pointer font-bold text-[1.2rem] rounded-[5px] px-10 py-3 w-full">
-                            Mua ngay
+                <?php if (!$enrollments): ?>
+                    <div class="mx-4 mt-4">
+                        <button onclick="addToCart()"
+                            class="bg-[#6d28d2] hover:bg-purple-400 hover:cursor-pointer font-bold text-[1.2rem] rounded-[5px] text-white px-2 py-3 w-full">
+                            Thêm vào giỏ
                         </button>
-                    </form>
-                </div>
+                    </div>
+                    <div class="mx-4 mt-2">
+                        <form action="?page=checkout&action=viewCheckout" method="POST">
+                            <input type="hidden" name="course_id" value="<?= $course['id'] ?>">
+                            <button type="submit"
+                                class="text-[#6d28d2] border-[#6d28d2] border hover:bg-purple-100 hover:cursor-pointer font-bold text-[1.2rem] rounded-[5px] px-10 py-3 w-full">
+                                Mua ngay
+                            </button>
+                        </form>
+                    </div>
+                <?php else: ?>
+                    <div class="mx-4 mt-4">
+                        <form action="?page=lesson_player" method="POST">
+                            <input type="hidden" name="course_id" value="<?= $course['id'] ?>">
+                            <button type="submit"
+                                class="bg-purple-500 hover:bg-purple-600 hover:cursor-pointer font-bold text-[1.2rem] rounded-[5px] text-white px-2 py-3 w-full">
+                                Tiếp tục học
+                            </button>
+                        </form>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -110,12 +122,11 @@
                     <summary class="flex justify-between border p-3 mt-3 select-none bg-gray-100">
                         <h4 class="font-bold">
                             <i
-                                class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i>Phần
-                            <?= $section + 1 ?>: <?= $value['section_name'] ?>
+                                class="fa-solid fa-chevron-down me-2 transition-transform duration-300 group-open:rotate-180"></i><?= $value['section_name'] ?>
                         </h4>
                         <p class="text-sm"><?= $value['total_lesson'] ?> bài giảng •
                             <?php if ($value['total_length'] < 1) {
-                                echo $value['total_length'] * 60 . ' phút';
+                                echo round($value['total_length'] * 60) . ' phút';
                             } else {
                                 echo (int) ($value['total_length']) . ' giờ ' . round(($value['total_length'] - (int) ($value['total_length'])) * 60) . ' phút';
                             } ?>
@@ -125,10 +136,10 @@
                         <?php foreach ($lessons as $lesson => $lessonValue):
                             if ($value['section_id'] == $lessonValue['section_id']): ?>
                                 <div class="flex justify-between mt-2">
-                                    <h4>Bài <?= $lesson + 1 ?>: <?= $lessonValue['lesson_name'] ?></h4>
+                                    <h4><?= $lessonValue['lesson_name'] ?></h4>
                                     <p><?= $lessonValue['lesson_length'] ?></p>
                                 </div>
-                        <?php endif;
+                            <?php endif;
                         endforeach; ?>
                     </div>
                 </details>
@@ -207,9 +218,6 @@
                     </p>
                 </div>
             </div>
-            <p class="mt-5">
-                <?= $course['teacher_information'] ?? 'Người này quá lười biếng để cung cấp thông tin.' ?>
-            </p>
             <p class="mt-8 mb-2 text-lg font-bold">
                 <i class="bi bi-star-fill text-yellow-400"></i> • <?= $course['total_review'] ?> đánh giá
             </p>
@@ -219,7 +227,8 @@
                         <div class="flex gap-5">
                             <div class="w-15 h-15">
                                 <img class="rounded-full w-full h-full object-cover"
-                                    src="Uploads/Avatar/<?= $review['avatar'] ?? 'default.webp' ?>" alt="" width="100%" height="100%" />
+                                    src="Uploads/Avatar/<?= $review['avatar'] ?? 'default.webp' ?>" alt="" width="100%"
+                                    height="100%" />
                             </div>
                             <div>
                                 <p><?= htmlspecialchars($review['name']) ?></p>
@@ -332,7 +341,7 @@
                 start: start,
                 limit: limit
             },
-            success: function(response) {
+            success: function (response) {
                 $('#review').append(response);
                 start += limit;
                 document.getElementById('buttonGetMoreReview').scrollIntoView({
@@ -345,7 +354,7 @@
                 checkContentHeight();
                 console.log('Đã tải thêm bình luận thành công');
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 // Xử lý lỗi (nếu có)
                 console.error(error);
             }
@@ -433,9 +442,9 @@
         }
 
         fetch("Controllers/Client/Ajax/AjaxAddToCart.php", {
-                method: "POST",
-                body: formData
-            })
+            method: "POST",
+            body: formData
+        })
             .then(res => res.json())
             .then(data => {
 
@@ -458,7 +467,7 @@
             url: "Controllers/Client/Ajax/AjaxLoadCartHeader.php",
             method: "GET",
             dataType: "json",
-            success: function(data) {
+            success: function (data) {
 
                 if (data.status === "error") {
                     $("#cartDropdownItems").html(`
@@ -474,7 +483,7 @@
 
                 $("#cartCount").text(data.count);
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.error("Load Cart Error:", error);
             }
         });

@@ -26,4 +26,21 @@ class EnrollCourse
             file_put_contents("./Logs/EnrollCourseLesson.log", $errorMessage, FILE_APPEND);
         }
     }
+    public function getEnrollCourseByUserIdAndCourseId($userId, $courseId)
+    {
+        try {
+            $sql = "SELECT * FROM enroll_courses WHERE user_id=:user_id AND course_id=:course_id";
+            $stmt = $this->_connect->prepare($sql);
+
+            $stmt->bindParam(":user_id", $userId);
+            $stmt->bindParam(":course_id", $courseId);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            return $result;
+        } catch (PDOException $e) {
+            $errorMessage = "Lỗi lúc: " . date("H:i:s") . ". Lỗi là: " . $e->getMessage();
+            file_put_contents("./Logs/EnrollCourseLesson.log", $errorMessage, FILE_APPEND);
+        }
+    }
 }
