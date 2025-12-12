@@ -113,18 +113,19 @@ class LoginController
         $error = [];
 
         if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $error['email'] = 'Vui lòng nhập email hợp lệ!';
-        }
-        if (empty($password)) {
-            $error['password'] = 'Vui lòng nhập mật khẩu!';
-        }
-
-        if (!empty($error)) {
+            $error['login_email'] = 'Email không hợp lệ!';
+            $error['old_login_email'] = $email;
             $_SESSION['error'] = $error;
             header('Location: ?page=login');
             exit;
         }
-
+        if (empty($password)) {
+            $error['login_password'] = 'Vui lòng nhập mật khẩu!';
+            $error['old_login_email'] = $email;
+            $_SESSION['error'] = $error;
+            header('Location: ?page=login');
+            exit;
+        }
         $userModel = new Login();
         $user = $userModel->checkLogin($email, $password);
 
@@ -133,6 +134,8 @@ class LoginController
             header('Location: ?page=login');
             exit;
         } elseif ($user === false) {
+            $error['old_login_email'] = $email;
+            $_SESSION['error'] = $error;
             $_SESSION['error']['loginError'] = 'Đăng nhập thất bại!';
             $_SESSION['error']['message'] = 'Email hoặc mật khẩu không đúng!';
             header('Location: ?page=login');

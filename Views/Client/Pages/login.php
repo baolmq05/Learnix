@@ -3,7 +3,7 @@
 <?php
 $success = $_SESSION['register_success'] ?? '';
 $loginError = $_SESSION['error']['loginError'] ?? '';
-$msgError = $_SESSION['error']['message'] ?? '';
+$msgError = $_SESSION['error']['message'] ?? $_SESSION['error']['login_password'] ?? $_SESSION['error']['login_email'] ?? '';
 unset($_SESSION['register_success']);
 unset($_SESSION['error']['loginError']);
 unset($_SESSION['error']['message']);
@@ -56,9 +56,9 @@ unset($_SESSION['error']['message']);
                 <form action="?page=login&action=handleLogin" name="login" method="POST">
                     <div class="py-4">
                         <span class="mb-2 text-md">Email</span>
-                        <input type="text"
+                        <input type="email"
                             class="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
-                            name="email" id="email" />
+                            name="email" id="email"  value="<?= $_SESSION['error']['old_login_email'] ?? '' ?>" />
                     </div>
                     <div class="py-4">
                         <span class="mb-2 text-md">Mật khẩu</span>
@@ -124,5 +124,7 @@ unset($_SESSION['error']['message']);
     </script>
 
 </body>
-
+<?php
+unset($_SESSION['error']);
+?>
 </html>

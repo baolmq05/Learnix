@@ -25,27 +25,33 @@
                     Chào mừng bạn! Vui lòng nhập thông tin chi tiết!
                 </span>
                 <form action="?page=register&action=handleRegister" name="register" method="POST">
-                    <div class="py-2 mb-2">
+                    <div class="py-2 mb-2 relative">
                         <label class="mb-2 text-md block">Tên</label>
                         <input type="text"
                             class="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
                             name="name" id="name"
-                            value="<?php echo htmlspecialchars($_SESSION['old']['name'] ?? '', ENT_QUOTES); ?>" />
-                                
+                            value="<?= htmlspecialchars($_SESSION['old']['name'] ?? '', ENT_QUOTES); ?>" />
+                            <small class="text-red-400 absolute left-0 -bottom-3 text-sm"><?= $_SESSION['error']['name'] ?? '' ?></small>
                     </div>
                     <div class="py-2 mb-2 relative">
                         <label class="mb-2 text-md block">Email</label>
                         <input type="text"
                             class="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
                             name="email" id="email"
-                            value="<?php echo htmlspecialchars($_SESSION['old']['email'] ?? '', ENT_QUOTES); ?>" />
-                            <small class="text-red-600 absolute left-0 -bottom-5 text-sm"><?php echo $_SESSION['error']['email'] ?? ''; ?></small>
+                            value="<?= htmlspecialchars($_SESSION['old']['email'] ?? '', ENT_QUOTES); ?>" />
+                            <small class="text-red-400 absolute left-0 -bottom-3 text-sm"><?= $_SESSION['error']['email'] ?? '' ?></small>
                         </div>
                     <div class="py-2 mb-2 relative">
                         <label class="mb-2 text-md block">Mật khẩu</label>
                         <input type="password" name="password" id="password"
                             class="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500" />
-                            <small class="text-red-600 absolute left-0 -bottom-5 text-sm"><?php echo $_SESSION['error']['password'] ?? ''; ?></small>
+                            <small class="text-red-400 absolute left-0 -bottom-3 text-sm"><?= $_SESSION['error']['password'] ?? '' ?></small>
+                    </div>
+                    <div class="py-2 mb-2 relative">
+                        <label class="mb-2 text-md block">Xác nhận mật khẩu</label>
+                        <input type="password" name="confirm_password" id="confirm_password"
+                            class="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500" />
+                            <small class="text-red-400 absolute left-0 -bottom-3 text-sm"><?= $_SESSION['error']['confirm_password'] ?? '' ?></small>
                     </div>
                     <button type="submit"
                         class="w-full bg-black text-white p-2 rounded-lg my-6 hover:opacity-[0.8] hover:text-white">
