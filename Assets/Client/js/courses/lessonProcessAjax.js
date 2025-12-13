@@ -232,15 +232,18 @@ async function processUpdateLesson(btnLessonUpdate) {
     }
 }
 
+// Delete
 async function processDeleteLesson(btnLessonDelete) {
-    let confirmResult = confirm("Chắc chắn xóa?");
-
-    if (!confirmResult) return;
+    // let confirmResult = confirm("Chắc chắn xóa?");
+    // if (!confirmResult) return;
 
     let form = btnLessonDelete.closest("form");
     let details = form.closest("details");
     let videoIdInput = details.querySelector(".video_id_update");
     let lessonIdInput = details.querySelector(".lesson_id_update");
+
+    // Spinner Show
+    showGlobalLoading();
 
     $.ajax({
         url: "/Controllers/Client/Ajax/AjaxLessonDelete.php",
@@ -253,7 +256,8 @@ async function processDeleteLesson(btnLessonDelete) {
         success: function (res) {
             if (res == true) {
                 details.remove();
-                alert("Xóa thành công!!!");
+                showDeleteLessonAlert();
+                hideGlobalLoading();
             }
         },
         error: function (xhr, status, error) {
@@ -300,7 +304,7 @@ function formatVideoDuration(duration) {
 
 function getVideoInfoUpdate(progressMain, progressText, progressBar, videoId, messageSuccess, lessonName, videoFile, videoName, uploadButton, lessonNameTitle, videoNameInput, reviewBtn, videoIdInput) {
     let isSuccess = false;
-    
+
     const interval = setInterval(() => {
         $.ajax({
             url: "/Controllers/Client/Ajax/AjaxLessonProgress.php",
@@ -379,7 +383,7 @@ function getVideoInfo(
                 if (encodeProgress >= 100 && isSuccess) {
                     console.log("clear interval here");
                     // Render Alert Create
-                    showUpdateLessonAlert();
+                    showCreateLessonAlert();
 
 
                     clearInterval(interval);
@@ -465,7 +469,7 @@ function createLessonElement(lessonName, videoId, lessonObj, videoName) {
           
           <form action="">
             <input type="hidden" name="videoId" />
-            <button type="button" name="deleteLesson" onclick="processDeleteLesson(this)" class="ml-2 text-red-600 hover:text-red-800">
+            <button type="button" name="deleteLesson" onclick="openDeleteLessonModal(this)" class="ml-2 text-red-600 hover:text-red-800">
               <i class="bi bi-trash3-fill"></i>
             </button>
           </form>
@@ -555,6 +559,18 @@ function createLessonElement(lessonName, videoId, lessonObj, videoName) {
   `;
 }
 
+function showCreateLessonAlert() {
+    const alertBox = document.getElementById("alert_create_lesson");
+
+    alertBox.classList.remove("hidden");
+    alertBox.classList.add("show");
+
+    setTimeout(() => {
+        alertBox.classList.remove("show");
+        setTimeout(() => alertBox.classList.add("hidden"), 350);
+    }, 3000);
+}
+
 function showUpdateLessonAlert() {
     const alertBox = document.getElementById("alert_update_lesson");
 
@@ -566,3 +582,52 @@ function showUpdateLessonAlert() {
         setTimeout(() => alertBox.classList.add("hidden"), 350);
     }, 3000);
 }
+
+// DELTE
+
+let deleteLessonBtnTemp = null;
+
+function openDeleteLessonModal(btn) {
+    deleteLessonBtnTemp = btn;
+    const modal = document.getElementById("deleteLessonModal");
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+}
+
+function closeDeleteLessonModal() {
+    deleteLessonBtnTemp = null;
+    const modal = document.getElementById("deleteLessonModal");
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+}
+
+function confirmDeleteLesson() {
+    if (!deleteLessonBtnTemp) return;
+    processDeleteLesson(deleteLessonBtnTemp);
+    closeDeleteLessonModal();
+}
+
+function showDeleteLessonAlert() {
+    const alertBox = document.getElementById("alert_delete_lesson");
+
+    alertBox.classList.remove("hidden");
+    alertBox.classList.add("show");
+
+    setTimeout(() => {
+        alertBox.classList.remove("show");
+        setTimeout(() => alertBox.classList.add("hidden"), 300);
+    }, 3000);
+}
+
+function showGlobalLoading() {
+    const loading = document.getElementById("globalLoading");
+    loading.classList.remove("hidden");
+    loading.classList.add("flex");
+}
+
+function hideGlobalLoading() {
+    const loading = document.getElementById("globalLoading");
+    loading.classList.add("hidden");
+    loading.classList.remove("flex");
+}
+// --------------------------------------------------------------------F

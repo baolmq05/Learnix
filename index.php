@@ -50,9 +50,11 @@ if ($page == "teacher") {
         case 'statistic':
             $teacherController->statistic();
             break;
+
         case "withdraw":
             $teacherController->getUserWithdraw();
             break;
+
         case "withDrawRequest":
             $teacherController->withDrawRequest();
             break;
@@ -101,6 +103,12 @@ if ($page == "teacher") {
             require_once 'Controllers/Client/EditCourseController.php';
             $editCourseController = new EditCourseController();
             $editCourseController->updateCourse();
+            break;
+
+        case 'updateStatusCourse':
+            require_once 'Controllers/Client/EditCourseController.php';
+            $editCourseController = new EditCourseController();
+            $editCourseController->updateStatusCourse();
             break;
 
         default:

@@ -188,7 +188,7 @@ class Course
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
-        public function getOneCourseWithCategoryStatus($courseId)
+    public function getOneCourseWithCategoryStatus($courseId)
     {
         $sql = "SELECT 
     c.*,

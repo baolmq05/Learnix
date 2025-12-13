@@ -135,11 +135,11 @@ class EditCourseController
             $benefit = $this->transferArrayToString($benefit);
             $customerObject = $this->transferArrayToString($customerObject);
 
-            if($salePrice == 0) {
+            if ($salePrice == 0) {
                 $salePrice = 0;
             }
 
-            if($status == "") {
+            if ($status == "") {
                 $status = 2;
             }
 
@@ -168,6 +168,28 @@ class EditCourseController
                     ";
                 exit;
             }
+        }
+    }
+
+    public function updateStatusCourse()
+    {
+        $teacherId = isset($_SESSION["client"]) ? $_SESSION["client"]["id"] : "";
+        $courseId = isset($_POST["course_id"]) ? htmlspecialchars($_POST["course_id"]) : "";
+        $status = isset($_POST["status"]) ? htmlspecialchars($_POST["status"]) : "";
+
+        if (is_numeric($courseId)) {
+            $result = $this->_courseModel->updateStatus($courseId, $status);
+
+            if($result) {
+                $_SESSION["update_course_success"] = "Cập nhật thành công";
+                header("location: ?page=teacher");
+                exit;
+            }else{
+                echo "Cập nhật thất bại";
+            }
+        }else{
+            header("location: index.php");
+            exit;
         }
     }
 }

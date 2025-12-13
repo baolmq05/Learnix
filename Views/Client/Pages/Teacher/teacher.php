@@ -144,7 +144,7 @@ unset($_SESSION['login_success']);
                             </a>
 
                             <div class="flex flex-col items-end gap-2">
-                                <div class="text-lg font-semibold text-gray-900"><?= $course['sale_price'] >= 0 ? number_format($course['sale_price']) : number_format($course['regular_price']) ?>₫</div>
+                                <div class="text-lg font-semibold text-gray-900"><?= $course['sale_price'] > 0 ? number_format($course['sale_price']) : number_format($course['regular_price']) ?>₫</div>
                                 <div class="flex items-center gap-2">
                                     <form action="?page=teacher&action=viewEditCourse" method="post">
                                         <input type="hidden" name="course_id" value="<?= $course["course_id"] ?>">
@@ -190,14 +190,14 @@ unset($_SESSION['login_success']);
                             </a>
 
                             <div class="flex flex-col items-end gap-2">
-                                <div class="text-lg font-semibold text-gray-900"><?= $course['sale_price'] >= 0 ? number_format($course['sale_price']) : number_format($course['regular_price']) ?>₫</div>
-                                <div class="flex items-center gap-2">
+                                <div class="text-lg font-semibold text-gray-900"><?= $course['sale_price'] > 0 ? number_format($course['sale_price']) : number_format($course['regular_price']) ?>₫</div>
+                                <!-- <div class="flex items-center gap-2">
                                     <form action="?page=teacher&action=viewEditCourse" method="post">
                                         <input type="hidden" name="course_id" value="<?= $course["course_id"] ?>">
                                         <button class="inline-block text-xs px-3 py-3 bg-gray-100 text-gray-800 rounded-full hover:bg-gray-200">Chỉnh sửa</button>
                                     </form>
                                     
-                                </div>
+                                </div> -->
                             </div>
                         </article>
                     <?php endforeach; ?>
@@ -236,7 +236,7 @@ unset($_SESSION['login_success']);
                             </a>
 
                             <div class="flex flex-col items-end gap-2">
-                                <div class="text-lg font-semibold text-gray-900"><?= $course['sale_price'] >= 0 ? number_format($course['sale_price']) : number_format($course['regular_price']) ?>₫</div>
+                                <div class="text-lg font-semibold text-gray-900"><?= $course['sale_price'] > 0 ? number_format($course['sale_price']) : number_format($course['regular_price']) ?>₫</div>
                                 <div class="flex items-center gap-2">
                                     <form action="?page=teacher&action=viewEditCourse" method="post">
                                         <input type="hidden" name="course_id" value="<?= $course["course_id"] ?>">
@@ -282,7 +282,7 @@ unset($_SESSION['login_success']);
                             </a>
 
                             <div class="flex flex-col items-end gap-2">
-                                <div class="text-lg font-semibold text-gray-900"><?= $course['sale_price'] >= 0 ? number_format($course['sale_price']) : number_format($course['regular_price']) ?>₫</div>
+                                <div class="text-lg font-semibold text-gray-900"><?= $course['sale_price'] > 0 ? number_format($course['sale_price']) : number_format($course['regular_price']) ?>₫</div>
                                 <div class="flex items-center gap-2">
                                     <form action="?page=teacher&action=viewEditCourse" method="post">
                                         <input type="hidden" name="course_id" value="<?= $course["course_id"] ?>">
@@ -328,7 +328,7 @@ unset($_SESSION['login_success']);
                             </a>
 
                             <div class="flex flex-col items-end gap-2">
-                                <div class="text-lg font-semibold text-gray-900"><?= $course['sale_price'] >= 0 ? number_format($course['sale_price']) : number_format($course['regular_price']) ?>₫</div>
+                                <div class="text-lg font-semibold text-gray-900"><?= $course['sale_price'] > 0 ? number_format($course['sale_price']) : number_format($course['regular_price']) ?>₫</div>
                                 <div class="flex items-center gap-2">
                                     <form action="?page=teacher&action=viewEditCourse" method="post">
                                         <input type="hidden" name="course_id" value="<?= $course["course_id"] ?>">

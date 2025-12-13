@@ -121,6 +121,12 @@
     </style>
 
     <main class="mb-4">
+        <!-- Spinner -->
+        <div id="globalLoading"
+            class="fixed inset-0 bg-black/40 hidden items-center justify-center z-[10000]">
+            <div class="w-14 h-14 border-4 border-white/30 border-t-white rounded-full animate-spin"></div>
+        </div>
+
         <?php if (isset($_SESSION["update_success"])): ?>
             <div id="alert_success" class="alert flex items-center gap-2 p-4 rounded-lg bg-green-100 text-green-700 border border-green-300">
                 <span><?= $_SESSION["update_success"] ?? "" ?></span>
@@ -148,12 +154,39 @@
             <span>Cập nhật thất bại</span>
         </div>
 
-
         <!-- LESSON ALERT -->
         <div id="alert_update_lesson"
             class="alert-box hidden flex items-center gap-2 p-4 rounded-lg 
             bg-green-100 text-green-500 border border-green-300">
             <span>Cập nhật bài học thành công</span>
+        </div>
+
+        <div id="alert_create_lesson"
+            class="alert-box hidden flex items-center gap-2 p-4 rounded-lg 
+            bg-green-100 text-green-500 border border-green-300">
+            <span>Thêm bài học thành công</span>
+        </div>
+
+        <div id="alert_delete_lesson"
+            class="hidden fixed top-[65px] right-0 max-w-[400px]
+            p-4 rounded-lg bg-red-100 text-red-500
+            border border-red-300 z-[1000]">
+            Xóa bài học thành công
+        </div>
+
+        <!-- Section ALERT -->
+        <div id="alert_delete_section"
+            class="hidden fixed top-[65px] right-0 max-w-[400px]
+            p-4 rounded-lg bg-red-100 text-red-500
+            border border-red-300 z-[1000]">
+            Xóa chương học thành công
+        </div>
+
+        <div id="alert_update_section"
+            class="hidden fixed top-[65px] right-0 max-w-[400px]
+            p-4 rounded-lg bg-green-100 text-green-500
+            border border-green-300 z-[1000]">
+            Cập nhật chương học thành công
         </div>
 
         <div class="bg-black text-white p-3 flex items-center justify-between sticky top-0 z-1">
@@ -169,7 +202,32 @@
         </div>
         <div class="flex flex-col lg:flex-row justify-between items-start gap-6 px-3">
             <div class="lg:basis-1/2 w-full p-6 lg:p-10 rounded-md shadow mx-auto mt-4 border border-gray-300">
-                <p class="text-2xl font-bold text-center">Thông tin khóa học</p>
+                <div class="flex justify-between items-center">
+                    <p class="text-2xl font-bold text-center">Thông tin khóa học</p>
+                    <?php
+                    if ($courseResult["status"] != 1):
+                    ?>
+                        <button onclick="openSendReviewModal()"
+                            class="bg-green-600 text-white px-4 py-2 rounded-md
+                                hover:bg-green-700 flex items-center gap-2 cursor-pointer">
+                            Gửi duyệt khóa học
+                        </button>
+                    <?php
+                    endif;
+                    ?>
+                    <?php
+                    if ($courseResult["status"] == 1):
+                    ?>
+                        <button
+                            type="button"
+                            onclick="openHideCourseModal()"
+                            class="px-4 py-2 rounded-md bg-gray-700 text-white hover:bg-gray-800 transition">
+                            Ẩn khóa học
+                        </button>
+                    <?php
+                    endif;
+                    ?>
+                </div>
                 <form
                     id="form_infor_course"
                     action="?page=teacher&action=updateCourse"
@@ -330,14 +388,24 @@
                     </div>
                     <input type="hidden" name="status" value="<?= isset($courseResult["status"]) ? $courseResult["status"] : "" ?>">
                     <button
-                        class="p-2 border border-gray-300 bg-purple-700 mt-3 rounded-[5px] text-white">
+                        class="p-2 border border-gray-300 bg-purple-700 mt-3 rounded-[5px] text-white cursor-pointer">
                         Lưu thông tin
                     </button>
+                    <?php
+                    if ($courseResult["status"] != 1):
+                    ?>
+                        <button type="button" onclick="openSendReviewModal()"
+                            class="mt-3 text-center bg-green-600 text-white px-4 py-2 rounded-[5px] hover:bg-green-700 gap-2 cursor-pointer">
+                            Gửi duyệt khóa học
+                        </button>
+                    <?php
+                    endif;
+                    ?>
                 </form>
             </div>
 
             <div class="lg:basis-1/2 w-full p-6 lg:p-10 shadow rounded-md mt-4 border border-gray-300">
-                <p for="" class="text-2xl font-bold text-center mb-5">Chương trình giảng dạy</p>
+                <p for="" class="text-2xl font-bold     mb-5">Chương trình giảng dạy</p>
                 <div id="section_container" class="space-y-5 mt-3 bg-gray-50 rounded-xl">
                     <!-- ========================= Chương ========================== -->
                     <?php
@@ -358,7 +426,7 @@
                                         <input type="hidden" class="section_id" value="<?= $value["id"] ?>" name="sectionId" id="" />
                                         <button
                                             type="button"
-                                            onclick="processDeleteSection(this)"
+                                            onclick="openDeleteSectionModal(this)"
                                             name="deleteSection"
                                             value=""
                                             class="ml-2 text-red-600 hover:text-red-800 hover: cursor-pointer">
@@ -414,7 +482,7 @@
                                                             type="button"
                                                             name="deleteLesson"
                                                             value=""
-                                                            onclick="processDeleteLesson(this)"
+                                                            onclick="openDeleteLessonModal(this)"
                                                             class="ml-2 text-red-600 hover:text-red-800 hover: cursor-pointer">
                                                             <i class="bi bi-trash3-fill"></i>
                                                         </button>
@@ -513,7 +581,7 @@
                                     onclick="toggleAddLesson(<?= $value['id'] ?>)"
                                     type="button"
                                     id="btnAddLesson<?= $value['id'] ?>"
-                                    class="p-2 border border-gray-300 mt-3 rounded-lg bg-purple-100 text-purple-700 font-medium hover:bg-purple-200">
+                                    class="p-2 border border-gray-300 mt-3 rounded-lg bg-purple-100 text-purple-700 font-medium hover:bg-purple-200 cursor-pointer">
                                     Thêm bài học mới
                                 </button>
 
@@ -592,7 +660,7 @@
                                 placeholder="Nhập tên chương học" />
                             <input type="hidden" class="course_id" value="<?= $courseResult["id"] ?? '' ?>" name="">
                             <button type="button" onclick="processCreateSection(this)"
-                                class="border bg-purple-700 text-white p-2 rounded-[5px] mt-2">
+                                class="border bg-purple-700 text-white p-2 rounded-[5px] cursor-pointer mt-2">
                                 Thêm chương
                             </button>
                         </div>
@@ -611,6 +679,148 @@
         </div>
     </main>
 
+    <!-- Modal Delete Section -->
+    <div id="deleteSectionModal"
+        class="fixed inset-0 bg-black/50 hidden items-center justify-center z-[9999]">
+
+        <div class="bg-white rounded-xl p-6 w-[90%] max-w-md shadow-lg">
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">
+                Xác nhận xóa chương học
+            </h3>
+
+            <p class="text-gray-600 mb-5">
+                Bạn có chắc chắn muốn xóa section này không?
+                <span class="text-red-500 font-medium">Hành động không thể hoàn tác.</span>
+            </p>
+
+            <div class="flex justify-end gap-3">
+                <button
+                    type="button"
+                    onclick="closeDeleteSectionModal()"
+                    class="px-4 py-2 rounded-md bg-gray-200 hover:bg-gray-300">
+                    Hủy
+                </button>
+
+                <button
+                    type="button"
+                    onclick="confirmDeleteSection()"
+                    class="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700">
+                    Xóa
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Delete Lesson -->
+    <div id="deleteLessonModal"
+        class="fixed inset-0 bg-black/50 hidden items-center justify-center z-[9999]">
+
+        <div class="bg-white rounded-xl p-6 w-[90%] max-w-md shadow-lg">
+            <h3 class="text-lg font-semibold mb-2">
+                Xác nhận xóa bài học
+            </h3>
+
+            <p class="text-gray-600 mb-5">
+                Bạn chắc chắn muốn xóa bài học này?
+                <span class="text-red-500 font-medium">Không thể hoàn tác.</span>
+            </p>
+
+            <div class="flex justify-end gap-3">
+                <button
+                    type="button"
+                    onclick="closeDeleteLessonModal()"
+                    class="px-4 py-2 bg-gray-200 rounded-md">
+                    Hủy
+                </button>
+
+                <button
+                    type="button"
+                    onclick="confirmDeleteLesson()"
+                    class="px-4 py-2 bg-red-600 text-white rounded-md">
+                    Xóa
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal duyệt khóa học -->
+    <div id="modal_send_review"
+        class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50">
+
+        <div class="bg-white rounded-xl w-full max-w-md p-6">
+            <h3 class="text-lg font-semibold mb-2">
+                Xác nhận gửi khóa học
+            </h3>
+
+            <p class="text-sm text-gray-600 mb-4">
+                Khóa học sẽ được gửi cho admin xét duyệt. Bạn sẽ không thể chỉnh sửa
+                cho đến khi có kết quả.
+            </p>
+
+            <form id="form_send_review" action="?page=teacher&action=updateStatusCourse" method="post">
+                <!-- HIDDEN INPUT -->
+                <input type="hidden" name="course_id" value="<?= $courseResult["id"] ?? '' ?>">
+                <input type="hidden" name="status" value="0">
+
+                <div class="flex justify-end gap-2">
+                    <button
+                        type="button"
+                        onclick="closeSendReviewModal()"
+                        class="px-4 py-2 rounded-md bg-gray-200 cursor-pointer">
+                        Hủy
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="px-4 py-2 rounded-md bg-blue-600 text-white cursor-pointer">
+                        Xác nhận gửi
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- HideModal -->
+    <div id="modal_hide_course"
+        class="fixed inset-0 hidden items-center justify-center bg-black/50 z-[10000]">
+
+        <div class="bg-white rounded-xl w-full max-w-md p-6">
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">
+                Xác nhận ẩn khóa học
+            </h3>
+
+            <p class="text-sm text-gray-600 mb-4">
+                Khi ẩn khóa học, khóa học sẽ <strong>không còn được công khai bán</strong> trên hệ thống.
+                <br><br>
+                <strong>Những học viên đã mua trước đó vẫn có thể truy cập và học bình thường.</strong>
+                <br><br>
+                Bạn có thể bật hiển thị lại khóa học bất cứ lúc nào.
+            </p>
+
+            <form id="form_hide_course">
+                <!-- COURSE ID -->
+                <input type="hidden" name="course_id" value="<?= $courseResult["id"] ?? "" ?>">
+                <input type="hidden" name="status" value="3">
+                
+                <div class="flex justify-end gap-3 mt-5">
+                    <button
+                        type="button"
+                        onclick="closeHideCourseModal()"
+                        class="px-4 py-2 rounded-md bg-gray-200 hover:bg-gray-300">
+                        Hủy
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700">
+                        Xác nhận ẩn
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Video Popup -->
     <div id="videoPopup" class="video-popup hidden">
         <div class="video-wrapper">
             <button class="close-btn" onclick="closeVideoPopup()">✕</button>
@@ -655,6 +865,30 @@
             iframe.src = ""; // reset iframe → ngừng video
 
             popup.classList.add("hidden");
+        }
+
+        function openSendReviewModal() {
+            document.getElementById("modal_send_review").classList.remove("hidden");
+            document.getElementById("modal_send_review").classList.add("flex");
+        }
+
+        function closeSendReviewModal() {
+            const modal = document.getElementById("modal_send_review");
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
+        }
+
+        // HideModal
+        function openHideCourseModal() {
+            const modal = document.getElementById("modal_hide_course");
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+        }
+
+        function closeHideCourseModal() {
+            const modal = document.getElementById("modal_hide_course");
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
         }
     </script>
     <!-- JQUERY AJAX -->

@@ -76,7 +76,9 @@ function checkError(event) {
             if (discountedPrice.value < 0) {
                 isError = true;
                 discountedError.innerText = "Giá khuyến mãi phải lớn hơn 0";
-            } else if (discountedPrice.value >= regularPrice.value) {
+            }
+            
+            if (Number(discountedPrice.value) > Number(regularPrice.value.trim())) {
                 isError = true;
                 discountedError.innerText = "Giá khuyến mãi phải nhỏ hơn giá gốc";
             } else {
