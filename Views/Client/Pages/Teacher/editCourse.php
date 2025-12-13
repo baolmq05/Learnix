@@ -101,28 +101,59 @@
                 right: 0px;
             }
         }
+
+        /* ALERT LESSON */
+        /* Alert riêng cho update lesson */
+        .alert-box {
+            position: fixed;
+            top: 65px;
+            right: -350px;
+            /* Bắt đầu ẩn */
+            max-width: 400px;
+            transition: right 0.35s ease-in-out;
+            z-index: 9999;
+        }
+
+        .alert-box.show {
+            right: 0;
+            /* Hiện alert */
+        }
     </style>
 
     <main class="mb-4">
         <?php if (isset($_SESSION["update_success"])): ?>
             <div id="alert_success" class="alert flex items-center gap-2 p-4 rounded-lg bg-green-100 text-green-700 border border-green-300">
-                <i class="bi bi-check2-circle text-xl"></i>
-                <span>Thành công</span>
+                <span><?= $_SESSION["update_success"] ?? "" ?></span>
             </div>
-
-            <?php unset($_SESSION["update_success"]); ?>
 
             <script>
                 setTimeout(() => {
-                    document.querySelector("#alertSuccess")?.remove();
+                    document.querySelector("#alert_success")?.remove();
                 }, 3000);
             </script>
         <?php endif; ?>
-        
+
+        <?php if (isset($_SESSION["create_course_success"])): ?>
+            <div id="alert_success" class="alert flex items-center gap-2 p-4 rounded-lg bg-green-100 text-green-700 border border-green-300">
+                <span><?= $_SESSION["create_course_success"] ?? "" ?></span>
+            </div>
+            <script>
+                setTimeout(() => {
+                    document.querySelector("#alert_success")?.remove();
+                }, 3000);
+            </script>
+        <?php endif; ?>
 
         <div id="alert_danger" class="hidden alert flex items-center gap-2 p-4 rounded-lg bg-red-100 text-red-400 border border-red-300">
-            <i class="bi bi-x-circle"></i>
-            <span>Thất bại</span>
+            <span>Cập nhật thất bại</span>
+        </div>
+
+
+        <!-- LESSON ALERT -->
+        <div id="alert_update_lesson"
+            class="alert-box hidden flex items-center gap-2 p-4 rounded-lg 
+            bg-green-100 text-green-500 border border-green-300">
+            <span>Cập nhật bài học thành công</span>
         </div>
 
         <div class="bg-black text-white p-3 flex items-center justify-between sticky top-0 z-1">
@@ -272,26 +303,8 @@
                     <input type="hidden" value="<?= $courseResult["image"] ?? "" ?>" name="imageCurrent" />
                     <small class="text-red-400 block font-semibold"><?= $_SESSION["error_file_type"] ?? "" ?></small>
                     <small class="text-red-400 block font-semibold" id="image_error"></small>
-                    <div class="mt-4">
-                        <input
-                            value="1"
-                            type="radio"
-                            name="is_free"
-                            id="paid"
-                            class="mt-4"
-                            checked
-                            onclick="hiddenPrice()" />
-                        <label for="paid" class="me-3">Khóa học có phí</label>
-                        <input
-                            value="<?= $courseResult["regular_price"] <= 0 ? 1 : "" ?>"
-                            type="radio"
-                            name="is_free"
-                            id="free"
-                            class="mt-4"
-                            onclick="hiddenPrice()" />
-                        <label for="free">Khóa học miễn phí</label>
-                    </div>
-                    <div class="mt-4 grid grid-cols-2 gap-3" id="boxPrice">
+
+                    <div class="mt-5 grid grid-cols-2 gap-3" id="boxPrice">
                         <div class="flex flex-col">
                             <label for="regular_price">Giá của khóa học</label>
                             <input
@@ -652,4 +665,6 @@
 
     <?php
     unset($_SESSION["error_file_type"]);
+    unset($_SESSION["update_success"]);
+    unset($_SESSION["create_course_success"]);
     ?>

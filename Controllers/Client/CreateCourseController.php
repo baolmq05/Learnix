@@ -15,6 +15,19 @@ class CreateCourseController
 
     public function viewCreateCourse()
     {
+        if (isset($_SESSION["client"])) {
+            $userObj = $_SESSION["client"];
+            if ($userObj["role"] == 1) {
+                header("location: index.php");
+                exit;
+            } else {
+                if (empty($userObj["information"]) || empty($userObj["avatar"]) || empty($userObj["bank_number"]) || empty($userObj["bank_number"])) {
+                    $_SESSION["information_error"] = "Vui lòng thêm đầy đủ thông tin";
+                    header("location: ?page=teacher&action=editProfile");
+                    exit;
+                }
+            }
+        }
         $categoryList = $this->_categoryModel->getAllCate();
         include_once 'Views/Client/Pages/Teacher/createCourse.php';
     }
@@ -32,9 +45,9 @@ class CreateCourseController
             $role = $userCurrent["role"];
             if ($role == 2) {
                 $checkDuplicateName = $this->_courseModel->checkDuplicateName($courseName);
-               
+
                 // Check trùng tên khóa học
-                if($checkDuplicateName == 1) {
+                if ($checkDuplicateName > 0) {
                     $_SESSION["course_name_error"] = "Tên khóa học đã tồn tại";
                     $_SESSION["course_name_old"] = $courseName;
                     header("location: ?page=teacher&action=viewCreateCourse");
@@ -45,6 +58,8 @@ class CreateCourseController
                 $result = $this->_courseModel->insert($category, $courseName, $teacherId);
 
                 if (is_numeric($result)) {
+                    $_SESSION["create_course_success"] = "Thêm khóa học thành công";
+
                     echo "<form id='redirectForm' method='POST' action='?page=teacher&action=viewEditCourse'>
                         <input type='hidden' name='course_id' value='$result'>
                         <input type='hidden' name='category' value='$category'>

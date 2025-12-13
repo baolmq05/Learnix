@@ -73,9 +73,10 @@ class Course
             $sql = "SELECT * FROM courses WHERE course_name = :course_name";
             $stmt = $this->_connect->prepare($sql);
             $stmt->bindParam(":course_name", $courseName);
-            $result = $stmt->execute();
-        
-            return $result;
+            $stmt->execute();
+
+            return $stmt->rowCount(); // trả về số dòng tìm được (0 hoặc >=1)
+
         } catch (PDOException $e) {
             $log_mess = '[' . date('Y-m-d H:i:s') . ']' . $e->getMessage() . PHP_EOL;
             error_log($log_mess, 3, "./Logs/Course.log");

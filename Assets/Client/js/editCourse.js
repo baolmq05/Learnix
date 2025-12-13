@@ -23,7 +23,7 @@ function changeCoursePrice() {
     })
 }
 
-changeCoursePrice();
+// changeCoursePrice();
 
 function addBenefitField() {
     const newInput = document.createElement("input");
@@ -41,7 +41,6 @@ function addBenefitField() {
 
     disabledButtonAdd();
 }
-
 
 // Disable add button if any input is empty
 document.addEventListener("input", disabledButtonAdd);

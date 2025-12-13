@@ -299,6 +299,8 @@ function formatVideoDuration(duration) {
 }
 
 function getVideoInfoUpdate(progressMain, progressText, progressBar, videoId, messageSuccess, lessonName, videoFile, videoName, uploadButton, lessonNameTitle, videoNameInput, reviewBtn, videoIdInput) {
+    let isSuccess = false;
+    
     const interval = setInterval(() => {
         $.ajax({
             url: "/Controllers/Client/Ajax/AjaxLessonProgress.php",
@@ -306,13 +308,16 @@ function getVideoInfoUpdate(progressMain, progressText, progressBar, videoId, me
             dataType: "json",
             data: { videoId: videoId },
             success: function (res) {
+                isSuccess = true;
                 let encodeProgress = Number(res.encodeProgress);
 
                 setProgress(encodeProgress, progressText, progressBar);
 
-                if (encodeProgress >= 100) {
+                if (encodeProgress >= 100 && isSuccess) {
+                    showUpdateLessonAlert();
                     clearInterval(interval);
                     encodeProgress = 100;
+                    isSuccess = false;
 
                     // Update Lesson
                     lessonNameTitle.innerText = lessonName.value;
@@ -373,8 +378,14 @@ function getVideoInfo(
 
                 if (encodeProgress >= 100 && isSuccess) {
                     console.log("clear interval here");
+                    // Render Alert Create
+                    showUpdateLessonAlert();
+
+
                     clearInterval(interval);
                     isSuccess = false;
+
+
                     // Render new lesson
                     renderNewLession(sectionId, lessonName.value, videoId, lessonObj, videoName);
 
@@ -542,4 +553,16 @@ function createLessonElement(lessonName, videoId, lessonObj, videoName) {
       </div>
     </details>
   `;
+}
+
+function showUpdateLessonAlert() {
+    const alertBox = document.getElementById("alert_update_lesson");
+
+    alertBox.classList.remove("hidden");
+    alertBox.classList.add("show");
+
+    setTimeout(() => {
+        alertBox.classList.remove("show");
+        setTimeout(() => alertBox.classList.add("hidden"), 350);
+    }, 3000);
 }

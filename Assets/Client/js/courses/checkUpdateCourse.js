@@ -4,8 +4,6 @@ function checkError(event) {
     let description = document.querySelector("#description");
     let benefit = document.querySelectorAll(".benefit");
     let customerObject = document.querySelectorAll(".customer_object");
-    let paidInput = document.querySelector("#paid");
-    let freeInput = document.querySelector("#free");
     let regularPrice = document.querySelector("#regular_price");
     let discountedPrice = document.querySelector("#discounted_price");
     let imagePreview = document.querySelector(".image-preview");
@@ -50,7 +48,7 @@ function checkError(event) {
         benefitError.innerText = "";
     }
 
-    if (customerObject.length <= 0) {
+    if (customerObject.length <= 1) {
         isError = true;
         customerObjectError.innerText = "Ít nhất phải có 1 đối tượng";
     }
@@ -62,39 +60,29 @@ function checkError(event) {
         imageError.innerText = "";
     }
 
-    if (paidInput.value == 1) {
-        const regular = Number(regularPrice.value);
-        const sale = Number(discountedPrice.value);
-
-        // Kiểm tra giá gốc
-        if (regularPrice.value.trim() === "") {
-            isError = true;
-            regularError.innerText = "Giá không được để trống";
-        } else if (regular <= 0) {
-            isError = true;
-            regularError.innerText = "Giá gốc phải lớn hơn 0";
-        } else {
-            regularError.innerText = "";
-        }
-
-        // Kiểm tra giá sale
-        if (discountedPrice.value.trim() === "") {
-            isError = true;
-            discountedError.innerText = "Giá khuyến mãi không được để trống";
-        } else if (sale <= 0) {
-            isError = true;
-            discountedError.innerText = "Giá khuyến mãi phải lớn hơn 0";
-        } else if (sale >= regular) {
-            isError = true;
-            discountedError.innerText = "Giá khuyến mãi phải nhỏ hơn giá gốc";
-        } else {
-            discountedError.innerText = "";
-        }
-    }
-
-    if (freeInput.value == 1) {
+    // Kiểm tra giá gốc
+    if (regularPrice.value.trim() === "") {
+        isError = true;
+        regularError.innerText = "Giá không được để trống";
+    } else if (regularPrice.value < 49000) {
+        isError = true;
+        regularError.innerText = "Giá gốc phải lớn hơn hoặc bằng 49.000đ";
+    } else {
         regularError.innerText = "";
-        discountedError.innerText = ""
+
+        if (discountedPrice.value.trim() == "") {
+            console.log("Rỗng sale");
+        } else {
+            if (discountedPrice.value < 0) {
+                isError = true;
+                discountedError.innerText = "Giá khuyến mãi phải lớn hơn 0";
+            } else if (discountedPrice.value >= regularPrice.value) {
+                isError = true;
+                discountedError.innerText = "Giá khuyến mãi phải nhỏ hơn giá gốc";
+            } else {
+                discountedError.innerText = "";
+            }
+        }
     }
 
     if (isError) {
