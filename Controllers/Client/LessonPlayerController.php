@@ -6,6 +6,7 @@ require_once "./Models/Lesson.php";
 require_once "./Models/User.php";
 require_once './Models/Review.php';
 require_once "./Models/EnrollCourseLesson.php";
+require_once "./Models/Note.php";
 
 class LessonPlayerController
 {
@@ -14,12 +15,14 @@ class LessonPlayerController
     private $_courseModel;
     private $_reviewModel;
     private $_enrollCourseModel;
+    private $_noteModel;
 
     public function __construct()
     {
         $this->_courseModel = new Course();
         $this->_reviewModel = new Review();
         $this->_enrollCourseModel = new EnrollCourseLesson();
+        $this->_noteModel = new Note();
     }
 
     public function viewLesson()
@@ -37,7 +40,7 @@ class LessonPlayerController
                 $lessonCurrent = [];
                 $sectionList = $this->_courseModel->getSectionByCourseId($courseId);
                 $lessonList = $this->_enrollCourseModel->getByCourseId($courseId, $userId);
-
+                $noteList = $this->_noteModel->getNotesByUserAndLesson($userId, $lessonList[0]['id']);
                 $librabryId = BUNNY_LIBRARY_ID;
 
                 $urlEmbed = "https://iframe.mediadelivery.net/embed/$librabryId/";
