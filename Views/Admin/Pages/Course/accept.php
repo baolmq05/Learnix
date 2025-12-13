@@ -13,6 +13,36 @@ unset($_SESSION['course_success']);
         text-overflow: ellipsis;
         /* hiển thị dấu “...” */
     }
+
+    #bank_info_modal {
+        display: none;
+        background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    #reason_modal {
+        display: none;
+        background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    textarea {
+        width: 100%;
+    }
+    /* Header modal từ chối */
+.modal-reject .modal-header {
+    background: linear-gradient(135deg, #ef4444); /* đỏ dịu, gradient */
+    color: #fff;
+}
+
+/* Nút Xác nhận */
+.modal-reject .btn-danger {
+    background: linear-gradient(135deg, #ef4444, #b91c1c);
+    border: none;
+    color: #fff;
+}
+
+.modal-reject .btn-danger:hover {
+    background: linear-gradient(135deg, #b91c1c, #991b1b);
+}
 </style>
 <div class="page-heading">
     <div class="page-title">
@@ -68,6 +98,10 @@ unset($_SESSION['course_success']);
                                         data-bs-toggle="modal" data-bs-target="#modalEdit<?= $course['id'] ?>">
                                         <i class="bi bi-check-circle-fill"></i>
                                     </button>
+                                    <button type="button" data-bs-toggle="modal"
+                                        data-bs-target="#modalReject<?= $course['id'] ?>"
+                                        class="btn btn-outline-danger d-inline-flex align-items-center p-2"><i
+                                            class="bi bi-x-circle-fill"></i></button>
                                     <a href="" class="btn btn-outline-warning d-inline-flex align-items-center p-2"><i
                                             class="bi bi-eye"></i></a>
                                 </td>
@@ -97,6 +131,42 @@ unset($_SESSION['course_success']);
                                                 </button>
                                                 <button type="submit" class="btn btn-primary px-4">
                                                     Duyệt
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Modal reject Edit -->
+                            <div class="modal fade modal-reject" id="modalReject<?= $course['id'] ?>" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content shadow-lg border-0 rounded-4">
+                                        <form action="?page=course&action=reject&id=<?= $course['id'] ?>" method="post">
+                                            <input type="hidden" name="return" value="index">
+                                            <input type="hidden" name="status" value="4">
+                                            <div class="modal-header  text-dark rounded-top-4 border-0">
+                                                <h5 class="modal-title fw-bold text-white">Cập nhật trạng thái</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body text-center py-4">
+                                                <i class="bi bi-exclamation-triangle-fill text-danger fs-1 mb-3"></i>
+                                                <h5 class="fw-semibold mb-3">Bạn có chắc chắn từ chối yêu cầu duyệt khóa học
+                                                </h5>
+                                                <div class="mb-3 text-start">
+                                                    <label for="rejectionReasonText" class="form-label fw-semibold">Lý do từ
+                                                        chối</label>
+                                                    <textarea class="form-control" id="rejectionReasonText" name="reason"
+                                                        rows="4" placeholder="Nhập lý do từ chối..." required></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer justify-content-between px-4 pb-3 border-0">
+                                                <button type="button" class="btn btn-outline-secondary"
+                                                    data-bs-dismiss="modal">
+                                                    Trở về
+                                                </button>
+                                                <button type="submit" class="btn btn-danger text-white px-4">
+                                                    Xác nhận
                                                 </button>
                                             </div>
                                         </form>

@@ -357,12 +357,13 @@ class Course
         }
     }
 
-    public function updateStatus($id, $status)
+    public function updateStatus($id, $status, $reason)
     {
         try {
-            $sql = "UPDATE $this->_table SET status = :status, updated_at = NOW() WHERE id = :id";
+            $sql = "UPDATE $this->_table SET status = :status, reason = :reason, updated_at = NOW() WHERE id = :id";
             $stmt = $this->_connect->prepare($sql);
             $stmt->bindParam(':status', $status);
+            $stmt->bindParam(':reason', $reason);
             $stmt->bindParam(':id', $id);
             return $stmt->execute();
         } catch (PDOException $e) {

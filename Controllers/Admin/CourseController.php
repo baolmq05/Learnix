@@ -56,7 +56,26 @@ class CourseController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $status = $_POST['status'] ?? '';
             $return = $_POST['return'] ?? 'detail';
-            $this->_course->updateStatus($id, $status);
+            $this->_course->updateStatus($id, $status, null);
+            $_SESSION['course_success'] = "Cập nhật trạng thái khóa học thành công";
+            header("Location: ?page=course&action=accept");
+            exit();
+        }
+        include "Views/Admin/Pages/Course/edit.php";
+    }
+
+    public function reject()
+    {
+        $id = $_GET['id'] ?? '';
+        if ($id == '') {
+            header("Location: ?page=course&action=index");
+            exit();
+        }
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $status = $_POST['status'] ?? '';
+            $reason = $_POST['reason'] ?? '';
+            $return = $_POST['return'] ?? 'detail';
+            $this->_course->updateStatus($id, $status, $reason);
             $_SESSION['course_success'] = "Cập nhật trạng thái khóa học thành công";
             header("Location: ?page=course&action=accept");
             exit();

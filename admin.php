@@ -64,6 +64,9 @@ switch ($page) {
             case 'update':
                 $course->update();
                 break;
+            case 'reject':
+                $course->reject();
+                break;
         }
         break;
 
