@@ -121,6 +121,8 @@
     </style>
 
     <main class="mb-4">
+        <input type="hidden" id="courseCurrentId" value="<?= $courseResult["id"] ?>">
+
         <!-- Spinner -->
         <div id="globalLoading"
             class="fixed inset-0 bg-black/40 hidden items-center justify-center z-[10000]">
@@ -658,6 +660,7 @@
                                 id="section_name"
                                 class="section_name border border-gray-300 focus:outline focus:outline-purple-500 p-2 rounded-md hover:bg-gray-100 focus:bg-white"
                                 placeholder="Nhập tên chương học" />
+                                <small class="text-red-400 fw-semibold" id="section_error_create"></small>
                             <input type="hidden" class="course_id" value="<?= $courseResult["id"] ?? '' ?>" name="">
                             <button type="button" onclick="processCreateSection(this)"
                                 class="border bg-purple-700 text-white p-2 rounded-[5px] cursor-pointer mt-2">
@@ -797,11 +800,11 @@
                 Bạn có thể bật hiển thị lại khóa học bất cứ lúc nào.
             </p>
 
-            <form id="form_hide_course">
+            <form id="form_hide_course" action="?page=teacher&action=updateStatusCourse" method="post">
                 <!-- COURSE ID -->
                 <input type="hidden" name="course_id" value="<?= $courseResult["id"] ?? "" ?>">
                 <input type="hidden" name="status" value="3">
-                
+
                 <div class="flex justify-end gap-3 mt-5">
                     <button
                         type="button"

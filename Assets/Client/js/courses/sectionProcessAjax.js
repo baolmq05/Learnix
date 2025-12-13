@@ -1,44 +1,53 @@
 function processCreateSection(btnSection) {
-  let form = btnSection.closest("form");
+    let form = btnSection.closest("form");
 
-  let sectionName = form.querySelector(".section_name");
-  let courseId = form.querySelector(".course_id");
+    let sectionName = form.querySelector(".section_name");
+    let sectionError = form.querySelector("#section_error_create");
 
-  var formData = new FormData();
-  formData.append("section_name", sectionName.value);
-  formData.append("course_id", courseId.value);
+    if (sectionName.value == "") {
+        sectionError.innerHTML = "Không được để trống";
+        return;
+    } else {
+        sectionError.innerHTML = "";
+    }
 
-  $.ajax({
-    url: "/Controllers/Client/Ajax/AjaxSectionCreate.php",
-    type: "POST",
-    dataType: "json",
-    data: formData,
-    contentType: false,
-    processData: false,
+    let courseId = form.querySelector(".course_id");
 
-    success: function (response) {
-      let sectionList = response;
-      renderNewSection(sectionList);
+    var formData = new FormData();
+    formData.append("section_name", sectionName.value);
+    formData.append("course_id", courseId.value);
 
-      sectionName.value = "";
-    },
+    $.ajax({
+        url: "/Controllers/Client/Ajax/AjaxSectionCreate.php",
+        type: "POST",
+        dataType: "json",
+        data: formData,
+        contentType: false,
+        processData: false,
 
-    error: function (xhr, status, error) {
-      console.error("Lỗi AJAX:", error);
-    },
-  });
+        success: function (response) {
+            let sectionList = response;
+            renderNewSection(sectionList);
+
+            sectionName.value = "";
+        },
+
+        error: function (xhr, status, error) {
+            console.error("Lỗi AJAX:", error);
+        },
+    });
 }
 
 function renderNewSection(sectionList) {
-  const sectionContainer = document.querySelector("#section_container");
-  let newSection = createSectionElement(sectionList);
-  sectionContainer.appendChild(newSection);
+    const sectionContainer = document.querySelector("#section_container");
+    let newSection = createSectionElement(sectionList);
+    sectionContainer.appendChild(newSection);
 }
 
 function createSectionElement(section) {
-  const wrapper = document.createElement("div");
+    const wrapper = document.createElement("div");
 
-  wrapper.innerHTML = `
+    wrapper.innerHTML = `
     <details class="p-4 bg-white border border-gray-300 rounded-xl shadow-sm">
       <summary class="font-semibold text-lg flex justify-between items-center cursor-pointer">
         <h2 class="section_name_title">${section.section_name}</h2>
@@ -153,51 +162,51 @@ function createSectionElement(section) {
     </details>
   `;
 
-  return wrapper.firstElementChild;
+    return wrapper.firstElementChild;
 }
 
 function updateSection(btnCurrent) {
-  let sectionMainName = getSummaryElement(btnCurrent);
+    let sectionMainName = getSummaryElement(btnCurrent);
 
-  let sectionIdInput = btnCurrent.previousElementSibling;
-  let sectionNameInput = sectionIdInput.previousElementSibling.previousElementSibling;
-  let errorSection = sectionIdInput.previousElementSibling;
-  let courseIdInput = sectionNameInput.previousElementSibling;
+    let sectionIdInput = btnCurrent.previousElementSibling;
+    let sectionNameInput = sectionIdInput.previousElementSibling.previousElementSibling;
+    let errorSection = sectionIdInput.previousElementSibling;
+    let courseIdInput = sectionNameInput.previousElementSibling;
 
-  var formData = new FormData();
-  formData.append("section_name", sectionNameInput.value);
-  formData.append("section_id", sectionIdInput.value);
-  formData.append("course_id", courseIdInput.value);
+    var formData = new FormData();
+    formData.append("section_name", sectionNameInput.value);
+    formData.append("section_id", sectionIdInput.value);
+    formData.append("course_id", courseIdInput.value);
 
-  if (sectionNameInput.value == "") {
-    errorSection.innerHTML = "Không được để trống";
-    return;
-  } else {
-    errorSection.innerHTML = "";
-  }
+    if (sectionNameInput.value == "") {
+        errorSection.innerHTML = "Không được để trống";
+        return;
+    } else {
+        errorSection.innerHTML = "";
+    }
 
-  $.ajax({
-    url: "/Controllers/Client/Ajax/AjaxSectionUpdate.php",
-    type: "POST",
-    // dataType: "json",
-    data: formData,
-    contentType: false,
-    processData: false,
+    $.ajax({
+        url: "/Controllers/Client/Ajax/AjaxSectionUpdate.php",
+        type: "POST",
+        // dataType: "json",
+        data: formData,
+        contentType: false,
+        processData: false,
 
-    success: function (response) {
-      if (response == true) {
-        sectionMainName.innerText = sectionNameInput.value;
-        sectionNameInput.blur();
-        showUpdateSectionAlert();
-      } else {
-        alert("Cập nhật thất bại!!!");
-      }
-    },
+        success: function (response) {
+            if (response == true) {
+                sectionMainName.innerText = sectionNameInput.value;
+                sectionNameInput.blur();
+                showUpdateSectionAlert();
+            } else {
+                alert("Cập nhật thất bại!!!");
+            }
+        },
 
-    error: function (xhr, status, error) {
-      console.error("Lỗi AJAX:", error);
-    },
-  });
+        error: function (xhr, status, error) {
+            console.error("Lỗi AJAX:", error);
+        },
+    });
 }
 
 function showUpdateSectionAlert() {
@@ -213,7 +222,7 @@ function showUpdateSectionAlert() {
 }
 
 function getSummaryElement(btn) {
-  return btn.closest("details").querySelector(".section_name_title");
+    return btn.closest("details").querySelector(".section_name_title");
 }
 
 // ---------------------------------------------
@@ -222,57 +231,60 @@ function getSummaryElement(btn) {
 let deleteSectionBtnTemp = null;
 
 function openDeleteSectionModal(btn) {
-  deleteSectionBtnTemp = btn;
-  document.getElementById("deleteSectionModal").classList.remove("hidden");
-  document.getElementById("deleteSectionModal").classList.add("flex");
+    deleteSectionBtnTemp = btn;
+    document.getElementById("deleteSectionModal").classList.remove("hidden");
+    document.getElementById("deleteSectionModal").classList.add("flex");
 }
 
 function closeDeleteSectionModal() {
-  deleteSectionBtnTemp = null;
-  document.getElementById("deleteSectionModal").classList.add("hidden");
-  document.getElementById("deleteSectionModal").classList.remove("flex");
+    deleteSectionBtnTemp = null;
+    document.getElementById("deleteSectionModal").classList.add("hidden");
+    document.getElementById("deleteSectionModal").classList.remove("flex");
 }
 
 function confirmDeleteSection() {
-  if (!deleteSectionBtnTemp) return;
+    if (!deleteSectionBtnTemp) return;
 
-  processDeleteSection(deleteSectionBtnTemp);
-  closeDeleteSectionModal();
+    processDeleteSection(deleteSectionBtnTemp);
+    closeDeleteSectionModal();
 }
 
 function processDeleteSection(btnDeleteSection) {
-  let form = btnDeleteSection.closest("form");
-  let details = form.closest("details");
+    let form = btnDeleteSection.closest("form");
+    let details = form.closest("details");
 
-  let sectionId = form.querySelector(".section_id");
+    let sectionId = form.querySelector(".section_id");
+    let courseId = document.getElementById("courseCurrentId");
 
-  var formData = new FormData();
-  formData.append("section_id", sectionId.value);
+    var formData = new FormData();
+    formData.append("section_id", sectionId.value);
+    formData.append("course_id", courseId.value);
 
-  showGlobalLoading();
+    showGlobalLoading();
 
-  $.ajax({
-    url: "/Controllers/Client/Ajax/AjaxSectionDelete.php",
-    type: "POST",
-    // dataType: "json",
-    data: formData,
-    contentType: false,
-    processData: false,
+    $.ajax({
+        url: "/Controllers/Client/Ajax/AjaxSectionDelete.php",
+        type: "POST",
+        // dataType: "json",
+        data: formData,
+        contentType: false,
+        processData: false,
 
-    success: function (response) {
-      if (response == true) {
-        details.remove();
-        hideGlobalLoading();
-        showDeleteSectionAlert();
-      } else {
-        alert("Xóa thất bại");
-      }
-    },
+        success: function (response) {
+            if (response == true) {
+                details.remove();
+                hideGlobalLoading();
+                showDeleteSectionAlert();
+            } else {
+                alert("Xóa thất bại");
+            }
+            console.log(response);
+        },
 
-    error: function (xhr, status, error) {
-      console.error("Lỗi AJAX:", error);
-    },
-  });
+        error: function (xhr, status, error) {
+            console.error("Lỗi AJAX:", error);
+        },
+    });
 }
 
 function showDeleteSectionAlert() {

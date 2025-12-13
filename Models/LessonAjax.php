@@ -12,7 +12,7 @@ class LessonAjax
 
     public function getBySectionId($sectionId) {
         try {
-            $sql = "SELECT video_id FROM lessons WHERE section_id = :section_id";
+            $sql = "SELECT video_id, id FROM lessons WHERE section_id = :section_id";
             $stmt = $this->_connect->prepare($sql);
 
             $stmt->bindValue(":section_id", $sectionId, PDO::PARAM_INT);

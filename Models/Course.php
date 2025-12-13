@@ -430,6 +430,7 @@ class Course
                 courses.image AS course_image,
                 courses.course_name AS course_name,
                 courses.sale_price AS sale_price,
+                courses.reason AS reason,
                 courses.regular_price AS regular_price,
                 COUNT(DISTINCT enroll_courses.id) AS student_quantity,
                 COALESCE(ROUND(AVG(reviews.rating), 1), 0) AS rating

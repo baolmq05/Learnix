@@ -10,14 +10,17 @@ $videoId = isset($_POST["videoId"]) ? $_POST["videoId"] : "";
 require_once "../../../Models/LessonAjax.php";
 require_once "../VideoUpload/VideoObjectController.php";
 require_once "../VideoUpload/VideoUploadController.php";
+require_once "../../../Models/CourseAjax.php";
 
 $lessonModel = new LessonAjax();
 $videoObjectControl = new VideoObjectController();
 $videoUploadControl = new VideoUploadController();
+$courseModel = new CourseAjax();
 
 if ($fileVideo == "" || empty($fileVideo)) {
     $resultUpdate = $lessonModel->updateNameById($lessonName, $lessonId);
     if ($resultUpdate) {
+        $courseModel->updateTimeUpdate($courseId);
         echo true;
     }
 } else {
@@ -29,10 +32,12 @@ if ($fileVideo == "" || empty($fileVideo)) {
         $newVideoObjectId = $videoObjectControl->createObjectVideo($lessonName);
 
         if ($newVideoObjectId) {
-        //     // Thêm vào database
-            $lessonId = $lessonModel->updateLessonVideo($lessonName, $lessonId, $videoName, $newVideoObjectId);
-        //     // Upload video vào videoObject
+            // Thêm vào database
+            $resultLesson = $lessonModel->updateLessonVideo($lessonName, $lessonId, $videoName, $newVideoObjectId);
+            // Upload video vào videoObject
             $newVideoId = $videoUploadControl->execUpload($fileVideo, $newVideoObjectId);
+
+            $courseModel->updateTimeUpdate($courseId);
 
             echo $newVideoId;
         } else {

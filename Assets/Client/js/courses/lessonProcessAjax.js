@@ -5,6 +5,7 @@ async function processCreateLesson(btnLesson) {
     let lessonName = form.querySelector(".input_lesson_name");
     let sectionId = form.querySelector(".input_section_id");
     let videoFile = form.querySelector(".input_lesson_file");
+    let courseId = document.getElementById("courseCurrentId");
 
     // Checkerror
     let isError = false;
@@ -55,6 +56,7 @@ async function processCreateLesson(btnLesson) {
     formData.append("videoFile", videoFile.files[0]);
     formData.append("videoLength", videoLength);
     formData.append("videoName", videoFile.files[0].name);
+    formData.append("courseId", courseId.value);
 
     // Turn On Spinner
     spinnerToggle(spinnerE, true);
@@ -209,17 +211,22 @@ async function processUpdateLesson(btnLessonUpdate) {
             },
         });
     } else {
+        // FORM
+        var formData = new FormData();
+        formData.append("lesson_name", lessonName.value);
+        formData.append("lesson_id", lessonId.value);
+
         $.ajax({
             url: "/Controllers/Client/Ajax/AjaxLessonUpdate.php",
             type: "POST",
             dataType: "json", // nếu PHP trả JSON
-            data: {
-                lessonName: lessonName.value,
-                lessonId: lessonId.value
-            },
+            data: formData,
+            contentType: false,
+            processData: false,
 
             success: function (response) {
-                if (response) {
+                if(response) {
+                    showUpdateLessonAlert();
                     lessonNameTitle.innerText = lessonName.value;
                 }
             },
@@ -241,6 +248,7 @@ async function processDeleteLesson(btnLessonDelete) {
     let details = form.closest("details");
     let videoIdInput = details.querySelector(".video_id_update");
     let lessonIdInput = details.querySelector(".lesson_id_update");
+    let courseId = document.getElementById("courseCurrentId");
 
     // Spinner Show
     showGlobalLoading();
@@ -251,7 +259,8 @@ async function processDeleteLesson(btnLessonDelete) {
         // dataType: "json",
         data: {
             videoId: videoIdInput.value,
-            lessonId: lessonIdInput.value
+            lessonId: lessonIdInput.value,
+            courseId: courseId.value
         },
         success: function (res) {
             if (res == true) {

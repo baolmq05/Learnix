@@ -19,6 +19,14 @@ unset($_SESSION['login_success']);
     </div>
 <?php endif ?>
 
+<?php if (!empty($_SESSION["update_course_success"])): ?>
+    <div id="alert_success" class="flex items-center w-full p-4 mb-4 text-green-800 bg-green-100 rounded-lg" role="alert">
+        <div>
+            <?= $_SESSION["update_course_success"] ?? "" ?>
+        </div>
+    </div>
+<?php endif ?>
+
 <section class="max-w-screen-2xl px-4 py-8 flex-1">
     <div class="flex items-center justify-between gap-4">
         <div>
@@ -43,7 +51,7 @@ unset($_SESSION['login_success']);
             <li class="mr-2" role="presentation">
                 <button id="tab-approved" data-target="content-approved"
                     onclick="changeTabs(1)"
-                    class="tab-btn inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-blue-400 text-blue-400 hover:border-gray-300"
+                    class="tab-btn inline-flex items-center justify-center p-4 border-b-2 border-blue-400 rounded-t-lg text-blue-400"
                     type="button" role="tab" aria-selected="false">
                     Công khai
                     <span class="ms-2 inline-flex items-center justify-center 
@@ -57,7 +65,7 @@ unset($_SESSION['login_success']);
             <li class="mr-2" role="presentation">
                 <button id="tab-pending" data-target="content-pending"
                     onclick="changeTabs(2)"
-                    class="tab-btn inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-blue-400 hover:border-gray-300"
+                    class="tab-btn inline-flex items-center justify-center p-4 rounded-t-lg"
                     type="button" role="tab" aria-selected="false">
                     Chờ duyệt
                     <span class="ms-2 inline-flex items-center justify-center 
@@ -71,7 +79,7 @@ unset($_SESSION['login_success']);
             <li class="mr-2" role="presentation">
                 <button id="tab-editing" data-target="content-editing"
                     onclick="changeTabs(0)"
-                    class="tab-btn inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-blue-400 hover:border-gray-300"
+                    class="tab-btn inline-flex items-center justify-center p-4 rounded-t-lg"
                     type="button" role="tab" aria-selected="false">
                     Đang chỉnh sửa
                     <span class="ms-2 inline-flex items-center justify-center 
@@ -85,7 +93,7 @@ unset($_SESSION['login_success']);
             <li class="mr-2" role="presentation">
                 <button id="tab-disabled" data-target="content-disabled"
                     onclick="changeTabs(3)"
-                    class="tab-btn inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-blue-400 hover:border-gray-300"
+                    class="tab-btn inline-flex items-center justify-center p-4 rounded-t-lg"
                     type="button" role="tab" aria-selected="false">
                     Đã ẩn
                     <span class="ms-2 inline-flex items-center justify-center 
@@ -99,7 +107,7 @@ unset($_SESSION['login_success']);
             <li class="mr-2" role="presentation">
                 <button id="tab-reject" data-target="content-reject"
                     onclick="changeTabs(4)"
-                    class="tab-btn inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-blue-400 hover:border-gray-300"
+                    class="tab-btn inline-flex items-center justify-center p-4 rounded-t-lg"
                     type="button" role="tab" aria-selected="false">
                     Bị từ chối
                     <span class="ms-2 inline-flex items-center justify-center 
@@ -148,9 +156,9 @@ unset($_SESSION['login_success']);
                                 <div class="flex items-center gap-2">
                                     <form action="?page=teacher&action=viewEditCourse" method="post">
                                         <input type="hidden" name="course_id" value="<?= $course["course_id"] ?>">
-                                        <button class="inline-block text-xs px-3 py-3 bg-gray-100 text-gray-800 rounded-full hover:bg-gray-200">Chỉnh sửa</button>
+                                        <button class="inline-block text-sm px-3 py-3 bg-gray-100 text-gray-800 rounded-full hover:bg-gray-200">Chỉnh sửa</button>
                                     </form>
-                                    
+
                                 </div>
                             </div>
                         </article>
@@ -240,9 +248,9 @@ unset($_SESSION['login_success']);
                                 <div class="flex items-center gap-2">
                                     <form action="?page=teacher&action=viewEditCourse" method="post">
                                         <input type="hidden" name="course_id" value="<?= $course["course_id"] ?>">
-                                        <button class="inline-block text-xs px-3 py-3 bg-gray-100 text-gray-800 rounded-full hover:bg-gray-200">Chỉnh sửa</button>
+                                        <button class="inline-block text-sm px-3 py-3 bg-gray-100 text-gray-800 rounded-full hover:bg-gray-200">Chỉnh sửa</button>
                                     </form>
-                                    
+
                                 </div>
                             </div>
                         </article>
@@ -284,11 +292,11 @@ unset($_SESSION['login_success']);
                             <div class="flex flex-col items-end gap-2">
                                 <div class="text-lg font-semibold text-gray-900"><?= $course['sale_price'] > 0 ? number_format($course['sale_price']) : number_format($course['regular_price']) ?>₫</div>
                                 <div class="flex items-center gap-2">
-                                    <form action="?page=teacher&action=viewEditCourse" method="post">
-                                        <input type="hidden" name="course_id" value="<?= $course["course_id"] ?>">
-                                        <button class="inline-block text-xs px-3 py-3 bg-gray-100 text-gray-800 rounded-full hover:bg-gray-200">Chỉnh sửa</button>
+                                    <form method="post">
+                                        <button onclick="openShowCourseModal(<?= $course['course_id'] ?>)" type="button" class="inline-block text-sm px-3 py-3 bg-green-100 text-green-800 rounded-full hover:bg-green-200">
+                                            Mở bán khóa học
+                                        </button>
                                     </form>
-                                    
                                 </div>
                             </div>
                         </article>
@@ -330,11 +338,18 @@ unset($_SESSION['login_success']);
                             <div class="flex flex-col items-end gap-2">
                                 <div class="text-lg font-semibold text-gray-900"><?= $course['sale_price'] > 0 ? number_format($course['sale_price']) : number_format($course['regular_price']) ?>₫</div>
                                 <div class="flex items-center gap-2">
-                                    <form action="?page=teacher&action=viewEditCourse" method="post">
-                                        <input type="hidden" name="course_id" value="<?= $course["course_id"] ?>">
-                                        <button class="inline-block text-xs px-3 py-3 bg-gray-100 text-gray-800 rounded-full hover:bg-gray-200">Chỉnh sửa</button>
-                                    </form>
-                                    
+                                    <button
+                                        type="button"
+                                        data-reason="<?= htmlspecialchars($course['reason'], ENT_QUOTES) ?>"
+                                        onclick="openRejectReasonModal(this)"
+                                        class="inline-block text-xs px-3 py-3 bg-red-100 text-red-700 rounded-full hover:bg-red-200">
+                                        Xem lý do
+                                    </button>
+                                    <button
+                                        onclick="openBackToEditModal(<?= $course['course_id'] ?>)"
+                                        class="inline-block text-sm px-3 py-3 bg-gray-100 text-gray-800 rounded-full hover:bg-gray-200">
+                                        Quay lại chỉnh sửa
+                                    </button>
                                 </div>
                             </div>
                         </article>
@@ -343,9 +358,99 @@ unset($_SESSION['login_success']);
             <?php endif; ?>
         </div>
     </div>
+
+    <!-- Modal xác nhận bán lại khóa học -->
+    <div id="showCourseModal" class="hidden fixed inset-0 bg-black/50 z-[9999] flex items-center justify-center">
+        <div class="bg-white rounded-xl p-6 w-[90%] max-w-md shadow-lg">
+            <h3 class="text-lg font-semibold mb-2 text-gray-800">Xác nhận bật hiển thị</h3>
+            <p class="text-gray-600 mb-5">
+                Khi bật hiển thị, khóa học sẽ công khai bán trở lại cho người học mới.
+                Học viên đã mua trước vẫn truy cập bình thường.
+            </p>
+            <form action="?page=teacher&action=updateStatusCourse" method="post">
+                <input type="hidden" name="course_id" id="course_id_current" value="<?= $courseResult["id"] ?? "" ?>">
+                <input type="hidden" name="status" value="1">
+                <div class="flex justify-end gap-3">
+                    <button type="button"
+                        onclick="closeShowCourseModal()"
+                        class="px-4 py-2 rounded-md bg-gray-200 hover:bg-gray-300">
+                        Hủy
+                    </button>
+                    <button type="submit"
+                        class="px-4 py-2 rounded-md bg-green-600 text-white hover:bg-green-700">
+                        Xác nhận
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal xác nhận chuyển về editing -->
+    <div id="backToEditModal" class="hidden fixed inset-0 bg-black/50 z-[9999] flex items-center justify-center">
+        <div class="bg-white rounded-xl p-6 w-[90%] max-w-md shadow-lg">
+            <h3 class="text-lg font-semibold mb-2 text-gray-800">
+                Xác nhận chỉnh sửa lại khóa học
+            </h3>
+
+            <p class="text-gray-600 mb-5">
+                Khóa học sẽ được chuyển về trạng thái <strong>Đang chỉnh sửa</strong>.
+                Bạn có thể cập nhật nội dung và gửi lại để admin duyệt.
+            </p>
+
+            <form action="?page=teacher&action=updateStatusCourse" method="post">
+                <input type="hidden" name="course_id" id="edit_course_id">
+                <input type="hidden" name="status" value="2">
+
+                <div class="flex justify-end gap-3">
+                    <button type="button"
+                        onclick="closeBackToEditModal()"
+                        class="px-4 py-2 rounded-md bg-gray-200 hover:bg-gray-300">
+                        Hủy
+                    </button>
+                    <button type="submit"
+                        class="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700">
+                        Xác nhận
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal xem lý do bị từ chối -->
+    <div id="rejectReasonModal"
+        class="hidden fixed inset-0 bg-black/50 z-[9999] flex items-center justify-center">
+
+        <div class="bg-white rounded-xl p-6 w-[90%] max-w-md shadow-lg">
+            <div class="flex items-center gap-2 mb-3">
+                <i class="bi bi-exclamation-triangle-fill text-red-500 text-lg"></i>
+                <h3 class="text-lg font-semibold text-gray-800">
+                    Lý do khóa học bị từ chối
+                </h3>
+            </div>
+
+            <div class="bg-red-50 border border-red-200 rounded-lg p-4 text-red-700 text-sm leading-relaxed">
+                <p id="reject_reason_text">
+                    <!-- Nội dung lý do -->
+                </p>
+            </div>
+
+            <div class="flex justify-end mt-5">
+                <button
+                    type="button"
+                    onclick="closeRejectReasonModal()"
+                    class="px-4 py-2 rounded-md bg-gray-200 hover:bg-gray-300">
+                    Đóng
+                </button>
+            </div>
+        </div>
+    </div>
 </section>
 
 <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        changeTabs(1);
+    });
+
     function changeTabs(type) {
         // Mapping trạng thái → id tab + id content
         const tabMap = {
@@ -379,8 +484,8 @@ unset($_SESSION['login_success']);
 
         // Reset toàn bộ tab
         allTabs.forEach(btn => {
-            btn.classList.remove("text-blue-400", "border-blue-400");
-            btn.classList.add("border-transparent");
+            btn.classList.remove("text-blue-400", "border-blue-400", "border-b-2");
+            // btn.classList.add("border-transparent");
         });
 
         // Reset toàn bộ content
@@ -388,12 +493,49 @@ unset($_SESSION['login_success']);
 
         // Active tab được chọn
         const selectedTab = document.getElementById(current.tab);
-        selectedTab.classList.add("text-blue-400", "border-blue-400");
+        selectedTab.classList.add("text-blue-400", "border-blue-400", "border-b-2");
 
         // Show content
         const selectedContent = document.getElementById(current.content);
         selectedContent.classList.remove("hidden");
     }
+
+    function openShowCourseModal(courseId) {
+        document.getElementById("course_id_current").value = courseId;
+        document.getElementById('showCourseModal').classList.remove('hidden');
+    }
+
+    function closeShowCourseModal() {
+        document.getElementById('showCourseModal').classList.add('hidden');
+    }
+
+    function openBackToEditModal(courseId) {
+        document.getElementById('edit_course_id').value = courseId;
+        document.getElementById('backToEditModal').classList.remove('hidden');
+    }
+
+    function closeBackToEditModal() {
+        document.getElementById('backToEditModal').classList.add('hidden');
+    }
+
+    function openRejectReasonModal(btn) {
+        const reason = btn.dataset.reason;
+
+        document.getElementById('reject_reason_text').innerText =
+            reason && reason.trim() !== "" ?
+            reason :
+            "Không có lý do cụ thể từ admin.";
+
+        document.getElementById('rejectReasonModal').classList.remove('hidden');
+    }
+
+    function closeRejectReasonModal() {
+        document.getElementById('rejectReasonModal').classList.add('hidden');
+    }
 </script>
 
 <script src="/Assets/Client/js/alert.js"></script>
+
+<?php
+unset($_SESSION["update_course_success"]);
+?>
