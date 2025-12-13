@@ -29,9 +29,10 @@ unset($_SESSION['updateUser_error']);
           <div class="flex items-start justify-between">
             <div>
               <h1 class="text-2xl font-bold text-gray-900"><?= htmlspecialchars($teacher['name'] ?? '') ?></h1>
-              <div class="text-sm text-gray-500 mt-1">
+              <div class="text-sm text-gray-500 mt-1 teacher-information">
                 <?= $teacher['information'] ?? '' ?>
               </div>
+               <button id="toggleInfo" class="text-blue-600 hover:underline hover:cursor-pointer text-sm mt-1">Xem thêm</button>
               <div class="mt-3 text-sm text-gray-600 space-y-1">
                 <div><strong>Email:</strong> <?= htmlspecialchars($teacher['email'] ?? '') ?></div>
                 <div><strong>Tham gia từ:</strong>

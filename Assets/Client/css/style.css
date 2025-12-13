@@ -17,3 +17,12 @@
 .two-line-ellipsis.expanded {
   -webkit-line-clamp: unset; 
 }
+.teacher-information {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 8;
+  overflow: hidden;
+}
+.teacher-information.expanded {
+  -webkit-line-clamp: unset; 
+}

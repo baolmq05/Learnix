@@ -108,6 +108,7 @@
 <script src="/Assets/Client/js/lessonPlayer.js"></script>
 <script src="https://kit.fontawesome.com/645e77e620.js" crossorigin="anonymous"></script>
 <script src="/Assets/Client/js/alert.js"></script>
+<script src="/Assets/Client/js/teacherProfile.js"></script>
 
 
 <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
