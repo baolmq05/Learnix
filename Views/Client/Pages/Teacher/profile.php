@@ -2,6 +2,17 @@
 $danger = $_SESSION['updateUser_error'] ?? null;
 unset($_SESSION['updateUser_error']);
 ?>
+<?php
+$success = $_SESSION['update_success'] ?? '';
+unset($_SESSION['update_success']);
+?>
+<?php if (!empty($success)): ?>
+  <div id="alert_success" class="flex items-center w-full p-4 mb-4 text-green-800 bg-green-100 rounded-lg z-99" role="alert">
+    <div>
+      <?= $success ?>
+    </div>
+  </div>
+<?php endif ?>
 <div class="max-w-screen-2xl mx-auto px-4 py-8">
   <?php if (!empty($danger)): ?>
     <div id="alert_success"

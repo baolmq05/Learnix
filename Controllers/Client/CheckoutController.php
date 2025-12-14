@@ -95,7 +95,49 @@ class CheckoutController
 
     public function checkoutReturn()
     {
-        // Hiển thị trang thành công
+        // Kiểm tra transaction code từ URL
+        $txnCode = $_GET['txn'] ?? '';
+        
+        if (empty($txnCode)) {
+            // Không có transaction code, redirect về home
+            header('Location: index.php');
+            exit();
+        }
+        
+        $db = new Database();
+        $connection = $db->getConnect();
+        
+        $stmt = $connection->prepare(
+            "SELECT id, user_id, created_at FROM transactions 
+             WHERE transaction_code = :txn_code AND type = 2 LIMIT 1"
+        );
+        $stmt->execute(['txn_code' => $txnCode]);
+        $transaction = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if (!$transaction) {
+            // Transaction không tồn tại hoặc không hợp lệ
+            $_SESSION['error'] = 'Giao dịch không hợp lệ.';
+            header('Location: index.php');
+            exit();
+        }
+        
+        // Kiểm tra user có quyền xem giao dịch này không
+        $userId = $_SESSION['client']['id'] ?? null;
+        if (!$userId || $transaction['user_id'] != $userId) {
+            header('Location: index.php');
+            exit();
+        }
+        
+        // Kiểm tra transaction đã quá 5 phút chưa (tránh replay attack)
+        $createdTime = strtotime($transaction['created_at']);
+        $currentTime = time();
+        if (($currentTime - $createdTime) > 300) { 
+            $_SESSION['info'] = 'Giao dịch này đã hoàn tất. Vui lòng kiểm tra khóa học của bạn.';
+            header('Location: index.php?page=course_learning');
+            exit();
+        }
+        
+        // Transaction hợp lệ, hiển thị trang thành công
         require_once 'Views/Client/Pages/checkoutReturn.php';
     }
 

@@ -116,6 +116,7 @@ class TeacherController
         $information = $_POST['information'] ?? '';
         $bankName = $_POST['bank_name'] ?? '';
         $bankNumber = $_POST['bank_number'] ?? '';
+        $accountName = $_POST['account_name'] ?? '';
         $currentPassword = $_POST['current_password'] ?? '';
         $newPassword = $_POST['new_password'] ?? '';
         $confirmPassword = $_POST['confirm_password'] ?? '';
@@ -197,13 +198,14 @@ class TeacherController
             $oldAvatar = $existing['avatar'] ?? null;
         }
 
-        $isUpdated = $this->teacherModel->updateTeacherProfile($userId, $name, $email, $information, $avatarName, $bankName, $bankNumber);
+        $isUpdated = $this->teacherModel->updateTeacherProfile($userId, $name, $email, $information, $avatarName, $bankName, $bankNumber, $accountName);
         if ($isUpdated) {
             $_SESSION['client']['name'] = $name;
             $_SESSION['client']['email'] = $email;
             $_SESSION['client']['information'] = $information;
             $_SESSION['client']['bank_name'] = $bankName;
             $_SESSION['client']['bank_number'] = $bankNumber;
+            $_SESSION['client']['account_name'] = $accountName;
             if ($avatarName) {
                 // update session avatar
                 $_SESSION['client']['avatar'] = $avatarName;
@@ -238,7 +240,7 @@ class TeacherController
                     exit;
                 }
             }
-            $_SESSION['update_success'] = 'Cập nhật thông tin thành công!';
+            $_SESSION['update_success'] = 'Cập nhật thành công!';
             header('Location: ?page=teacher&action=profile');
             exit;
         } else {

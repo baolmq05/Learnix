@@ -215,9 +215,19 @@ class Checkout
                 file_put_contents("./Logs/Checkout.log", "CartItems is EMPTY!\n", FILE_APPEND);
             }
 
-            // 9. Xóa cart của user (tất cả items)
-            $stmt = $this->_connection->prepare("DELETE FROM carts WHERE user_id = :user_id");
-            $stmt->execute(['user_id' => $userId]);
+            // 9. Xóa chỉ những khóa học đã thanh toán khỏi giỏ hàng
+            if (!empty($cartItems)) {
+                $courseIds = array_column($cartItems, 'course_id');
+                if (!empty($courseIds)) {
+                    $placeholders = implode(',', array_fill(0, count($courseIds), '?'));
+                    $stmt = $this->_connection->prepare(
+                        "DELETE FROM carts WHERE user_id = ? AND course_id IN ($placeholders)"
+                    );
+                    $params = array_merge([$userId], $courseIds);
+                    $stmt->execute($params);
+                    file_put_contents("./Logs/Checkout.log", "Deleted courses from cart: " . implode(', ', $courseIds) . "\n", FILE_APPEND);
+                }
+            }
 
             // 10. Commit transaction
             $this->_connection->commit();

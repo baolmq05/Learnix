@@ -99,7 +99,7 @@ unset($_SESSION['update_success']);
           class="flex-1 px-2 py-3 bg-green-600 text-white font-semibold rounded-xl hover:bg-green-700 transition shadow-md text-center">
           Nạp thêm
         </a>
-        <a href="#" class="flex-1 items-center justify-center text-nowrap gap-2 px-4 py-3 
+        <a href="?page=transaction" class="flex-1 items-center justify-center text-nowrap gap-2 px-4 py-3 
          bg-red-600 text-white font-semibold rounded-xl 
          hover:bg-red-700 transition shadow-md">
           Lịch sử giao dịch

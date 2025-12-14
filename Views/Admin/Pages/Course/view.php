@@ -65,7 +65,7 @@
           </div>
         </div>
         <p class="mt-3">
-          <?= nl2br(htmlspecialchars($course['teacher_information']) == '' ? 'Người này quá lười biếng để viết thông tin' : htmlspecialchars($course['teacher_information'])) ?>
+          <?= nl2br(html_entity_decode($course['teacher_information']) == '' ? 'Người này quá lười biếng để viết thông tin' : html_entity_decode($course['teacher_information'])) ?>
         </p>
       </div>
 

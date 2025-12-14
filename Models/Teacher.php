@@ -10,21 +10,22 @@ class Teacher
         $this->_connection = $db->getConnect();
     }
 
-    public function updateTeacherProfile($userId, $name, $email, $information, $avatarName, $bankName, $bankNumber)
+    public function updateTeacherProfile($userId, $name, $email, $information, $avatarName, $bankName, $bankNumber, $accountName)
     {
         try {
             if ($avatarName === null) {
-                $stmt = $this->_connection->prepare("UPDATE users SET name = :name, email = :email, information = :information, bank_name = :bank_name, bank_number = :bank_number WHERE id = :userId");
+                $stmt = $this->_connection->prepare("UPDATE users SET name = :name, email = :email, information = :information, bank_name = :bank_name, bank_number = :bank_number, account_name = :account_name WHERE id = :userId");
                 $stmt->execute([
                     ':name' => $name,
                     ':email' => $email,
                     ':information' => $information,
                     ':bank_name' => $bankName,
                     ':bank_number' => $bankNumber,
+                    ':account_name' => $accountName,
                     ':userId' => $userId
                 ]);
             } else {
-                $stmt = $this->_connection->prepare("UPDATE users SET name = :name, email = :email, information = :information, avatar = :avatar, bank_name = :bank_name, bank_number = :bank_number WHERE id = :userId");
+                $stmt = $this->_connection->prepare("UPDATE users SET name = :name, email = :email, information = :information, avatar = :avatar, bank_name = :bank_name, bank_number = :bank_number, account_name = :account_name WHERE id = :userId");
                 $stmt->execute([
                     ':name' => $name,
                     ':email' => $email,
@@ -32,6 +33,7 @@ class Teacher
                     ':avatar' => $avatarName,
                     ':bank_name' => $bankName,
                     ':bank_number' => $bankNumber,
+                    ':account_name' => $accountName,
                     ':userId' => $userId
                 ]);
             }

@@ -91,6 +91,17 @@ unset($_SESSION['login_success']);
             <?php endif; ?>
           </div>
         </div>
+        <div class="sm:col-span-2 grid grid-cols-1 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Tên tài khoản</label>
+            <input type="text" name="account_name"
+              value="<?= htmlspecialchars($old['account_name'] ?? $teacher['account_name'] ?? '') ?>"
+              class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:ring-blue-500 focus:border-blue-500" />
+            <?php if (!empty($errors['account_name'])): ?>
+              <small class="text-sm text-red-600 mt-1"><?= htmlspecialchars($errors['account_name']) ?></small>
+            <?php endif; ?>
+          </div>
+        </div>
       </div>
     </div>
 
