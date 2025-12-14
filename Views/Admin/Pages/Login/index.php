@@ -1,6 +1,8 @@
 <?php
 $logout = $_SESSION['logout_success'] ?? null;
+$error = $_SESSION['error']['message'] ?? null;
 unset($_SESSION['logout_success']);
+unset($_SESSION['error']['message']);
 ?>
 <!doctype html>
 <html lang="en">
@@ -36,6 +38,13 @@ unset($_SESSION['logout_success']);
             </div>
         </div>
     <?php endif; ?>
+    <?php if (!empty($error)): ?>
+        <div id="alert_success" class="alert alert-danger d-flex align-items-center" role="alert">
+            <div>
+                <?= $error ?>
+            </div>
+        </div>
+    <?php endif; ?>
     <main>
         <div class="container">
             <div class="row align-items-center">
@@ -59,11 +68,12 @@ unset($_SESSION['logout_success']);
                                                     <label for="email">Email</label>
                                                     <div class="position-relative">
                                                         <input type="text" class="form-control" placeholder="Email"
-                                                            name="email" id="email">
+                                                            name="email" id="email" value="<?= htmlspecialchars($_SESSION['error']['old_email_admin'] ?? '') ?>">
                                                         <div class="form-control-icon">
                                                             <i class="bi bi-envelope"></i>
                                                         </div>
                                                     </div>
+                                                    <small class="text-danger"><?= htmlspecialchars($_SESSION['error']['email'] ?? '') ?></small>
                                                 </div>
                                             </div>
                                             <div class="col-12 mt-2">
@@ -76,9 +86,10 @@ unset($_SESSION['logout_success']);
                                                             <i class="bi bi-lock"></i>
                                                         </div>
                                                     </div>
+                                                    <small class="text-danger"><?= htmlspecialchars($_SESSION['error']['password'] ?? '') ?></small>
                                                 </div>
                                             </div>
-                                            <div class="col-12">
+                                            <!-- <div class="col-12">
                                                 <div class='form-check'>
                                                     <div class="checkbox mt-2">
                                                         <input type="checkbox" id="remember-me-v"
@@ -86,7 +97,7 @@ unset($_SESSION['logout_success']);
                                                         <label for="remember-me-v">Ghi nhớ đăng nhập</label>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="col-12 d-flex justify-content-end">
                                                 <button type="submit" class="btn btn-primary me-1 mb-1">Đăng
                                                     nhập</button>
@@ -115,3 +126,4 @@ unset($_SESSION['logout_success']);
 </body>
 
 </html>
+<?php unset($_SESSION['error']) ?>

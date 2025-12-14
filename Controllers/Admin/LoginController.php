@@ -31,8 +31,8 @@ class LoginController
         }
 
         if (!empty($error)) {
+            $error['old_email_admin'] = $email;
             $_SESSION['error'] = $error;
-            $_SESSION['old'] = $_POST;
             header('Location: admin.php?page=login');
             exit;
         }

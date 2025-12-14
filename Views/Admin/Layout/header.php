@@ -169,7 +169,7 @@ if (!isset($_SESSION['admin'])) {
                                         <span class="text-muted fs-6 m-0 mx-3">Quản trị viên</span>
                                     </div>
                                     <div class="avatar avatar-xs">
-                                        <img src="Uploads/Avatar/<?= htmlspecialchars($_SESSION['admin']['avatar'] ?? 'default.jpg') ?>"
+                                        <img src="Uploads/Avatar/<?= htmlspecialchars($_SESSION['admin']['avatar'] ?? 'default.webp') ?>"
                                             alt="Face 1">
                                     </div>
                                 </div>
