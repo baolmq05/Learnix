@@ -101,3 +101,13 @@ Enrolled 99 into 11 lessons of enroll_course_id 38
 Teacher ID: 94
 Added 899100 to teacher 94
 Added 99900 to admin 89
+Buy Now - Course ID: 66
+Final cartItems: [{"course_id":66,"price":999000}]
+CartItems: [{"course_id":66,"price":999000}]
+Processing course_id: 66, price: 999000
+Enrolled user 106 into course 66 (enroll_course_id: 42)
+Enrolled 106 into 11 lessons of enroll_course_id 42
+Teacher ID: 94
+Added 899100 to teacher 94
+Added 99900 to admin 89
+Deleted courses from cart: 66

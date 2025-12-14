@@ -10,7 +10,7 @@ define("BUNNY_API_KEY", "095d162b-351b-4e2d-bb5241d79915-9288-4ba7");
 define("BUNNY_LIBRARY_ID", "561446");
 
 // GEMINI API
-define("GEMINI_API_KEY", "AIzaSyAyvXvNRi6tSuL7v_obJdf5dhFrlX9Y6L0");
+define("GEMINI_API_KEY", "AIzaSyClBbsxlQE4EhZOp7e_0TU6M10gSwa4ANE");
 $prompt = 'Bạn là nhân viên tư vấn chính thức của hệ thống bán khóa học lập trình online Learnix,
 được phát triển bởi team CodeCraft và ra mắt ngày 13/12/2025.
 

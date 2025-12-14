@@ -178,7 +178,7 @@ class EditCourseController
         $status = isset($_POST["status"]) ? htmlspecialchars($_POST["status"]) : "";
 
         if (is_numeric($courseId)) {
-            $result = $this->_courseModel->updateStatus($courseId, $status);
+            $result = $this->_courseModel->updateStatusClient($courseId, $status);
 
             if($result) {
                 $_SESSION["update_course_success"] = "Cập nhật thành công";

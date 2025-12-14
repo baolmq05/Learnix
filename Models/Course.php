@@ -373,6 +373,20 @@ class Course
         }
     }
 
+    public function updateStatusClient($id, $status)
+    {
+        try {
+            $sql = "UPDATE $this->_table SET status = :status, updated_at = NOW() WHERE id = :id";
+            $stmt = $this->_connect->prepare($sql);
+            $stmt->bindParam(':status', $status);
+            $stmt->bindParam(':id', $id);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            $log_mess = '[' . date('Y-m-d H:i:s') . ']' . $e->getMessage() . PHP_EOL;
+            error_log($log_mess, 3, "./Logs/Course.log");
+        }
+    }
+
     // QuocBao
     public function updateCourseById($data)
     {
