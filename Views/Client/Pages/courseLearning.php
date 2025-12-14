@@ -221,7 +221,7 @@ unset($_SESSION["create_review_success"]);
                                     <div class="flex justify-end gap-2 mt-2">
                                         <span class="text-sm font-semibold text-neutral-900">100%</span>
                                     </div>
-                                    <div>
+                                    <div class="flex justify-start gap-1">
                                         <?php
                                         if ($this->checkHasReview($_SESSION["client"]["id"], $valueDone['course_id']) == false):
                                         ?>
