@@ -534,7 +534,7 @@ if (!empty($_SESSION['client'])) {
     </nav>
     <div class="bg-white shadow hidden md:block">
         <div class="max-w-screen-xl mx-auto px-4">
-            <div class="relative w-full">
+            <div class="relative w-[90%] mx-auto">
                 <!-- Nút trái -->
                 <button id="btnLeft"
                     class="absolute lg:left-[-40px] px-3 left-0 top-1/2 -translate-y-1/2 bg-white border border-gray-300 shadow p-2 rounded-full z-10">
