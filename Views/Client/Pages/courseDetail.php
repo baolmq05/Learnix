@@ -1,5 +1,5 @@
 <?php
-
+$clientId = $_SESSION['client']['id'] ?? null;
 ?>
 <main>
     <div class="bg-[#16161d] text-white py-15 grid grid-cols-10 gap-20">
@@ -51,39 +51,51 @@
                         <?= $course['sale_price'] != 0 ? number_format($course['regular_price']) . '₫' : '' ?>
                     </h3>
                 </div>
-                <?php if (!$enrollments && $course['teacher_id'] != $_SESSION['client']['id']): ?>
+                <?php if (!$enrollments && $course['teacher_id'] != $clientId): ?>
+
+                    <!-- THÊM VÀO GIỎ -->
                     <div class="mx-4 mt-4">
                         <button onclick="addToCart()"
-                            class="bg-[#6d28d2] hover:bg-purple-400 hover:cursor-pointer font-bold text-[1.2rem] rounded-[5px] text-white px-2 py-3 w-full">
+                            class="bg-[#6d28d2] hover:bg-purple-400 font-bold text-[1.2rem] rounded-[5px] text-white px-2 py-3 w-full">
                             Thêm vào giỏ
                         </button>
                     </div>
+
+                    <!-- MUA NGAY -->
                     <div class="mx-4 mt-2">
-                        <form action="?page=checkout&action=viewCheckout" method="POST">
+                        <form action="?page=checkout&action=viewCheckout" method="POST"
+                            onsubmit="<?= $clientId ? '' : 'event.preventDefault(); window.location.href=\'/index.php?page=login\'' ?>">
                             <input type="hidden" name="course_id" value="<?= $course['id'] ?>">
                             <button type="submit"
-                                class="text-[#6d28d2] border-[#6d28d2] border hover:bg-purple-100 hover:cursor-pointer font-bold text-[1.2rem] rounded-[5px] px-10 py-3 w-full">
+                                class="text-[#6d28d2] border-[#6d28d2] border hover:bg-purple-100 font-bold text-[1.2rem] rounded-[5px] px-10 py-3 w-full">
                                 Mua ngay
                             </button>
                         </form>
                     </div>
-                <?php elseif($course['teacher_id'] == $_SESSION['client']['id']): ?>
+
+                <?php elseif ($clientId && $course['teacher_id'] == $clientId): ?>
+
+                    <!-- LÀ GIẢNG VIÊN -->
                     <div class="mx-4 mt-4">
                         <button disabled
                             class="bg-gray-400 cursor-not-allowed font-bold text-[1.2rem] rounded-[5px] text-white px-2 py-3 w-full">
                             Bạn là giảng viên của khóa học này
                         </button>
                     </div>
+
                 <?php else: ?>
+
+                    <!-- ĐÃ MUA -->
                     <div class="mx-4 mt-4">
                         <form action="?page=lesson_player" method="POST">
                             <input type="hidden" name="course_id" value="<?= $course['id'] ?>">
                             <button type="submit"
-                                class="bg-purple-500 hover:bg-purple-600 hover:cursor-pointer font-bold text-[1.2rem] rounded-[5px] text-white px-2 py-3 w-full">
+                                class="bg-purple-500 hover:bg-purple-600 font-bold text-[1.2rem] rounded-[5px] text-white px-2 py-3 w-full">
                                 Tiếp tục học
                             </button>
                         </form>
                     </div>
+
                 <?php endif; ?>
             </div>
         </div>
