@@ -1,38 +1,4 @@
 <?php
-
-$student['completed_courses'] = [
-  [
-    'id' => 101,
-    'title' => 'Lập trình PHP và MySQL cơ bản',
-    'image' => 'https://picsum.photos/seed/php/100/100', // Hình ảnh giả lập
-    'updated_at' => '2023-11-15',
-    'status' => '1' // Trạng thái hoàn thành (từ DB)
-  ],
-  [
-    'id' => 102,
-    'title' => 'Thiết kế giao diện với Tailwind CSS',
-    'image' => 'https://picsum.photos/seed/tailwind/100/100',
-    'updated_at' => '2023-10-28',
-    'status' => '1'
-  ],
-  [
-    'id' => 103,
-    'title' => 'Kỹ năng làm việc nhóm hiệu quả',
-    'image' => 'https://picsum.photos/seed/teamwork/100/100',
-    'updated_at' => '2023-09-01',
-    'status' => '1'
-  ],
-  [
-    'id' => 104,
-    'title' => 'Giới thiệu về Trí tuệ Nhân tạo (AI)',
-    'image' => 'https://picsum.photos/seed/ai/100/100',
-    'updated_at' => '2023-08-10',
-    'status' => '1'
-  ]
-];
-
-?>
-<?php
 $success = $_SESSION['update_success'] ?? '';
 unset($_SESSION['update_success']);
 ?>
@@ -79,12 +45,12 @@ unset($_SESSION['update_success']);
           <?php foreach ($student['completed_courses'] as $course): ?>
             <li
               class="p-4 bg-gray-50 border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex items-center gap-4">
-              <a href="?page=course_detail&id=<?= htmlspecialchars($course['id']) ?>">
-                <img src="<?= htmlspecialchars($course['image'] ?? '') ?>" class="w-16 h-16 rounded-md object-cover" />
+              <a href="?page=course_detail&id=<?= htmlspecialchars($course['course_id']) ?>">
+                <img src="Uploads/Courses/<?= $course['course_image'] ?>" class="w-16 h-16 rounded-md object-cover" />
               </a>
               <div>
-                <a href="?page=course_detail&id=<?= htmlspecialchars($course['id']) ?>">
-                  <p class="font-bold text-lg text-black"><?= htmlspecialchars($course['title'] ?? 'Khóa học') ?></p>
+                <a href="?page=course_detail&id=<?= htmlspecialchars($course['course_id']) ?>">
+                  <p class="font-bold text-lg text-black"><?= htmlspecialchars($course['course_name'] ?? 'Khóa học') ?></p>
                 </a>
                 <p class="text-sm text-black mt-1">Hoàn thành: <?= htmlspecialchars($course['updated_at'] ?? '') ?></p>
               </div>

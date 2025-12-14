@@ -71,6 +71,7 @@ class EnrollCourseLesson
     c.image AS course_image,
     u.name AS teacher_name,
     u.id AS teacher_id,
+    ec.updated_at,
     COALESCE(ROUND(AVG(r.rating), 1), 0) AS course_rating,
 
     -- Tính phần trăm bài học hoàn thành
