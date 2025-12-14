@@ -13,7 +13,24 @@ class ChatBot
     public function getCourseInfo()
     {
         try {
-            $sql = "SELECT courses.course_name AS course_name, courses.image, courses.regular_price AS course_base_price, courses.sale_price AS course_sale_price, courses.id AS course_id, courses.description AS course_description, users.name AS teacher_name, categories.name AS category_name FROM `courses` INNER JOIN users ON courses.teacher_id = users.id INNER JOIN categories ON courses.category_id = categories.id WHERE courses.status = 1;";
+            $sql = "SELECT 
+                    c.id AS course_id,
+                    c.course_name AS course_name,
+                    c.image AS course_image,
+                    c.regular_price AS course_base_price,
+                    c.sale_price AS course_sale_price,
+                    c.description AS course_description,
+                    u.name AS teacher_name,
+                    cat.name AS category_name,
+                    COALESCE(ROUND(AVG(r.rating), 1), 0) AS rating
+                    FROM courses c
+                    INNER JOIN users u ON c.teacher_id = u.id
+                    INNER JOIN categories cat ON c.category_id = cat.id
+                    LEFT JOIN reviews r ON r.course_id = c.id
+                    WHERE c.status = 1
+                    GROUP BY c.id
+                    ORDER BY c.id DESC;";
+
             $stmt = $this->_connect->prepare($sql);
             $stmt->execute();
 

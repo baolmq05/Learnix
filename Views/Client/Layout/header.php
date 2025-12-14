@@ -77,7 +77,7 @@ if (!empty($_SESSION['client'])) {
         <!-- Header -->
         <div class="flex justify-between bg-gradient-to-r from-purple-500 to-blue-400 text-white px-4 py-3 font-semibold flex items-center gap-2">
             <p>Learnix Chatbot</p>
-            <button id="close_chat" ><i class="bi bi-x-lg hover:text-black"></i></button>
+            <button id="close_chat"><i class="bi bi-x-lg hover:text-black"></i></button>
         </div>
 
         <!-- Chat body -->
@@ -161,11 +161,13 @@ if (!empty($_SESSION['client'])) {
         chatToggle.addEventListener('click', () => {
             chatBox.classList.toggle('scale-0');
             chatBox.classList.toggle('opacity-0');
+            scrollChatToBottom();
         });
 
         closeChat.addEventListener('click', () => {
             chatBox.classList.toggle('scale-0');
             chatBox.classList.toggle('opacity-0');
+            scrollChatToBottom();
         });
 
         /* Typing control */
@@ -176,7 +178,8 @@ if (!empty($_SESSION['client'])) {
 
             typingIndicator.classList.remove('hidden');
             chatBody.appendChild(typingIndicator);
-            chatBody.scrollTop = chatBody.scrollHeight;
+            
+            scrollChatToBottom(true);
         }
 
         function hideTyping() {
@@ -203,7 +206,23 @@ if (!empty($_SESSION['client'])) {
             }
 
             chatBody.appendChild(wrapper);
-            chatBody.scrollTop = chatBody.scrollHeight;
+            scrollChatToBottom(true);
+        }
+
+        function scrollChatToBottom(force = false) {
+            // Đợi DOM render xong (rất quan trọng)
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    chatBody.scrollTop = chatBody.scrollHeight;
+
+                    // fallback nếu browser lag
+                    if (force) {
+                        setTimeout(() => {
+                            chatBody.scrollTop = chatBody.scrollHeight;
+                        }, 50);
+                    }
+                });
+            });
         }
 
         /* Send message */
@@ -248,6 +267,8 @@ if (!empty($_SESSION['client'])) {
                     hideTyping();
                     console.log(response);
                     addMessage(resultMessage, 'bot');
+
+                    scrollChatToBottom(true);
                 },
                 error: function() {
                     hideTyping();

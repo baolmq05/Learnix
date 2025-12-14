@@ -78,6 +78,7 @@ class ChatBotController
         foreach ($chatResult as $course) {
 
             $courseName        = !empty($course['course_name']) ? $course['course_name'] : 'chưa cập nhật';
+            $courseImage        = !empty($course['course_image']) ? $course['course_image'] : 'chưa cập nhật';
             $basePrice         = !empty($course['course_base_price']) ? number_format($course['course_base_price']) . ' VNĐ' : 'chưa cập nhật';
             $salePrice         = !empty($course['course_sale_price']) ? number_format($course['course_sale_price']) . ' VNĐ' : 'chưa cập nhật';
             $courseId          = !empty($course['course_id']) ? $course['course_id'] : 'chưa cập nhật';
@@ -86,6 +87,7 @@ class ChatBotController
             $categoryName      = !empty($course['category_name']) ? $course['category_name'] : 'chưa cập nhật';
 
             $resultInfo .= "Tên khóa học: {$courseName}\n";
+            $resultInfo .= "Tên hình ảnh khóa học: {./Uploads/Courses/$courseImage}\n";
             $resultInfo .= "Giảng viên: {$teacherName}\n";
             $resultInfo .= "Danh mục: {$categoryName}\n";
             $resultInfo .= "Giá gốc: {$basePrice}\n";
