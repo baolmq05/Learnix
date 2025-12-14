@@ -225,7 +225,7 @@ unset($_SESSION["create_review_success"]);
                                 </form>
 
                                 <p class="mt-2">
-                                    <span class="text-sm text-gray-500">Đánh giá: (4.6)</span>
+                                    <span class="text-sm text-gray-500">Đánh giá: <?= $valueDone["course_rating"] ?></span>
                                     <i class="bi bi-star-fill text-yellow-500 ms-2"></i>
                                 </p>
 
