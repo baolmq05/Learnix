@@ -330,9 +330,9 @@
                                             </p>
                                         </div>
                                     </div>
-                                    <p id="<?= $reviewValue['id'] ?>" class="mt-3 text-justify two-line-ellipsis">
+                                    <div id="<?= $reviewValue['id'] ?>" class="mt-3 text-justify two-line-ellipsis">
                                         <?= $reviewValue["content"] ?? "" ?>
-                                    </p>
+                                    </div>
                                     <button class="font-bold hover:cursor-pointer"
                                         onclick="toggleContent(<?= $reviewValue['id'] ?>)">Xem thêm</button>
                                 </div>
