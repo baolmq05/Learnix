@@ -1,15 +1,18 @@
 <?php
 require_once "./Models/EnrollCourseLesson.php";
 require_once "./Models/EnrollCourse.php";
+require_once "./Models/Review.php";
 class CourseLearningController
 {
     private $_enrollCourseLessonModel;
     private $_enrollCourseModel;
+    private $_reviewModel;
 
     public function __construct()
     {
         $this->_enrollCourseLessonModel = new EnrollCourseLesson();
         $this->_enrollCourseModel = new EnrollCourse();
+        $this->_reviewModel = new Review();
     }
 
     public function viewCourseLearning()
@@ -57,6 +60,16 @@ class CourseLearningController
             include_once 'Views/Client/Pages/courseLearning.php';
         } else {
             header("location: ?page=login");
+        }
+    }
+
+    public function checkHasReview($user_id, $course_id)
+    {
+        $result = $this->_reviewModel->checkHasReview($user_id, $course_id);
+        if($result == "" || $result == false || $result == 0) {
+            return false;
+        }else{
+            return true;
         }
     }
 }

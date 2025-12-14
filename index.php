@@ -308,6 +308,12 @@ switch ($page) {
         }
         break;
 
+    case "review-action":
+        require_once "./Controllers/Client/ReviewController.php";
+        $reviewControl = new ReviewController();
+        $reviewControl->createReview();
+        break;
+
     default:
         require_once "./Controllers/Client/HomeController.php";
         $homeControl = new HomeController();
