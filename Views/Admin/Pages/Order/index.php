@@ -29,23 +29,25 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <?php $count = 1; ?>
+                        <?php foreach ($orders as $order) : ?>
                         <tr>
-                            <td>1</td>
-                            <td>DH001</td>
-                            <td>Nguyễn Hoàng Bảo</td>
-                            <td>700,000 VND</td>
+                            <td><?= $count++; ?></td>
+                            <td><?= htmlspecialchars($order['transaction_code']); ?></td>
+                            <td><?= htmlspecialchars($order['user_name']); ?></td>
+                            <td><?= number_format($order['price']); ?></td>
                             <td>
                                 <span class="badge bg-success">Đã thanh toán</span>
                             </td>
                             <td>
-                                <a href="?page=order&action=view" class="btn btn-outline-info d-inline-flex align-items-center p-2"><i class="bi bi-eye"></i></a> 
+                                <a href="?page=order&action=view&id=<?= htmlspecialchars($order['id']); ?>" class="btn btn-outline-info d-inline-flex align-items-center p-2"><i class="bi bi-eye"></i></a> 
                             </td>
                         </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
         </div>
-
     </section>
 </div>
 </div>
