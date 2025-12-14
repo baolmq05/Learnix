@@ -660,7 +660,7 @@
                                 id="section_name"
                                 class="section_name border border-gray-300 focus:outline focus:outline-purple-500 p-2 rounded-md hover:bg-gray-100 focus:bg-white"
                                 placeholder="Nhập tên chương học" />
-                                <small class="text-red-400 fw-semibold" id="section_error_create"></small>
+                            <small class="text-red-400 fw-semibold" id="section_error_create"></small>
                             <input type="hidden" class="course_id" value="<?= $courseResult["id"] ?? '' ?>" name="">
                             <button type="button" onclick="processCreateSection(this)"
                                 class="border bg-purple-700 text-white p-2 rounded-[5px] cursor-pointer mt-2">
@@ -905,3 +905,5 @@
     unset($_SESSION["update_success"]);
     unset($_SESSION["create_course_success"]);
     ?>
+
+    <script src="/Assets/Client/js/editCourse.js"></script>

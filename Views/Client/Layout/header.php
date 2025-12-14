@@ -24,7 +24,276 @@ if (!empty($_SESSION['client'])) {
 
 </head>
 
+<style>
+    .dot {
+        width: 6px;
+        height: 6px;
+        background: #6b7280;
+        border-radius: 9999px;
+        animation: bounce 1.4s infinite ease-in-out;
+    }
+
+    .dot:nth-child(2) {
+        animation-delay: .2s;
+    }
+
+    .dot:nth-child(3) {
+        animation-delay: .4s;
+    }
+
+    @keyframes bounce {
+
+        0%,
+        80%,
+        100% {
+            transform: translateY(0);
+            opacity: .3
+        }
+
+        40% {
+            transform: translateY(-6px);
+            opacity: 1
+        }
+    }
+</style>
+
 <body class="">
+    <!-- Chat Bot -->
+    <button
+        id="chatToggle"
+        class="fixed bottom-6 right-6 w-14 h-14 rounded-full
+         bg-gradient-to-r from-purple-500 to-blue-400
+         text-white flex items-center justify-center
+         shadow-xl hover:scale-105 transition z-50">
+        <img src="https://res.cloudinary.com/dfmoftnpw/image/upload/v1765528592/logo_sajaxq.jpg" class="w-8 h-8 rounded-full">
+    </button>
+
+    <div
+        id="chatBox" class="fixed bottom-24 right-6 w-[360px] h-[520px]
+                            bg-white rounded-2xl shadow-xl
+                            flex flex-col overflow-hidden
+                            transition-all duration-300
+                            scale-0 opacity-0 origin-bottom-right z-40">
+        <!-- Header -->
+        <div class="flex justify-between bg-gradient-to-r from-purple-500 to-blue-400 text-white px-4 py-3 font-semibold flex items-center gap-2">
+            <p>Learnix Chatbot</p>
+            <button id="close_chat" ><i class="bi bi-x-lg hover:text-black"></i></button>
+        </div>
+
+        <!-- Chat body -->
+        <div id="chatBody" class="flex-1 flex flex-col gap-3 p-4 overflow-y-auto bg-slate-50">
+            <div class="max-w-[75%] bg-slate-200 text-slate-800 px-4 py-2 rounded-2xl text-sm">
+                Chào bạn, mình có thể giúp bạn chọn khóa học phù hợp!
+            </div>
+            <?php
+            if (isset($_SESSION["history_chat"])):
+                $historyResult = json_decode($_SESSION["history_chat"], true) ?? "";
+                foreach ($historyResult as $value):
+            ?>
+                    <?php
+                    if ($value["role"] == "model"):
+                    ?>
+                        <div class="max-w-[75%] bg-slate-200 text-slate-800 px-4 py-2 rounded-2xl text-sm">
+                            <?= $value["text"] ?? "" ?>
+                        </div>
+                    <?php
+                    else:
+                    ?>
+                        <div class="ml-auto max-w-[75%] bg-gradient-to-r from-purple-500 to-blue-400 text-white px-4 py-2 rounded-2xl text-sm shadow">
+                            <?= $value["text"] ?? "" ?>
+                        </div>
+                    <?php
+                    endif;
+                    ?>
+            <?php
+                endforeach;
+            endif;
+            ?>
+            <div id="typingIndicator" class="hidden self-start max-w-[60px] bg-slate-200 px-3 py-2 rounded-2xl">
+                <div class="flex gap-1"> <span class="dot"></span> <span class="dot"></span> <span class="dot"></span> </div>
+            </div>
+        </div>
+
+        <!-- Input -->
+        <div class="border-t p-3 flex gap-2 bg-white">
+            <input
+                id="messageInput"
+                type="text"
+                placeholder="Nhập câu hỏi..."
+                class="flex-1 px-4 py-2 text-sm rounded-full border focus:outline-none focus:ring-2 focus:ring-purple-400">
+            <button
+                id="sendBtn"
+                type="button"
+                class="bg-gradient-to-r from-purple-500 to-blue-400 text-white px-4 rounded-full hover:opacity-90 transition">
+                Gửi
+            </button>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        var historyChat;
+
+        <?php
+        if (isset($_SESSION['history_chat'])):
+        ?>
+            historyChat = <?= $_SESSION['history_chat'] ?>;
+        <?php
+        else:
+        ?>
+            historyChat = [];
+        <?php
+        endif;
+        ?>
+
+        const messageInput = document.getElementById('messageInput');
+        const chatBody = document.getElementById('chatBody');
+        const sendBtn = document.getElementById('sendBtn');
+        const chatToggle = document.getElementById('chatToggle');
+        const chatBox = document.getElementById('chatBox');
+        const typingIndicator = document.getElementById('typingIndicator');
+        const closeChat = document.getElementById("close_chat");
+
+        let isBotTyping = false;
+
+        /* Toggle chat */
+        chatToggle.addEventListener('click', () => {
+            chatBox.classList.toggle('scale-0');
+            chatBox.classList.toggle('opacity-0');
+        });
+
+        closeChat.addEventListener('click', () => {
+            chatBox.classList.toggle('scale-0');
+            chatBox.classList.toggle('opacity-0');
+        });
+
+        /* Typing control */
+        function showTyping() {
+            isBotTyping = true;
+            messageInput.disabled = true;
+            sendBtn.disabled = true;
+
+            typingIndicator.classList.remove('hidden');
+            chatBody.appendChild(typingIndicator);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        function hideTyping() {
+            isBotTyping = false;
+            messageInput.disabled = false;
+            sendBtn.disabled = false;
+
+            typingIndicator.classList.add('hidden');
+        }
+
+        /* Add message */
+        function addMessage(text, role) {
+            const wrapper = document.createElement('div');
+
+            if (role === 'user') {
+                wrapper.className =
+                    'ml-auto max-w-[75%] bg-gradient-to-r from-purple-500 to-blue-400 text-white px-4 py-2 rounded-2xl text-sm shadow';
+                wrapper.textContent = text;
+                saveHistory(text, "user");
+            } else {
+                wrapper.className = 'max-w-[75%] bg-slate-200 text-slate-800 px-4 py-2 rounded-2xl text-sm';
+                wrapper.innerHTML = text; // HTML từ AI
+                saveHistory(text, "model");
+            }
+
+            chatBody.appendChild(wrapper);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        /* Send message */
+        function handleSend() {
+            if (isBotTyping) return;
+
+            const message = messageInput.value.trim();
+            if (!message) return;
+
+            addMessage(message, 'user');
+            messageInput.value = '';
+
+            showTyping();
+
+            ajaxControl();
+        }
+
+        /* Enter key */
+        messageInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleSend();
+            }
+        });
+
+        /* Button */
+        sendBtn.addEventListener('click', handleSend);
+
+        /* AJAX */
+        function ajaxControl() {
+            $.ajax({
+                url: "../../../Controllers/Client/Ajax/AjaxChatBotController.php",
+                type: "POST",
+                data: {
+                    history: JSON.stringify(historyChat)
+                },
+                success: function(response) {
+                    console.log(response)
+
+                    let resultMessage = cleanBotResponse(response)
+
+                    hideTyping();
+                    console.log(response);
+                    addMessage(resultMessage, 'bot');
+                },
+                error: function() {
+                    hideTyping();
+                    addMessage('Có lỗi xảy ra, vui lòng thử lại.', 'bot');
+                }
+            });
+        }
+
+        function cleanBotResponse(html) {
+            return html
+                .replace(/```html/gi, '')
+                .replace(/```/g, '')
+                .replace(/^"+|"+$/g, '') // bỏ dấu "
+                .trim();
+        }
+
+        function saveHistory(text, role) {
+            if (role == "user") {
+                historyChat.push({
+                    role: "user",
+                    text: text
+                })
+            } else {
+                historyChat.push({
+                    role: "model",
+                    text: text
+                })
+            }
+
+            $.ajax({
+                url: "../../../Controllers/Client/Ajax/AjaxChatBotHistory.php",
+                type: "POST",
+                data: {
+                    history: JSON.stringify(historyChat)
+                },
+                success: function(response) {
+                    console.log("Kết quả của session");
+                    console.log(JSON.parse(response));
+                },
+                error: function() {
+                    hideTyping();
+                    addMessage('Có lỗi xảy ra, vui lòng thử lại.', 'bot');
+                }
+            });
+        }
+    </script>
     <nav class="bg-white shadow px-6 pt-3 pb-2 relative">
         <div class="max-w-full mx-auto flex items-center justify-between mb-3">
 
