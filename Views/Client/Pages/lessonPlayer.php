@@ -47,7 +47,7 @@
                 <div class="mt-4 w-full lg:w-[90%] mx-auto">
                     <div x-show="tab === 1">
                         <div class="p-3 bg-blue-50 rounded">
-                            <h2 id="main_title" class="text-2xl font-bold">Bài <?= $lessonCurrent["index"] ?? "" ?>:
+                            <h2 id="main_title" class="text-2xl font-bold">
                                 <?= (isset($lessonCurrent) && !empty($lessonCurrent)) ? $lessonCurrent["lesson_name"] : "" ?>
                             </h2>
                             <!-- <p>Qua bài học này giúp bạn hiểu thêm về html, css là gì?</p> -->
@@ -84,21 +84,21 @@
                                     <?php
                                     if (isset($benefit)):
                                         foreach ($benefit as $benefitValue):
-                                            ?>
+                                    ?>
                                             <div class="flex">
                                                 <p>
                                                     <i class="bi bi-check-square-fill text-green-500 me-2"></i>
                                                 </p>
                                                 <p><?= $benefitValue ?? "" ?></p>
                                             </div>
-                                            <?php
+                                        <?php
                                         endforeach;
                                     else:
                                         ?>
                                         <div>
                                             <p>Chưa được cập nhật</p>
                                         </div>
-                                        <?php
+                                    <?php
                                     endif;
                                     ?>
                                 </div>
@@ -109,14 +109,14 @@
                                     <?php
                                     if (isset($customerObject)):
                                         foreach ($customerObject as $customerValue):
-                                            ?>
+                                    ?>
                                             <li><?= $customerValue ?? "" ?></li>
-                                            <?php
+                                        <?php
                                         endforeach;
                                     else:
                                         ?>
                                         <div>Chưa được cập nhật</div>
-                                        <?php
+                                    <?php
                                     endif;
                                     ?>
                                 </ul>
@@ -200,7 +200,7 @@
                             <?php
                             if (!empty($noteList)):
                                 foreach ($noteList as $noteValue):
-                                    ?>
+                            ?>
                                     <div
                                         class="group relative border border-gray-200 p-4 rounded-xl bg-white shadow-sm hover:shadow-md transition">
 
@@ -256,12 +256,12 @@
                                         </p>
                                     </div>
 
-                                    <?php
+                                <?php
                                 endforeach;
                             else:
                                 ?>
                                 <p class="mt-5">Chưa có ghi chú nào. Hãy thêm ghi chú mới bên dưới!</p>
-                                <?php
+                            <?php
                             endif;
                             ?>
                         </div>
@@ -294,7 +294,7 @@
                         <div class="flex flex-wrap gap-5" id="review">
                             <?php
                             foreach ($reviewList as $reviewValue):
-                                ?>
+                            ?>
                                 <div class="border w-full p-5">
                                     <div class="flex gap-5">
                                         <div class="w-15 h-15">
@@ -320,7 +320,7 @@
                                     <button class="font-bold hover:cursor-pointer"
                                         onclick="toggleContent(<?= $reviewValue['id'] ?>)">Xem thêm</button>
                                 </div>
-                                <?php
+                            <?php
                             endforeach;
                             ?>
                         </div>
@@ -344,7 +344,7 @@
                         <?php
                         if (!empty($sectionList)):
                             foreach ($sectionList as $sectionKey => $sectionValue):
-                                ?>
+                        ?>
                                 <details class="group" <?= (!empty($lessonCurrent) && $lessonCurrent["section_id"] == $sectionValue["section_id"]) ? "open" : "" ?>>
                                     <summary
                                         class="flex flex-col border-t border-[#ccc] p-5 mt-3 select-none hover:cursor-pointer bg-[#f9f6f7]">
@@ -360,26 +360,34 @@
                                         <?php
                                         foreach ($lessonList as $lessonKey => $lessonValue):
                                             if ($lessonValue["section_id"] == $sectionValue["section_id"]):
-                                                ?>
+                                        ?>
                                                 <div data-videoId="<?= $lessonValue["video_id"] ?? "" ?>"
                                                     data-lessonName="<?= $lessonValue["lesson_name"] ?? "" ?>"
                                                     data-lessonId="<?= $lessonValue["id"] ?? "" ?>"
                                                     data-enrollCourseId="<?= $lessonCurrent['enroll_course_id'] ?? '' ?>"
                                                     onclick="changeVideo(this)" class=" flex justify-between items-center px-4 py-5 hover:bg-gray-200 hover:cursor-pointer lesson_container
                                                         <?=
-                                                            ($lessonValue["enroll_lesson_status"] == 1 ? 'bg-blue-100' : '') .
+                                                        ($lessonValue["enroll_lesson_status"] == 1 ? 'bg-blue-100' : '') .
                                                             (!empty($lessonCurrent) && $lessonCurrent["lesson_id"] == $lessonValue["lesson_id"] ? 'bg-gray-300' : '')
-                                                            ?>">
+                                                        ?>">
 
                                                     <!-- Bên trái -->
-                                                    <div class="flex items-center space-x-3">
-                                                        <!-- Checkbox hiển thị trạng thái hoàn thành (disabled) -->
-                                                        <input type="checkbox" class="w-5 h-5 cursor-not-allowed"
-                                                            <?= $lessonValue["enroll_lesson_status"] == 1 ? "checked" : "" ?>
-                                                            onclick="event.stopPropagation()" />
 
-                                                        <!-- Tên bài học -->
-                                                        <h4>
+                                                    <div class="flex items-center space-x-3">
+                                                        <?php if ($lessonValue["enroll_lesson_status"] == 1): ?>
+                                                            <!-- Hoàn thành -->
+                                                            <i class="bi bi-check-circle-fill text-blue-500 text-lg"></i>
+
+                                                        <?php elseif (!empty($lessonCurrent) && $lessonCurrent["lesson_id"] == $lessonValue["lesson_id"]): ?>
+                                                            <!-- Đang học -->
+                                                            <i class="bi bi-play-circle-fill text-black text-lg"></i>
+
+                                                        <?php else: ?>
+                                                            <!-- Chưa học -->
+                                                            <i class="bi bi-play-circle text-gray-400 text-lg"></i>
+                                                        <?php endif; ?>
+
+                                                        <h4 class="text-sm">
                                                             <?= $lessonValue["lesson_name"] ?>
                                                         </h4>
                                                     </div>
@@ -389,13 +397,13 @@
                                                         <?= $this->formatLessonLength($lessonValue["lesson_length"]) ?>
                                                     </p>
                                                 </div>
-                                                <?php
+                                        <?php
                                             endif;
                                         endforeach;
                                         ?>
                                     </div>
                                 </details>
-                                <?php
+                        <?php
                             endforeach;
                         endif;
                         ?>
@@ -414,7 +422,7 @@
                 <?php
                 if (!empty($sectionList)):
                     foreach ($sectionList as $sectionKey => $sectionValue):
-                        ?>
+                ?>
                         <details class="group" <?= (!empty($lessonCurrent) && $lessonCurrent["section_id"] == $sectionValue["section_id"]) ? "open" : "" ?>>
                             <summary
                                 class="flex flex-col border-t border-[#ccc] p-5 mt-3 select-none hover:cursor-pointer bg-[#f9f6f7]">
@@ -430,32 +438,39 @@
                                 <?php
                                 foreach ($lessonList as $lessonKey => $lessonValue):
                                     if ($lessonValue["section_id"] == $sectionValue["section_id"]):
-                                        ?>
+                                ?>
                                         <div data-videoId="<?= $lessonValue["video_id"] ?? "" ?>"
                                             data-lessonName="<?= $lessonValue["lesson_name"] ?? "" ?>"
                                             data-lessonId="<?= $lessonValue["id"] ?? "" ?>"
                                             data-enrollCourseId="<?= $lessonValue["enroll_course_id"] ?>"
                                             onclick="changeVideo(this)" id="lesson-<?php if (($lessonKey + 1) == 1) {
-                                                    echo "one";
-                                                } else if (($lessonKey + 1) == 2) {
-                                                    echo "two";
-                                                } else {
-                                                    echo "three" . $lessonKey;
-                                                } ?>" class="flex justify-between items-center px-4 py-5 hover:bg-gray-200 hover:cursor-pointer lesson_container
+                                                                                        echo "one";
+                                                                                    } else if (($lessonKey + 1) == 2) {
+                                                                                        echo "two";
+                                                                                    } else {
+                                                                                        echo "three" . $lessonKey;
+                                                                                    } ?>" class="flex justify-between items-center px-4 py-5 hover:bg-gray-200 hover:cursor-pointer lesson_container
                                                 <?=
-                                                    ($lessonValue["enroll_lesson_status"] == 1 ? 'bg-blue-100' : '') .
+                                                ($lessonValue["enroll_lesson_status"] == 1 ? 'bg-blue-100' : '') .
                                                     (!empty($lessonCurrent) && $lessonCurrent["lesson_id"] == $lessonValue["lesson_id"] ? 'bg-gray-300' : '')
-                                                    ?>">
+                                                ?>">
 
                                             <!-- Bên trái -->
                                             <div class="flex items-center space-x-3">
-                                                <!-- Checkbox hiển thị trạng thái hoàn thành (disabled) -->
-                                                <input type="checkbox" class="w-5 h-5 cursor-not-allowed"
-                                                    <?= $lessonValue["enroll_lesson_status"] == 1 ? "checked" : "" ?>
-                                                    onclick="event.stopPropagation()" />
+                                                <?php if ($lessonValue["enroll_lesson_status"] == 1): ?>
+                                                    <!-- Hoàn thành -->
+                                                    <i class="bi bi-check-circle-fill text-blue-500 text-lg"></i>
 
-                                                <!-- Tên bài học -->
-                                                <h4>
+                                                <?php elseif (!empty($lessonCurrent) && $lessonCurrent["lesson_id"] == $lessonValue["lesson_id"]): ?>
+                                                    <!-- Đang học -->
+                                                    <i class="bi bi-play-circle-fill text-black text-lg"></i>
+
+                                                <?php else: ?>
+                                                    <!-- Chưa học -->
+                                                    <i class="bi bi-play-circle text-gray-400 text-lg"></i>
+                                                <?php endif; ?>
+
+                                                <h4 class="text-sm">
                                                     <?= $lessonValue["lesson_name"] ?>
                                                 </h4>
                                             </div>
@@ -465,13 +480,13 @@
                                                 <?= $this->formatLessonLength($lessonValue["lesson_length"]) ?>
                                             </p>
                                         </div>
-                                        <?php
+                                <?php
                                     endif;
                                 endforeach;
                                 ?>
                             </div>
                         </details>
-                        <?php
+                <?php
                     endforeach;
                 endif;
                 ?>
@@ -523,9 +538,11 @@
         let timeInVideo = setInterval(getSecondInVideo, 1000);
         console.log(document.getElementById('lessonId').value);
     });
+
     function pauseVideo() {
         player.pause();
     }
+
     function getSecondInVideo() {
         player.getCurrentTime(value => time.innerText = (secondsToMMSS(Math.floor(value))));
         // player.getCurrentTime(value => {
@@ -534,66 +551,66 @@
         //         console.log("Video ended");
         //     }
         // });
-       let durationValue;
-       player.getDuration(duration => durationValue = duration);
-         player.getCurrentTime(value => {
+        let durationValue;
+        player.getDuration(duration => durationValue = duration);
+        player.getCurrentTime(value => {
             //Nếu thời gian hiện tại đang ở giữa video thì step = 1
             if (Math.floor(value) > (durationValue / 2) && Math.floor(value) < (durationValue / 2) + 20 && step == 0) {
                 step = 1;
                 console.log("Halfway through the video");
             }
-              if (Math.floor(value) >= durationValue - 20 && step == 1) {
+            if (Math.floor(value) >= durationValue - 20 && step == 1) {
                 // Gọi AJAX để đánh dấu hoàn thành bài học
                 let lessonId = document.getElementById('lessonId').value.trim();
                 let enrollCourseId = document.getElementById('enroll_course_id').value.trim();
                 console.log("Marking lesson as complete:", lessonId, enrollCourseId);
-                
+
                 $.ajax({
-                     url: 'Controllers/Client/Ajax/AjaxCompleteLesson.php',
-                     type: 'POST',
-                     data: {
-                          lessonId: lessonId,
-                          enrollCourseId: enrollCourseId
-                     },
-                     success: function (response) {
-                          console.log("Bài học đã được đánh dấu hoàn thành.");
-                          console.log("Response:", response);
-                          
-                          // Tìm tất cả lesson_container và kiểm tra data-lessonid
-                          const allLessonContainers = document.querySelectorAll('.lesson_container');
-                          console.log("Total lesson containers found:", allLessonContainers.length);
-                          
-                          let updated = 0;
-                          allLessonContainers.forEach(function(container) {
+                    url: 'Controllers/Client/Ajax/AjaxCompleteLesson.php',
+                    type: 'POST',
+                    data: {
+                        lessonId: lessonId,
+                        enrollCourseId: enrollCourseId
+                    },
+                    success: function(response) {
+                        console.log("Bài học đã được đánh dấu hoàn thành.");
+                        console.log("Response:", response);
+
+                        // Tìm tất cả lesson_container và kiểm tra data-lessonid
+                        const allLessonContainers = document.querySelectorAll('.lesson_container');
+                        console.log("Total lesson containers found:", allLessonContainers.length);
+
+                        let updated = 0;
+                        allLessonContainers.forEach(function(container) {
                             // Lấy giá trị từ dataset (tự động lowercase)
                             const containerLessonId = container.dataset.lessonid;
                             console.log("Checking container with lessonId:", containerLessonId, "vs", lessonId);
-                            
+
                             if (containerLessonId == lessonId) {
                                 console.log("Match found! Updating container...");
                                 container.classList.remove('bg-gray-300');
                                 container.classList.add('bg-blue-100');
-                                
-                                const checkbox = container.querySelector('input[type="checkbox"]');
-                                if (checkbox) {
-                                    checkbox.checked = true;
-                                    console.log("Checkbox updated");
+
+                                const icon = container.querySelector('i');
+                                if (icon) {
+                                    icon.className = 'bi bi-check-circle-fill text-blue-500 text-lg';
                                 }
                                 updated++;
                             }
-                          });
-                          
-                          console.log(`Updated ${updated} lesson container(s)`);
-                     },
-                     error: function (xhr, status, error) {
-                          console.error("Lỗi khi đánh dấu hoàn thành bài học:", error);
-                     }
+                        });
+
+                        console.log(`Updated ${updated} lesson container(s)`);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Lỗi khi đánh dấu hoàn thành bài học:", error);
+                    }
                 });
                 step = 2; // Đảm bảo chỉ gọi một lần
                 console.log("Video ended");
-              }
-         });
+            }
+        });
     }
+
     function goToTime(time) {
         player.setCurrentTime(convertHHMMSSToSeconds(time));
         player.play();
@@ -605,12 +622,14 @@
         const s = seconds % 60;
         return `${m}:${String(s).padStart(2, "0")}`;
     }
+
     function secondsToHHMMSS(seconds) {
         const h = Math.floor(seconds / 3600);
         const m = Math.floor((seconds % 3600) / 60);
         const s = seconds % 60;
         return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
     }
+
     function convertHHMMSSToSeconds(hhmmssText) {
         const parts = hhmmssText.split(':').map(Number);
         let seconds = 0;
@@ -621,6 +640,7 @@
         }
         return seconds;
     }
+
     function convertMMSSToSeconds(mmsstext) {
         const parts = mmsstext.split(':').map(Number);
         let seconds = 0;
@@ -631,6 +651,7 @@
         }
         return seconds;
     }
+
     function addNote() {
         let content = document.getElementById('content').value;
         let lessonId = document.getElementById('lessonId').value;
@@ -649,7 +670,7 @@
                 lessonId: lessonId,
                 timeInVideo: timeInVideo
             },
-            success: function (response) {
+            success: function(response) {
                 $('#note').html(response);
                 // Re-bind DOM
                 time = document.getElementById('videoSecond');
@@ -658,7 +679,7 @@
                 clearInterval(window.videoInterval);
                 window.videoInterval = setInterval(getSecondInVideo, 1000);
             },
-            error: function (xhr, status, error) {
+            error: function(xhr, status, error) {
                 console.error(error);
             }
         });
@@ -680,7 +701,7 @@
                 noteId: noteId,
                 lessonId: lessonId
             },
-            success: function (response) {
+            success: function(response) {
                 $('#note').html(response);
                 // Re-bind DOM
                 time = document.getElementById('videoSecond');
@@ -689,7 +710,7 @@
                 clearInterval(window.videoInterval);
                 window.videoInterval = setInterval(getSecondInVideo, 1000);
             },
-            error: function (xhr, status, error) {
+            error: function(xhr, status, error) {
                 console.error(error);
             }
         });
@@ -706,7 +727,7 @@
                 noteId: noteId,
                 lessonId: lessonId
             },
-            success: function (response) {
+            success: function(response) {
                 $('#note').html(response);
                 // Re-bind DOM
                 time = document.getElementById('videoSecond');
@@ -716,7 +737,7 @@
                 window.videoInterval = setInterval(getSecondInVideo, 1000);
                 closeDeleteModal();
             },
-            error: function (xhr, status, error) {
+            error: function(xhr, status, error) {
                 console.error(error);
             }
         });
@@ -734,7 +755,7 @@
                 start: start,
                 limit: limit
             },
-            success: function (response) {
+            success: function(response) {
                 $('#review').append(response);
                 start += limit;
                 console.log(start);
@@ -747,12 +768,13 @@
                 }
                 console.log('Đã tải thêm bình luận thành công');
             },
-            error: function (xhr, status, error) {
+            error: function(xhr, status, error) {
                 // Xử lý lỗi (nếu có)
                 console.error(error);
             }
         })
     }
+
     function toggleContent(reviewId) {
         const paragraph = document.getElementById(reviewId);
         const button = paragraph.nextElementSibling;
@@ -781,7 +803,7 @@
             data: {
                 lessonId: lessonId
             },
-            success: function (response) {
+            success: function(response) {
                 $('#note').html(response);
                 // Re-bind DOM
                 time = document.getElementById('videoSecond');
@@ -790,7 +812,7 @@
                 clearInterval(window.videoInterval);
                 window.videoInterval = setInterval(getSecondInVideo, 1000);
             },
-            error: function (xhr, status, error) {
+            error: function(xhr, status, error) {
                 console.error(error);
             }
         });
@@ -816,6 +838,7 @@
             behavior: "smooth"
         });
     }
+
     function toggleEdit(button) {
         const noteContainer = button.closest('.group');
         const noteContent = noteContainer.querySelector('.note-content');
@@ -835,7 +858,6 @@
         document.getElementById('deleteModal').classList.add('hidden');
         document.getElementById('deleteModal').classList.remove('flex');
     }
-
 </script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
