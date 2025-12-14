@@ -10,9 +10,87 @@
                 <p class="mb-3">Trở thành giảng viên và thay đổi cuộc sống của mọi người, bao gồm cả cuộc sống của
                     chính bạn
                 </p>
-                <a href="?page=step&action=step1"
-                    class="block hover:opacity-[0.8] py-2 px-4 bg-purple-500 w-full text-white rounded-sm">Bắt
-                    đầu</a>
+                <!-- Button open modal -->
+                <button onclick="openModal()" class="block hover:opacity-[0.8] py-2 px-4 bg-purple-500 w-full text-white rounded-sm">
+                    Đăng ký ngay
+                </button>
+
+
+                <!-- Modal overlay -->
+                <div id="modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+                    <div class="bg-white w-full max-w-3xl rounded-2xl shadow-lg overflow-hidden">
+                        <!-- Modal header -->
+                        <div class="px-6 py-4 border-b">
+                            <h2 class="text-xl font-semibold">Điều khoản & Chính sách cộng tác giảng viên</h2>
+                        </div>
+
+
+                        <!-- Modal body (scrollable) -->
+                        <div class="px-6 py-4 max-h-[60vh] overflow-y-auto space-y-4 text-gray-700">
+                            <p>
+                                Khi đăng ký trở thành giảng viên trên nền tảng <b>Learnix</b>, bạn đồng ý tuân thủ các điều khoản sau:
+                            </p>
+
+
+                            <h3 class="font-semibold">1. Nội dung khóa học</h3>
+                            <p>
+                                Giảng viên chịu trách nhiệm hoàn toàn về nội dung giảng dạy, đảm bảo không vi phạm pháp luật,
+                                bản quyền hoặc thuần phong mỹ tục.
+                            </p>
+
+
+                            <h3 class="font-semibold">2. Chia sẻ doanh thu</h3>
+                            <p>
+                                Khi học viên mua khóa học, <b>Learnix thu 10% phí dịch vụ</b> trên mỗi đơn hàng thành công.
+                                Giảng viên nhận <b>90% doanh thu</b> còn lại.
+                            </p>
+
+
+                            <h3 class="font-semibold">3. Thanh toán</h3>
+                            <p>
+                                Doanh thu được đối soát và giảng viên có thể rút tiền mọi lúc theo chính sách của Learnix.
+                                Giảng viên có trách nhiệm cung cấp thông tin thanh toán chính xác.
+                            </p>
+
+
+                            <h3 class="font-semibold">4. Chấm dứt hợp tác</h3>
+                            <p>
+                                Learnix có quyền tạm ngưng hoặc chấm dứt hợp tác nếu giảng viên vi phạm điều khoản hoặc
+                                gây ảnh hưởng tiêu cực đến nền tảng.
+                            </p>
+
+
+                            <h3 class="font-semibold">5. Điều khoản chung</h3>
+                            <p>
+                                Learnix có quyền cập nhật chính sách và sẽ thông báo công khai trên website.
+                            </p>
+                        </div>
+
+
+                        <!-- Modal footer -->
+                        <div class="px-6 py-4 border-t flex items-center justify-between">
+                            <label class="flex items-center gap-2 text-sm">
+                                <input type="checkbox" id="agreeCheckbox" class="w-4 h-4" onchange="toggleButton()" />
+                                <span>Tôi đã đọc và đồng ý với điều khoản</span>
+                            </label>
+
+
+                            <div class="flex gap-3">
+                                <button onclick="closeModal()" class="px-4 py-2 rounded-lg border">
+                                    Hủy
+                                </button>
+                                <button
+                                    id="continueBtn"
+                                    disabled
+                                    onclick="goNext()"
+                                    class="block py-2 px-4 bg-purple-500 w-full text-white rounded-sm
+                                    opacity-50 cursor-not-allowed transition">
+                                    Bắt đầu
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -296,9 +374,9 @@
                 nhất
                 thế
                 giới.</p>
-            <a href="?page=step&action=step1"
-                class="inline-block hover:opacity-[0.8] py-2 px-4 bg-purple-500 text-white rounded-sm cursor-pointer">Bắt
-                đầu</a>
+            <button onclick="openModal()" class="inline-block hover:opacity-[0.8] py-2 px-4 bg-purple-500 text-white rounded-sm cursor-pointer">
+                Đăng ký ngay
+            </button>
         </div>
     </section>
 </main>
@@ -349,5 +427,40 @@
             element.classList.remove("flex");
             element.classList.add("hidden");
         });
+    }
+
+    const modal = document.getElementById('modal');
+    const checkbox = document.getElementById('agreeCheckbox');
+    const continueBtn = document.getElementById('continueBtn');
+
+
+    function openModal() {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    }
+
+
+    function closeModal() {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        checkbox.checked = false;
+        toggleButton();
+    }
+
+
+    function toggleButton() {
+        if (checkbox.checked) {
+            continueBtn.disabled = false;
+            continueBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        } else {
+            continueBtn.disabled = true;
+            continueBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        }
+    }
+
+    function goNext() {
+        if (!document.getElementById('continueBtn').disabled) {
+            window.location.href = "?page=step&action=step1";
+        }
     }
 </script>
