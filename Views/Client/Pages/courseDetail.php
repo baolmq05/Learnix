@@ -51,7 +51,7 @@
                         <?= $course['sale_price'] != 0 ? number_format($course['regular_price']) . '₫' : '' ?>
                     </h3>
                 </div>
-                <?php if (!$enrollments): ?>
+                <?php if (!$enrollments && $course['teacher_id'] != $_SESSION['client']['id']): ?>
                     <div class="mx-4 mt-4">
                         <button onclick="addToCart()"
                             class="bg-[#6d28d2] hover:bg-purple-400 hover:cursor-pointer font-bold text-[1.2rem] rounded-[5px] text-white px-2 py-3 w-full">
@@ -66,6 +66,13 @@
                                 Mua ngay
                             </button>
                         </form>
+                    </div>
+                <?php elseif($course['teacher_id'] == $_SESSION['client']['id']): ?>
+                    <div class="mx-4 mt-4">
+                        <button disabled
+                            class="bg-gray-400 cursor-not-allowed font-bold text-[1.2rem] rounded-[5px] text-white px-2 py-3 w-full">
+                            Bạn là giảng viên của khóa học này
+                        </button>
                     </div>
                 <?php else: ?>
                     <div class="mx-4 mt-4">
