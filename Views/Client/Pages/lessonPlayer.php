@@ -64,10 +64,19 @@
                                 <?= $courseCurrent["rating"] ?? 0 ?> (<?= $courseCurrent["total_review"] ?? 0 ?> lượt
                                 đánh giá) · <?= $courseCurrent["total_enroll"] ?? 0 ?> lượt bán
                             </p>
-                            <p class="mt-2">
-                                Được đăng bởi
-                                <a href="#" class="text-[#0000e4] ms-1"><?= $courseCurrent["instructor"] ?? '' ?></a>
-                            </p>
+                            <form action="?page=teacher_profile" method="post" class="mt-2">
+                                <input type="hidden" name="teacher_id" value="<?= $courseCurrent['teacher_id'] ?>">
+
+                                <span class="text-sm text-slate-600">
+                                    Được đăng bởi
+                                </span>
+
+                                <button
+                                    type="submit"
+                                    class="cursor-pointer ml-1 text-sm font-medium text-blue-600 hover:underline hover:text-blue-700 transition">
+                                    <?= htmlspecialchars($courseCurrent['instructor'] ?? '') ?>
+                                </button>
+                            </form>
                             <p class="mt-5 flex">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="size-6 me-1">
@@ -125,9 +134,16 @@
                             <div class="flex justify-between items-center">
                                 <div class="flex items-center">
                                     <div class="w-20 h-20 overflow-hidden">
-                                        <img class="rounded-full object-cover w-full h-full"
-                                            src="<?= './Uploads/Avatar/' . htmlspecialchars($courseCurrent['avatar'] ?? 'default.webp') ?>"
-                                            alt="" />
+                                        <form action="?page=teacher_profile" method="post" class="w-full h-full">
+                                            <input type="hidden" name="teacher_id" value="<?= $courseCurrent['teacher_id'] ?>">
+
+                                            <button type="submit" class="w-full h-full rounded-full overflow-hidden">
+                                                <img
+                                                    class="rounded-full object-cover w-full h-full cursor-pointer"
+                                                    src="<?= './Uploads/Avatar/' . htmlspecialchars($courseCurrent['avatar'] ?? 'default.webp') ?>"
+                                                    alt="Giảng viên" />
+                                            </button>
+                                        </form>
                                     </div>
                                     <p class="font-bold text-2xl ms-5">
                                         <a href="#"></a>

@@ -72,7 +72,6 @@ unset($_SESSION["create_review_success"]);
                     <div class="sm:flex justify-between border-b border-gray-400 mb-5 p-5 gap-5">
                         <div class="sm:flex">
 
-                            <!-- FORM THAY CHO A - POST KHI CLICK HÌNH -->
                             <form action="?page=lesson_player" method="POST"
                                 class="relative md:w-[200px] md:h-[150px] sm:w-[180px] sm:h-[150px] rounded-xl group overflow-hidden">
 
@@ -81,11 +80,9 @@ unset($_SESSION["create_review_success"]);
                                 <button type="submit"
                                     class="absolute inset-0 w-full h-full p-0 m-0 bg-transparent border-0 cursor-pointer">
 
-                                    <!-- IMAGE -->
                                     <img src="./Uploads/Courses/<?= $value["course_image"] ?? "" ?>"
                                         class="w-full h-full object-cover transition-all duration-300 rounded-2xl group-hover:opacity-60">
 
-                                    <!-- HOVER ICON -->
                                     <div class="absolute inset-0 flex items-center justify-center 
                     opacity-0 group-hover:opacity-100 
                     transition-all duration-300">
@@ -105,9 +102,20 @@ unset($_SESSION["create_review_success"]);
                                 <a href="?page=course_detail&id=<?= $value["course_id"] ?>">
                                     <h3 class="text-sm font-semibold mt-4 md:text-xl w-full text-justify"><?= $value["course_name"] ?></h3>
                                 </a>
-                                <p class="text-gray-600 text-nowrap sm:text-xs md:text-sm mt-2">
-                                    Giảng viên: <span class="font-bold sm:text-xs md:text-sm"><?= $value["teacher_name"] ?></span>
-                                </p>
+                                <form action="?page=teacher_profile" method="post"
+                                    class="mt-2 text-gray-600 flex items-center gap-1">
+                                    <input type="hidden" name="teacher_id" value="<?= $value["teacher_id"] ?>">
+
+                                    <span class="text-nowrap sm:text-xs md:text-sm">
+                                        Giảng viên:
+                                    </span>
+
+                                    <button type="submit"
+                                        class="cursor-pointer font-bold sm:text-xs md:text-sm text-blue-600
+                                        hover:underline hover:text-blue-700 transition">
+                                        <?= htmlspecialchars($value['teacher_name']) ?>
+                                    </button>
+                                </form>
                                 <p class="mt-2">
                                     <span class="text-sm text-gray-500 sm:text-xs md:text-sm">
                                         Đánh giá: <?= $value["course_rating"] ?? 0 ?>
@@ -201,10 +209,20 @@ unset($_SESSION["create_review_success"]);
                                     </h3>
                                 </a>
 
-                                <p class="text-gray-600 mt-2">
-                                    Giảng viên:
-                                    <span class="font-bold text-sm"><?= $valueDone["teacher_name"] ?></span>
-                                </p>
+                                <form action="?page=teacher_profile" method="post"
+                                    class="mt-2 text-gray-600 flex items-center gap-1">
+                                    <input type="hidden" name="teacher_id" value="<?= $valueDone['teacher_id'] ?>">
+
+                                    <span class="text-nowrap sm:text-xs md:text-sm">
+                                        Giảng viên:
+                                    </span>
+
+                                    <button type="submit"
+                                        class="cursor-pointer font-bold sm:text-xs md:text-sm text-blue-600
+               hover:underline hover:text-blue-700 transition">
+                                        <?= htmlspecialchars($valueDone['teacher_name']) ?>
+                                    </button>
+                                </form>
 
                                 <p class="mt-2">
                                     <span class="text-sm text-gray-500">Đánh giá: (4.6)</span>

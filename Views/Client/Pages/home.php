@@ -121,7 +121,10 @@ unset($_SESSION['logout_success']);
                         <a href="?page=course_detail">
                             <p class="font-bold mb-2 truncate"><a class="text-decoration-none" href="?page=course_detail&id=<?= $course["course_id"] ?>"><?= htmlspecialchars($course['course_name'] ?? '') ?></a></p>
                         </a>
-                        <p class="opacity-[0.8] text-xs mb-2"><?= htmlspecialchars($course['instructor'] ?? '') ?></p>
+                        <form action="?page=teacher_profile" method="post">
+                            <input type="hidden" name="teacher_id" value="<?= $course["teacher_id"] ?>">
+                            <button class="font-semibold text-sm mb-2 hover:text-blue-400 cursor-pointer"><?= htmlspecialchars($course['instructor'] ?? '') ?></button>
+                        </form>
                         <p class="mb-2">
                             <?= htmlspecialchars($course['rating'] == 0 ? 'Chưa có đánh giá' : $course['rating']) ?><i
                                 class="ml-1 text-yellow-400 bi bi-star-fill"></i>
@@ -155,8 +158,11 @@ unset($_SESSION['logout_success']);
                     <a href="?page=course_detail&id=<?= $top1[0]["course_id"] ?>">
                         <h3 class="font-bold text-2xl mb-3"><?= htmlspecialchars($top1[0]['course_name'] ?? '') ?></h3>
                     </a>
-                    <p class="mb-3">Mô tả: <?= html_entity_decode($top1[0]['description'] ?? '') ?></p>
-                    <p class="text-sm mb-3"><?= htmlspecialchars($top1[0]['instructor'] ?? '') ?></p>
+                    <p class="mb-3"><?= html_entity_decode($top1[0]['description'] ?? '') ?></p>
+                    <form action="?page=teacher_profile" method="post">
+                        <input type="hidden" name="teacher_id" value="<?= $top1[0]["teacher_id"] ?>">
+                        <button class="text-md font-bold my-3 hover:text-blue-400 cursor-pointer"><?= htmlspecialchars($top1[0]['instructor'] ?? '') ?></button>
+                    </form>
                     <p class="mb-2">Đánh giá: (<?= htmlspecialchars($top1[0]['rating'] ?? 'Chưa có đánh giá') ?>)<i
                             class="ml-1 text-yellow-400 bi bi-star-fill"></i></p>
                 </div>
@@ -190,7 +196,10 @@ unset($_SESSION['logout_success']);
                         <a href="?page=course_detail&id=<?= $top["id"] ?>">
                             <p class="font-bold mb-2 truncate"><?= htmlspecialchars($top['course_name'] ?? '') ?></p>
                         </a>
-                        <p class="opacity-[0.8] text-xs mb-2"><?= htmlspecialchars($top['instructor'] ?? '') ?></p>
+                        <form action="?page=teacher_profile" method="post">
+                            <input type="hidden" name="teacher_id" value="<?= $top["teacher_id"] ?>">
+                            <button class="font-semibold text-sm mb-2 hover:text-blue-400 cursor-pointer"><?= htmlspecialchars($top['instructor'] ?? '') ?></button>
+                        </form>
                         <p class="mb-2">Đánh giá: (<?= htmlspecialchars($top['rating'] ?? 'Chưa có đánh giá') ?>)<i
                                 class="ml-1 text-yellow-400 bi bi-star-fill"></i></p>
                         <p class="justify-self-end mt-auto font-bold mb-2">

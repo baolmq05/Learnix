@@ -518,8 +518,8 @@ if (!empty($_SESSION['client'])) {
             <ul class="py-1 text-sm text-gray-700">
                 <?php if ($isLoggedIn): ?>
                     <li><a href="?page=profile" class="block px-4 py-2 hover:bg-gray-100">Thông tin cá nhân</a></li>
-                    <li><a href="?page=my_courses" class="block px-4 py-2 hover:bg-gray-100">Khóa học của tôi</a></li>
-                    <li><a href="?page=payments" class="block px-4 py-2 hover:bg-gray-100">Lịch sử thanh toán</a></li>
+                    <li><a href="?page=course_learning" class="block px-4 py-2 hover:bg-gray-100">Học tập</a></li>
+                    <li><a href="?page=transaction" class="block px-4 py-2 hover:bg-gray-100">Lịch sử giao dịch</a></li>
                     <li>
                         <hr class="my-1 border-gray-200">
                     </li>
@@ -587,16 +587,14 @@ if (!empty($_SESSION['client'])) {
                     class="block py-2 text-lg font-medium text-gray-700 hover:text-blue-600">Khám phá</a>
                 <a href="?page=about_teacher" class="block py-2 text-lg text-gray-700 hover:text-blue-600">Giảng dạy với
                     Learnix</a>
-                <a href="?page=course_learning" class="block py-2 text-lg text-gray-700 hover:text-blue-600">Khóa học
-                    của tôi</a>
+                <a href="?page=course_learning" class="block py-2 text-lg text-gray-700 hover:text-blue-600">Học tập</a>
                 <a href="#" class="block py-2 text-lg text-gray-700 hover:text-blue-600">Danh sách yêu thích</a>
                 <a href="?page=notification" class="block py-2 text-lg text-gray-700 hover:text-blue-600">Thông báo</a>
                 <hr class="my-3 border-gray-200">
                 <?php if ($isLoggedIn): ?>
                     <a href="?page=profile" class="block py-2 text-base text-gray-700 hover:bg-gray-100 px-4">Thông tin cá
                         nhân</a>
-                    <a href="?page=payments" class="block py-2 text-base text-gray-700 hover:bg-gray-100 px-4">Lịch sử thanh
-                        toán</a>
+                    <a href="?page=transaction" class="block py-2 text-base text-gray-700 hover:bg-gray-100 px-4">Lịch sử giao dịch</a>
                     <a href="?page=logout" class="block py-2 text-base text-red-600 hover:bg-gray-100 px-4">Đăng xuất</a>
                 <?php else: ?>
                     <a href="?page=login" class="block py-2 text-base text-gray-700 hover:bg-gray-100 px-4">Đăng nhập</a>

@@ -192,6 +192,7 @@ class Course
     {
         $sql = "SELECT 
     c.*,
+    u.id AS teacher_id,
     u.name AS instructor,u.avatar AS avatar, u.information AS teacher_information,
     COALESCE(ROUND(AVG(r.rating), 1), 0) AS rating,
         (

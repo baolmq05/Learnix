@@ -314,6 +314,12 @@ switch ($page) {
         $reviewControl->createReview();
         break;
 
+    case "teacher_profile":
+        require_once "./Controllers/Client/AboutTeacherController.php";
+        $aboutControl = new AboutTeacherController();
+        $aboutControl->viewProfileTeacher();
+        break;
+
     default:
         require_once "./Controllers/Client/HomeController.php";
         $homeControl = new HomeController();

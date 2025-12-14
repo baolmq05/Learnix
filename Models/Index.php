@@ -129,7 +129,7 @@ class Index
     public function getTop10EnrollCoursesIndex()
     {
         try {
-            $sql = "SELECT  u.name AS instructor, t1.course_id, t2.course_name, t2.image, t2.regular_price, t2.sale_price,
+            $sql = "SELECT u.id AS teacher_id, u.name AS instructor, t1.course_id, t2.course_name, t2.image, t2.regular_price, t2.sale_price,
             (SELECT ROUND(AVG(r.rating),1) 
             FROM reviews r 
             WHERE r.course_id = t1.course_id) as rating,
@@ -153,7 +153,7 @@ class Index
     public function getTop1EnrollCoursesIndex()
     {
         try {
-            $sql = "SELECT  u.name AS instructor, t1.course_id, t2.course_name,t2.description, t2.image, t2.regular_price, t2.sale_price,
+            $sql = "SELECT u.id AS teacher_id, u.name AS instructor, t1.course_id, t2.course_name,t2.description, t2.image, t2.regular_price, t2.sale_price,
             (SELECT ROUND(AVG(r.rating),1) 
             FROM reviews r 
             WHERE r.course_id = t1.course_id) as rating,
@@ -177,7 +177,7 @@ class Index
     public function getTop10SaleCoursesIndex()
     {
         try {
-            $sql = "SELECT u.name AS instructor, c.id, c.course_name, c.image, c.regular_price, c.sale_price,((c.regular_price - c.sale_price)/c.regular_price)*100 AS discount_percent,
+            $sql = "SELECT u.id AS teacher_id, u.name AS instructor, c.id, c.course_name, c.image, c.regular_price, c.sale_price,((c.regular_price - c.sale_price)/c.regular_price)*100 AS discount_percent,
             (SELECT ROUND(AVG(r.rating),1) 
             FROM reviews r 
             WHERE r.course_id = c.id) as rating

@@ -22,8 +22,11 @@
                 lượt bán
             </p>
             <p class="mt-2">
-                Được đăng bởi
-                <a href="#" class="text-[#c0c4fc] ms-1"><?= $course['instructor'] ?></a>
+            <form action="?page=teacher_profile" method="post">
+                <input type="hidden" name="teacher_id" value="<?= $course["teacher_id"] ?>">
+                <span>Được đăng bởi:</span>
+                <button href="#" class="cursor-pointer text-[#c0c4fc] ms-1 mt-2"><?= $course['instructor'] ?></button>
+            </form>
             </p>
             <p class="mt-5 flex">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -142,7 +145,7 @@
                                     <h4><?= $lessonValue['lesson_name'] ?></h4>
                                     <p><?= $lessonValue['lesson_length'] ?></p>
                                 </div>
-                            <?php endif;
+                        <?php endif;
                         endforeach; ?>
                     </div>
                 </details>
@@ -210,9 +213,10 @@
                             src="Uploads/Avatar/<?= $course['avatar'] ?? 'default.webp' ?>" width="100%" height="100%"
                             alt="" />
                     </div>
-                    <p class="font-bold text-2xl ms-5">
-                        <a href="#"><?= $course['instructor'] ?></a>
-                    </p>
+                    <form method="post" action="?page=teacher_profile">
+                        <input type="hidden" name="teacher_id" value="<?= $course["teacher_id"] ?>">
+                        <button class="font-bold text-2xl ms-5 cursor-pointer"><?= $course['instructor'] ?></button>
+                    </form>
                 </div>
                 <div class="me-10">
                     <p><i class="bi bi-star"></i> <?= $avgRating ?> sao đánh giá</p>
@@ -253,14 +257,17 @@
                     </div>
                 <?php endforeach; ?>
             </div>
-            <?php if(count($reviews) > 3): ?>
-            <button onclick="getMoreReview()" id="buttonGetMoreReview"
-                class="text-[#6d28d2] border-[#6d28d2] border hover:bg-purple-100 hover:cursor-pointer font-bold rounded-[5px] px-10 py-2 mt-5">
-                Xem thêm bình luận
-            </button>
+            <?php if (count($reviews) > 3): ?>
+                <button onclick="getMoreReview()" id="buttonGetMoreReview"
+                    class="text-[#6d28d2] border-[#6d28d2] border hover:bg-purple-100 hover:cursor-pointer font-bold rounded-[5px] px-10 py-2 mt-5">
+                    Xem thêm bình luận
+                </button>
             <?php endif; ?>
-            <h3 class="text-2xl font-bold mt-5">Các khóa học của thầy <a href="#"
-                    class="text-purple-600"><?= htmlspecialchars($course['instructor']) ?></a></h3>
+            <form method="post" action="?page=teacher_profile">
+                <input type="hidden" name="teacher_id" value="<?= $course["teacher_id"] ?>">
+                <span class="text-2xl font-bold mt-5">Các khóa học của </span>
+                <button class="text-2xl font-bold mt-5 cursor-pointer text-purple-400"><?= $course['instructor'] ?></button>
+            </form>
             <?php if (!empty($coursesByTeacher)):
                 foreach ($coursesByTeacher as $courseByTeacher): ?>
                     <a href="?page=course_detail&id=<?= $courseByTeacher['id'] ?>">
@@ -346,7 +353,7 @@
                 start: start,
                 limit: limit
             },
-            success: function (response) {
+            success: function(response) {
                 $('#review').append(response);
                 start += limit;
                 document.getElementById('buttonGetMoreReview').scrollIntoView({
@@ -359,7 +366,7 @@
                 checkContentHeight();
                 console.log('Đã tải thêm bình luận thành công');
             },
-            error: function (xhr, status, error) {
+            error: function(xhr, status, error) {
                 // Xử lý lỗi (nếu có)
                 console.error(error);
             }
@@ -448,9 +455,9 @@
         }
 
         fetch("Controllers/Client/Ajax/AjaxAddToCart.php", {
-            method: "POST",
-            body: formData
-        })
+                method: "POST",
+                body: formData
+            })
             .then(res => res.json())
             .then(data => {
 
@@ -473,7 +480,7 @@
             url: "Controllers/Client/Ajax/AjaxLoadCartHeader.php",
             method: "GET",
             dataType: "json",
-            success: function (data) {
+            success: function(data) {
 
                 if (data.status === "error") {
                     $("#cartDropdownItems").html(`
@@ -489,7 +496,7 @@
 
                 $("#cartCount").text(data.count);
             },
-            error: function (xhr, status, error) {
+            error: function(xhr, status, error) {
                 console.error("Load Cart Error:", error);
             }
         });
