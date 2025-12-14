@@ -9,6 +9,7 @@
         </button>
     </div>
     <input type="hidden" id="lessonId" value="<?= $lessonCurrent["lesson_id"] ?? "" ?> ">
+    <input type="hidden" id="enroll_course_id" value="<?= $lessonCurrent['enroll_course_id'] ?>">
     <div class="flex">
         <div class="lg:w-[70%] w-full">
             <div class="bg-black lg:h-115 h-100" id="video-player">
@@ -362,7 +363,9 @@
                                                 ?>
                                                 <div data-videoId="<?= $lessonValue["video_id"] ?? "" ?>"
                                                     data-lessonName="<?= $lessonValue["lesson_name"] ?? "" ?>"
-                                                    data-lessonId="<?= $lessonValue["id"] ?? "" ?>" onclick="changeVideo(this)" class=" flex justify-between items-center px-4 py-5 hover:bg-gray-200 hover:cursor-pointer lesson_container
+                                                    data-lessonId="<?= $lessonValue["id"] ?? "" ?>"
+                                                    data-enrollCourseId="<?= $lessonCurrent['enroll_course_id'] ?? '' ?>"
+                                                    onclick="changeVideo(this)" class=" flex justify-between items-center px-4 py-5 hover:bg-gray-200 hover:cursor-pointer lesson_container
                                                         <?=
                                                             ($lessonValue["enroll_lesson_status"] == 1 ? 'bg-blue-100' : '') .
                                                             (!empty($lessonCurrent) && $lessonCurrent["lesson_id"] == $lessonValue["lesson_id"] ? 'bg-gray-300' : '')
@@ -430,7 +433,9 @@
                                         ?>
                                         <div data-videoId="<?= $lessonValue["video_id"] ?? "" ?>"
                                             data-lessonName="<?= $lessonValue["lesson_name"] ?? "" ?>"
-                                            data-lessonId="<?= $lessonValue["id"] ?? "" ?>" onclick="changeVideo(this)" id="lesson-<?php if (($lessonKey + 1) == 1) {
+                                            data-lessonId="<?= $lessonValue["id"] ?? "" ?>"
+                                            data-enrollCourseId="<?= $lessonValue["enroll_course_id"] ?>"
+                                            onclick="changeVideo(this)" id="lesson-<?php if (($lessonKey + 1) == 1) {
                                                     echo "one";
                                                 } else if (($lessonKey + 1) == 2) {
                                                     echo "two";
@@ -511,6 +516,7 @@
 <script>
     const player = new playerjs.Player('main_video');
     let time = document.getElementById('videoSecond');
+    let step = 0;
     player.on('ready', () => {
         player.pause();
         player.getDuration(duration => console.log(duration));
@@ -521,7 +527,72 @@
         player.pause();
     }
     function getSecondInVideo() {
-        player.getCurrentTime(value => time.innerText = ('getCurrentTime:', secondsToMMSS(Math.floor(value))));
+        player.getCurrentTime(value => time.innerText = (secondsToMMSS(Math.floor(value))));
+        // player.getCurrentTime(value => {
+        //     if (Math.floor(value) >= getDuration() - 30) {
+        //         step = 1;
+        //         console.log("Video ended");
+        //     }
+        // });
+       let durationValue;
+       player.getDuration(duration => durationValue = duration);
+         player.getCurrentTime(value => {
+            //Nếu thời gian hiện tại đang ở giữa video thì step = 1
+            if (Math.floor(value) > (durationValue / 2) && Math.floor(value) < (durationValue / 2) + 20 && step == 0) {
+                step = 1;
+                console.log("Halfway through the video");
+            }
+              if (Math.floor(value) >= durationValue - 20 && step == 1) {
+                // Gọi AJAX để đánh dấu hoàn thành bài học
+                let lessonId = document.getElementById('lessonId').value.trim();
+                let enrollCourseId = document.getElementById('enroll_course_id').value.trim();
+                console.log("Marking lesson as complete:", lessonId, enrollCourseId);
+                
+                $.ajax({
+                     url: 'Controllers/Client/Ajax/AjaxCompleteLesson.php',
+                     type: 'POST',
+                     data: {
+                          lessonId: lessonId,
+                          enrollCourseId: enrollCourseId
+                     },
+                     success: function (response) {
+                          console.log("Bài học đã được đánh dấu hoàn thành.");
+                          console.log("Response:", response);
+                          
+                          // Tìm tất cả lesson_container và kiểm tra data-lessonid
+                          const allLessonContainers = document.querySelectorAll('.lesson_container');
+                          console.log("Total lesson containers found:", allLessonContainers.length);
+                          
+                          let updated = 0;
+                          allLessonContainers.forEach(function(container) {
+                            // Lấy giá trị từ dataset (tự động lowercase)
+                            const containerLessonId = container.dataset.lessonid;
+                            console.log("Checking container with lessonId:", containerLessonId, "vs", lessonId);
+                            
+                            if (containerLessonId == lessonId) {
+                                console.log("Match found! Updating container...");
+                                container.classList.remove('bg-gray-300');
+                                container.classList.add('bg-blue-100');
+                                
+                                const checkbox = container.querySelector('input[type="checkbox"]');
+                                if (checkbox) {
+                                    checkbox.checked = true;
+                                    console.log("Checkbox updated");
+                                }
+                                updated++;
+                            }
+                          });
+                          
+                          console.log(`Updated ${updated} lesson container(s)`);
+                     },
+                     error: function (xhr, status, error) {
+                          console.error("Lỗi khi đánh dấu hoàn thành bài học:", error);
+                     }
+                });
+                step = 2; // Đảm bảo chỉ gọi một lần
+                console.log("Video ended");
+              }
+         });
     }
     function goToTime(time) {
         player.setCurrentTime(convertHHMMSSToSeconds(time));
@@ -698,10 +769,11 @@
     function changeVideo(lessonCurrent) {
         let lessonContainerList = document.querySelectorAll(".lesson_container");
         let lessonId = lessonCurrent.getAttribute('data-lessonId');
+        let enrollCourseId = lessonCurrent.getAttribute('data-enrollCourseId');
         lessonContainerList.forEach(element => {
             element.classList.remove("bg-gray-300");
         });
-
+        step = 0;
         //Load ra ghi chú của bài học được chọn
         $.ajax({
             url: 'Controllers/Client/Ajax/AjaxLoadLessonNote.php',
@@ -733,6 +805,7 @@
         // Change Title
         let lessonTitle = document.querySelector("#main_title");
         document.getElementById('lessonId').value = lessonId;
+        document.getElementById('enroll_course_id').value = enrollCourseId;
         lessonTitle.innerText = lessonName.innerText;
         scrollToTop();
     }

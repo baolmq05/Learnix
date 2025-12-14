@@ -1,5 +1,5 @@
 <?php
-require_once "./Models/Database.php";
+require_once "Database.php";
 class EnrollCourseLesson
 {
     private $_connect;
@@ -111,6 +111,22 @@ GROUP BY ec.id;";
             $stmt->bindParam(":status", $status);
             $result = $stmt->execute();
             
+            return $result;
+        } catch (PDOException $e) {
+            $errorMessage = "Lỗi lúc: " . date("H:i:s") . ". Lỗi là: " . $e->getMessage();
+            file_put_contents("./Logs/EnrollCourseLesson.log", $errorMessage, FILE_APPEND);
+        }
+    }
+    public function updateStatusEnrollCourseLesson($enrollCourseId, $lessonId)
+    {
+        try {
+            $sql = "UPDATE enroll_course_lessons SET status = 1 WHERE enroll_course_id = :enroll_course_id AND lesson_id = :lesson_id";
+            $stmt = $this->_connect->prepare($sql);
+
+            $stmt->bindParam(":enroll_course_id", $enrollCourseId);
+            $stmt->bindParam(":lesson_id", $lessonId);
+            $result = $stmt->execute();
+
             return $result;
         } catch (PDOException $e) {
             $errorMessage = "Lỗi lúc: " . date("H:i:s") . ". Lỗi là: " . $e->getMessage();
