@@ -102,7 +102,7 @@ unset($_SESSION['course_success']);
                                         data-bs-target="#modalReject<?= $course['id'] ?>"
                                         class="btn btn-outline-danger d-inline-flex align-items-center p-2"><i
                                             class="bi bi-x-circle-fill"></i></button>
-                                    <a href="" class="btn btn-outline-warning d-inline-flex align-items-center p-2"><i
+                                    <a href="?page=course&action=view2&id=<?= $course['id'] ?>" class="btn btn-outline-warning d-inline-flex align-items-center p-2"><i
                                             class="bi bi-eye"></i></a>
                                 </td>
                             </tr>

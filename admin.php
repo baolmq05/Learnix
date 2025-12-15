@@ -58,6 +58,9 @@ switch ($page) {
             case 'view':
                 $course->viewCourse();
                 break;
+            case 'view2':
+                $course->viewCourse2();
+                break;
             case 'accept':
                 $course->accept();
                 break;

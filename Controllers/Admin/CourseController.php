@@ -40,6 +40,30 @@ class CourseController
         }
         include 'Views/Admin/Pages/Course/view.php';
     }
+
+     public function viewCourse2()
+    {
+        $courseId = $_GET['id'] ?? '';
+        if ($courseId == '') {
+            header("Location: ?page=course&action=index");
+            exit();
+        }
+        $course = $this->_course->getOneCourseStatus0($courseId);
+        $sections = $this->_course->getSectionByCourseId($courseId);
+        $lessons = $this->_course->getAllLessonByCourseId($courseId);
+        $relatedCourses = $this->_course->getRelatedCourses($course['category_id'], $courseId, 4);
+        $avgRating = $this->_course->getAvgRating($courseId);
+        $coursesByTeacher = $this->_course->getCoursesByTeacherId($course['teacher_id'], $courseId, 4);
+        $totalCourses = $this->_course->getCountCoursesByTeacher($course['teacher_id']);
+        $benefit = explode('*', $course['benefit']);
+        $customer_object = explode('*', $course['customer_object']);
+        $reviews = $this->_review->getAllReviewsByCourseId($courseId);
+        if (!$course) {
+            header("Location: ?page=course&action=index");
+            exit();
+        }
+        include 'Views/Admin/Pages/Course/view.php';
+    }
     public function accept()
     {
         $courses = $this->_course->getAllCourseAdmin(0);
